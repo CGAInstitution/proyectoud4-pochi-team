@@ -12,7 +12,7 @@ Necesitas tener instalado en tu sistema:
 
 ## Ejecución
 
-Puedes ejecutar la aplicación usando el _goal_ `run` del _plugin_ Maven 
+Puedes ejecutar la aplicación usando el _goal_ `run` del _plugin_ Maven  
 de Spring Boot:
 
 ```
