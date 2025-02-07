@@ -1,5 +1,6 @@
 package madstodolist.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,23 +15,24 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "medicamentos")
+@Table(name = "medicamentos", schema = "health_database")
 public class Medicamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", length = 500, nullable = false)
     private Long id;
 
-    @NotNull
+    @Column(name = "nombre", length = 500, nullable = false)
     private String nombre;
 
-    @Null
+    @Column(name = "descripcion", length = 500)
     private String descripcion;
 
-    @Null
-    private int precio;
+    @Column(name = "precio")
+    private int precio = 0;
 
-    @NotNull
+    @Column(name = "recetable", nullable = false)
     private boolean receta;
 
     @ManyToMany
