@@ -9,6 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "enfermedad", schema = "health_database")
@@ -21,21 +23,20 @@ public class Enfermedad {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Size(max = 500)
-    @NotNull
     @Column(name = "nombre", nullable = false, length = 500)
     private String nombre;
 
-    @Size(max = 500)
     @Column(name = "descripcion", length = 500)
     private String descripcion;
 
     @Column(name = "peligrosidad")
     private Short peligrosidad;
 
-    @NotNull
     @Column(name = "contagiable", nullable = false)
     private Boolean contagiable = false;
+
+    @OneToMany(mappedBy = "enfermedad", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Paciente> pacientes = new HashSet<>();
 
     public Enfermedad(Long id, String nombre, @Null String descripcion, @Null Short peligrosidad, Boolean contagiable) {
         this.id = id;
