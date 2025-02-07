@@ -1,6 +1,5 @@
 package madstodolist.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "enfermedad", schema = "health_database")
@@ -36,6 +37,9 @@ public class Enfermedad {
     @NotNull
     @Column(name = "contagiable", nullable = false)
     private Boolean contagiable = false;
+
+    @ManyToMany(mappedBy = "enfermedades")
+    private Set<Paciente> pacientes = new HashSet<>();
 
     public Enfermedad(Long id, String nombre, @Null String descripcion, @Null Short peligrosidad, Boolean contagiable) {
         this.id = id;
