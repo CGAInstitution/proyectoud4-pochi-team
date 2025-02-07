@@ -38,6 +38,9 @@ public class Enfermedad {
     @OneToMany(mappedBy = "enfermedad", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Paciente> pacientes = new HashSet<>();
 
+    @ManyToMany(mappedBy = "enfermedades", cascade = CascadeType.ALL)
+    private Set<Medicamento> medicamentos = new HashSet<>();
+
     public Enfermedad(Long id, String nombre, @Null String descripcion, @Null Short peligrosidad, Boolean contagiable) {
         this.id = id;
         this.nombre = nombre;

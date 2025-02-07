@@ -37,9 +37,9 @@ public class Medicamento {
 
     @ManyToMany
     @JoinTable(
-            name = "paciente_enfermedad",
-            joinColumns = @JoinColumn(name = "paciente_id"),
-            inverseJoinColumns = @JoinColumn(name = "enfermedad_id")
+            name = "enfermedad_medicamento",
+            joinColumns = @JoinColumn(name = "id_enfermedad"),
+            inverseJoinColumns = @JoinColumn(name = "id_medicamento")
     )
     private Set<Enfermedad> enfermedades = new HashSet<>();
 
