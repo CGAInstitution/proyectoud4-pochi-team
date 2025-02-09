@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Health PochiTeam</title>
-  <link rel="stylesheet" href="/css/StylesPacientes.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health PochiTeam</title>
+    <link rel="stylesheet" href="/css/StylesPacientes.css">
 </head>
 <body>
 <div class="contenedorPrincipal">
     <div class="cabezera">
-        <h1>Menu Principal</h1>
+        <h1>Pacientes</h1>
         <div th:if="${usuarioLogeado}">
             <p>Bienvenido, <span th:text="${usuario.nombre}">Usuario</span>!</p>
             <a href="login">LogOut</a>
@@ -18,7 +18,7 @@
             <a href="/login">Login</a>
         </div>
     </div>
-    <div class="menu">
+    <div id="menu">
         <div id=""><a href="/">Menu Principal</a></div>
         <a href="/pacientes">Pacientes</a>
         <a href="/enfermedades">Enfermedades</a>
@@ -28,17 +28,11 @@
     <h2>Bienvenidos a la página de pacientes</h2>
 
     <div id="content" class="container">
-        <div class="row" th:each="paciente : ${pacientes}">
-            <div class="col-12 d-flex align-items-center">
-                <div class="col-4">
-                    <img th:src="${paciente.imagen}" alt="Imagen de paciente">
-                </div>
-                <div class="col-8">
-                    <p th:text="${paciente.nombre}"></p>
-                    <p th:text="${paciente.edad}"></p>
-                </div>
-            </div>
-            <div class="col-12">
+        <div id="paciente-container" th:each="paciente : ${pacientes}">
+            <img id="imagen-paciente" th:src="${paciente.imagen}" alt="Imagen de paciente">
+            <div id="datos-paciente">
+                <p th:text="${paciente.nombre}"></p>
+                <p th:text="${paciente.edad}"></p>
                 <p th:text="${paciente.enfermedad.nombre}"></p>
             </div>
         </div>
