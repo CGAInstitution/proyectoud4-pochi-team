@@ -1,4 +1,4 @@
-/*package madstodolist.controller;
+package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
 import madstodolist.dto.LoginData;
@@ -24,11 +24,6 @@ public class LoginController {
 
     @Autowired
     ManagerUserSession managerUserSession;
-
-    @GetMapping("/")
-    public String home(Model model) {
-        return "redirect:/login";
-    }
 
     @GetMapping("/login")
     public String loginForm(Model model) {
@@ -93,4 +88,3 @@ public class LoginController {
         return "redirect:/login";
    }
 }
-*/
