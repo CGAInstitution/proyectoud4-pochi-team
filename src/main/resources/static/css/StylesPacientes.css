@@ -88,6 +88,44 @@ body {
 }
 
 
+#contenedorEnfermedades {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+#card-enfermedad {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+#card-enfermedad:hover {
+    transform: scale(1.05);
+}
+
+#card-enfermedad-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #a02855;
+    margin-bottom: 10px;
+}
+
+#card-enfermedad-text {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#peligrosidad {
+    font-weight: bold;
+    font-size: 18px;
+}
+
 
 #footer {
     text-align: center;

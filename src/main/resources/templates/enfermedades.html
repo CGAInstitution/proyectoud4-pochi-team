@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-    <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Health PochiTeam</title>
-  <link rel="stylesheet" href="/css/StylesPacientes.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health PochiTeam</title>
+    <link rel="stylesheet" href="/css/StylesPacientes.css">
 </head>
 <body>
-<div class="contenedorPrincipal">
-    <div class="cabezera">
+<div id="contenedorPrincipal">
+    <div id="cabezera">
         <h1>Menu Principal</h1>
         <div th:if="${usuarioLogeado}">
             <p>Bienvenido, <span th:text="${usuario.nombre}">Usuario</span>!</p>
@@ -18,37 +18,33 @@
             <a href="/login">Login</a>
         </div>
     </div>
+
     <div class="menu">
-        <div id=""><a href="/">Menu Principal</a></div>
+        <a href="/">Menu Principal</a>
         <a href="/pacientes">Pacientes</a>
         <a href="/enfermedades">Enfermedades</a>
         <a href="#">Medicamentos</a>
     </div>
 
-            <h2>Bienvenidos a la pagina de enfermedades</h2>
+    <h2>Bienvenidos a la página de enfermedades</h2>
 
-            <div id="content" class="container mt-4">
-                <div class="row row-cols-1 row-cols-md-2 g-4 equal-height">
-                    <div th:each="enfermedad : ${enfermedades}" class="col">
-                        <div class="card p-3">
-                            <h3 th:text="${enfermedad.nombre}" class="card-title"></h3>
-                            <p th:text="${enfermedad.descripcion}" class="card-text"></p>
-                            <p>
-                                <span th:if="${enfermedad.peligrosidad} &gt;= 8" style="color: red;">🔴</span>
-                                <span th:if="${enfermedad.peligrosidad} &gt;= 6 and ${enfermedad.peligrosidad} &lt; 8" style="color: orange;">🟠</span>
-                                <span th:if="${enfermedad.peligrosidad} &gt;= 4 and ${enfermedad.peligrosidad} &lt; 6" style="color: yellow;">🟡</span>
-                                <span th:if="${enfermedad.peligrosidad} &gt;= 1 and ${enfermedad.peligrosidad} &lt; 4" style="color: green;">🟢</span>
-                            </p>
-                            <p th:if="${enfermedad.contagiable}">(C)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="footer">
-                <p>Pie de página de enfermedades</p>
-            </div>
-
+    <div id="contenedorEnfermedades">
+        <div th:each="enfermedad : ${enfermedades}" id="card-enfermedad">
+            <h3 th:text="${enfermedad.nombre}" id="card-enfermedad-title"></h3>
+            <p th:text="${enfermedad.descripcion}" id="card-enfermedad-text"></p>
+            <p id="peligrosidad">
+                <span th:if="${enfermedad.peligrosidad} >= 8" style="color: red;">🔴 Alta</span>
+                <span th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8" style="color: orange;">🟠 Media-Alta</span>
+                <span th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6" style="color: yellow;">🟡 Media</span>
+                <span th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4" style="color: green;">🟢 Baja</span>
+            </p>
+            <p th:if="${enfermedad.contagiable}" style="color: blue; font-weight: bold;">(Contagiable)</p>
         </div>
-    </body>
+    </div>
+
+    <div id="footer">
+        <p>Pie de página de enfermedades</p>
+    </div>
+</div>
+</body>
 </html>
