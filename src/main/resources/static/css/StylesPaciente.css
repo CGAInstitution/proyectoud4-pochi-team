@@ -30,8 +30,38 @@ body {
 }
 #content {
     display: flex;
+    flex-direction: column;
     margin-top: 20px;
 }
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-8 {
+    width: 66.66%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 #text {
     flex: 2;
     padding-right: 20px;
