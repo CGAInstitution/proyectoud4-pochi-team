@@ -44,7 +44,8 @@ public class EnfermedadService {
 
     @Transactional(readOnly = true)
     public Enfermedad findById(Long enfermedadId) {
-        return enfermedadRepository.findById(enfermedadId).orElse(null);
+        return enfermedadRepository.findById(enfermedadId)
+                .orElseThrow(() -> new RuntimeException("Enfermedad no encontrada"));
     }
 
     @Transactional
