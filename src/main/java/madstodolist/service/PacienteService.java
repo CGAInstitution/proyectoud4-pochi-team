@@ -43,7 +43,7 @@ public class PacienteService {
     }
 
     @Transactional
-    public List<Paciente> allEnfermedades() {
+    public List<Paciente> allPacientes() {
         return StreamSupport.stream(pacienteRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }

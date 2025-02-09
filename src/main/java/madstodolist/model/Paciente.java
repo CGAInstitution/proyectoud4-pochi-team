@@ -5,10 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
+
 
 @Getter
 @Setter
@@ -31,6 +29,9 @@ public class Paciente {
     @Column(name = "nombre", nullable = false, length = 500)
     private String nombre;
 
+    @Column(name = "imagen", nullable = true)
+    private String imagen;
+
     @ManyToOne
     @JoinColumn(name = "enfermedad", nullable = false)
     private Enfermedad enfermedad;
@@ -43,12 +44,14 @@ public class Paciente {
         this.nss = nss;
         this.edad = edad;
         this.nombre = nombre;
+
     }
 
-    public Paciente(Long id, String nss, @Null Integer edad, String nombre) {
+    public Paciente(Long id, String nss, @Null Integer edad, String nombre,String imagen) {
         this.id = id;
         this.nss = nss;
         this.edad = edad;
         this.nombre = nombre;
+        this.imagen = imagen;
     }
 }

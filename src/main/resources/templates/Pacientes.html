@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health PochiTeam</title>
-    <link rel="stylesheet" href="/static/css/StylesPaciente.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/StylesPacientes.css">
 </head>
 <body>
-<div class="contenedorPrincipal">
-    <div class="cabezera">
+
+<div id="contenedorPrincipal">
+    <div id="cabezera">
         <h1>Pacientes</h1>
         <form action="/login" method="post">
             <input type="text" name="email" placeholder="email" required>
@@ -16,24 +18,38 @@
             <button type="submit">Validar</button>
         </form>
     </div>
-    <div class="menu">
-        <div id=""><a href="#">Menu Principal</a></div>
-        <a href="#">Pacientes</a>
+
+    <div id="menu">
+        <div><a href="#">Menu Principal</a></div>
+        <a href="/pacientes">Pacientes</a>
         <a href="#">Enfermedades</a>
         <a href="#">Medicamentos</a>
     </div>
-    <h2>Bienvenidos a la pagina de pacienteds</h2>
-    <div class="content">
-        <div class="text">
-            <p>Mucho textoooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</p>
-        </div>
-        <div class="image">
-            <img src="doctor.jpg" alt="Médico y pacientes">
+
+    <h2>Bienvenidos a la página de pacientes</h2>
+
+    <div id="content" class="container">
+        <div class="row" th:each="paciente : ${pacientes}">
+            <div class="col-12 d-flex align-items-center">
+                <div class="col-4">
+                    <img th:src="${paciente.imagen}" alt="Imagen de paciente">
+                </div>
+                <div class="col-8">
+                    <p th:text="${paciente.nombre}"></p>
+                    <p th:text="${paciente.edad}"></p>
+                </div>
+            </div>
+            <div class="col-12">
+                <p th:text="${paciente.enfermedad.nombre}"></p>
+            </div>
         </div>
     </div>
-    <div class="footer">
-       AQUI VA LO QUE QUERAIS PONER DE PIE POR EJEMPLO
+
+
+    <div id="footer">
+        AQUI VA LO QUE QUERAIS PONER DE PIE POR EJEMPLO
     </div>
 </div>
+
 </body>
 </html>
