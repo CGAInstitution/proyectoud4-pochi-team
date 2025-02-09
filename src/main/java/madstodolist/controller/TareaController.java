@@ -67,7 +67,7 @@ public class TareaController {
         List<TareaData> tareas = tareaService.allTareasUsuario(idUsuario);
         model.addAttribute("usuario", usuario);
         model.addAttribute("tareas", tareas);
-        return "listaTareas";
+        return "Enfermedades";
     }
 
     @GetMapping("/tareas/{id}/editar")
@@ -83,7 +83,7 @@ public class TareaController {
 
         model.addAttribute("tarea", tarea);
         tareaData.setTitulo(tarea.getTitulo());
-        return "formEditarTarea";
+        return "Pacientes";
     }
 
     @PostMapping("/tareas/{id}/editar")
