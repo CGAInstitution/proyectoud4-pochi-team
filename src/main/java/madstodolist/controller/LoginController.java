@@ -1,4 +1,4 @@
-package madstodolist.controller;
+/*package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
 import madstodolist.dto.LoginData;
@@ -93,3 +93,4 @@ public class LoginController {
         return "redirect:/login";
    }
 }
+*/
