@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name = "paciente", schema = "health_database")
+@Table(name = "pacientes", schema = "health_database")
 @NoArgsConstructor
 public class Paciente {
 

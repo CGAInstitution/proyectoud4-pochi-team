@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "tarjeta", schema = "health_database")
+@Table(name = "tarjetas", schema = "health_database")
 @Getter
 @Setter
 @NoArgsConstructor

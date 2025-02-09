@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "enfermedad", schema = "health_database")
+@Table(name = "enfermedades", schema = "health_database")
 @Getter
 @Setter
 @NoArgsConstructor

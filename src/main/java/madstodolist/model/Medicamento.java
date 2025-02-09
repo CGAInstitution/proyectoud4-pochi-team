@@ -37,7 +37,7 @@ public class Medicamento {
 
     @ManyToMany
     @JoinTable(
-            name = "enfermedad_medicamento",
+            name = "enfermedades_medicamentos",
             joinColumns = @JoinColumn(name = "id_enfermedad"),
             inverseJoinColumns = @JoinColumn(name = "id_medicamento")
     )
