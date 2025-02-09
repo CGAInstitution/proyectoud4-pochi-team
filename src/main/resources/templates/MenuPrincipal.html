@@ -10,7 +10,11 @@
 <div class="contenedorPrincipal">
   <div class="cabezera">
     <h1>Menu Principal</h1>
-    <a href="/login">Login</a>
+    <form action="/login" method="post">
+      <input type="text" name="email" placeholder="email" required>
+      <input type="password" name="password" placeholder="contraseña" required>
+      <button type="submit">Validar</button>
+    </form>
   </div>
   <div class="menu">
     <div id=""><a href="#">Menu Principal</a></div>
