@@ -1,4 +1,3 @@
-
 body {
     background: #74a4d4;
     margin: 0;
@@ -6,7 +5,7 @@ body {
 }
 
 #contenedorPrincipal {
-    width: 80%;
+    width: 90%;
     margin: 20px auto;
     background: white;
     border-radius: 10px;
@@ -24,17 +23,16 @@ body {
     border-bottom: 1px solid #ccc;
 }
 
-#menu {
+.menu {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #a02855;
     padding: 10px;
-    text-align: center;
     margin-bottom: 20px;
 }
 
-#menu a {
+.menu a {
     color: white;
     text-decoration: none;
     margin: 0 15px;
@@ -44,7 +42,7 @@ body {
     transition: background-color 0.3s ease;
 }
 
-#menu a:hover {
+.menu a:hover {
     background-color: #831f41;
 }
 
@@ -54,9 +52,9 @@ body {
     gap: 20px;
 }
 
-#paciente-container {
+.paciente-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     border: 1px solid #ccc;
     padding: 15px;
     border-radius: 8px;
@@ -65,7 +63,7 @@ body {
     margin-bottom: 10px;
 }
 
-#imagen-paciente {
+.imagen-paciente {
     max-width: 100px;
     height: auto;
     border-radius: 5px;
@@ -76,11 +74,20 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-#datos-paciente p {
-    margin: 0 30px;
+#datos-paciente .tipo-dato {
+    display: flex;
+    align-items: center;
 }
+
+#datos-paciente .tipo-dato strong {
+    margin-right: 5px;
+}
+
+
 
 #footer {
     text-align: center;

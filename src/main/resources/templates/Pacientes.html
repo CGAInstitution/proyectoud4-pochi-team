@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health PochiTeam</title>
-    <link rel="stylesheet" href="/css/StylesPacientes.css">
+    <link rel="stylesheet" th:href="@{/css/StylesPacientes.css?v=1}">
 </head>
 <body>
-<div class="contenedorPrincipal">
-    <div class="cabezera">
+<div id="contenedorPrincipal">
+    <div id="cabezera">
         <h1>Pacientes</h1>
         <div th:if="${usuarioLogeado}">
             <p>Bienvenido, <span th:text="${usuario.nombre}">Usuario</span>!</p>
@@ -18,8 +18,7 @@
             <a href="/login">Login</a>
         </div>
     </div>
-    <div id="menu">
-        <div id=""><a href="/">Menu Principal</a></div>
+    <div class="menu">  <a href="/">Menu Principal</a>
         <a href="/pacientes">Pacientes</a>
         <a href="/enfermedades">Enfermedades</a>
         <a href="#">Medicamentos</a>
@@ -28,21 +27,19 @@
     <h2>Bienvenidos a la página de pacientes</h2>
 
     <div id="content" class="container">
-        <div id="paciente-container" th:each="paciente : ${pacientes}">
-            <img id="imagen-paciente" th:src="${paciente.imagen}" alt="Imagen de paciente">
+        <div class="paciente-container" th:each="paciente : ${pacientes}">
+            <img class="imagen-paciente" th:src="${paciente.imagen}" alt="Imagen de paciente">
             <div id="datos-paciente">
-                <p th:text="${paciente.nombre}"></p>
-                <p th:text="${paciente.edad}"></p>
-                <p th:text="${paciente.enfermedad.nombre}"></p>
+                <span class="tipo-dato"><strong>Nombre:</strong> <span th:text="${paciente.nombre}"></span></span>
+                <span class="tipo-dato"><strong>Edad:</strong> <span th:text="${paciente.edad}"></span></span>
+                <span class="tipo-dato"><strong>Enfermedad:</strong> <span th:text="${paciente.enfermedad.nombre}"></span></span>
             </div>
         </div>
     </div>
-
 
     <div id="footer">
         AQUI VA LO QUE QUERAIS PONER DE PIE POR EJEMPLO
     </div>
 </div>
-
 </body>
 </html>
