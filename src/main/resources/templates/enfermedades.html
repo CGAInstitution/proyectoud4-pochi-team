@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Health PochiTeam</title>
-        <link rel="stylesheet" href="/css/StylesPaciente.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    </head>
-    <body>
-        <div id="contenedorPrincipal" class="container text-center">
-
-            <div id="cabezera">
-                <h1>Enfermedades</h1>
-                <form action="/login" method="post">
-                    <input type="text" name="email" placeholder="email" required>
-                    <input type="password" name="password" placeholder="contraseña" required>
-                    <button type="submit">Validar</button>
-                </form>
-            </div>
-
-            <div id="menu">
-                <a href="/">Menu Principal</a>
-                <a href="#">Pacientes</a>
-                <a href="/enfermedades">Enfermedades</a>
-                <a href="#">Medicamentos</a>
-            </div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health PochiTeam</title>
+  <link rel="stylesheet" href="/css/StylesPacientes.css">
+</head>
+<body>
+<div class="contenedorPrincipal">
+    <div class="cabezera">
+        <h1>Menu Principal</h1>
+        <div th:if="${usuarioLogeado}">
+            <p>Bienvenido, <span th:text="${usuario.nombre}">Usuario</span>!</p>
+            <a href="login">LogOut</a>
+        </div>
+        <div th:if="${!usuarioLogeado}">
+            <a href="/login">Login</a>
+        </div>
+    </div>
+    <div class="menu">
+        <div id=""><a href="/">Menu Principal</a></div>
+        <a href="/pacientes">Pacientes</a>
+        <a href="/enfermedades">Enfermedades</a>
+        <a href="#">Medicamentos</a>
+    </div>
 
             <h2>Bienvenidos a la pagina de enfermedades</h2>
 
