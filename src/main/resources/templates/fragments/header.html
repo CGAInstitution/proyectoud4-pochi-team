@@ -4,7 +4,7 @@
                   <h1>Medicamentos</h1>
                 <div th:if="${usuarioLogeado}">
                     <p>Bienvenido, <span th:text="${usuario.nombre}">Usuario</span>!</p>
-                    <a href="login">LogOut</a>
+                    <a href="/logout">LogOut</a>
                 </div>
                 <div th:if="${!usuarioLogeado}">
                     <a href="/login">Login</a>
