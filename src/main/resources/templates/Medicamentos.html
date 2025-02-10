@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Health PochiTeam</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/StylesPacientes.css">
+        <link rel="stylesheet" th:href="@{/css/StylesPacientes.css?v=1}">
     </head>
     <body>
         <div id="contenedorPrincipal">
@@ -15,7 +15,7 @@
           </div>
 
             <div id="cabezera">
-                  <h1>Menu Principal</h1>
+                  <h1>Medicamentos</h1>
                 <div th:if="${usuarioLogeado}">
                     <p>Bienvenido, <span th:text="${usuario.nombre}">Usuario</span>!</p>
                     <a href="login">LogOut</a>
