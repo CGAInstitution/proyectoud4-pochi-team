@@ -4,19 +4,21 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Health PochiTeam</title>
-        <link rel="stylesheet" href=""/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/StylesPacientes.css">
     </head>
     <body>
         <div id="contenedorPrincipal">
 
             <div id="cabezera">
-                <h1>Medicamentos</h1>
-                <form action="/login" method="post">
-                    <input type="text" name="email" placeholder="email" required>
-                    <input type="password" name="password" placeholder="contraseña" required>
-                    <button type="submit">Validar</button>
-                </form>
+                  <h1>Menu Principal</h1>
+                <div th:if="${usuarioLogeado}">
+                    <p>Bienvenido, <span th:text="${usuario.nombre}">Usuario</span>!</p>
+                    <a href="login">LogOut</a>
+                </div>
+                <div th:if="${!usuarioLogeado}">
+                    <a href="/login">Login</a>
+                </div>
             </div>
 
             <div id="menu">
@@ -43,7 +45,6 @@
             <div id="footer">
                 <p>Este es el pie de página de medicamentos</p>
             </div>
-
         </div>
     </body>
 </html>

@@ -60,7 +60,7 @@ CREATE TABLE pacientes (
 
 
 CREATE TABLE usuario_data (
-                              id bigint NOT NULL PRIMARY KEY,
+                              id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                               email varchar(500) NOT NULL,
                               nombre varchar(500) NOT NULL,
                               password varchar(500) NOT NULL,
@@ -103,4 +103,7 @@ INSERT INTO pacientes (id, NSS, edad, nombre, tarjeta, enfermedad, imagen) VALUE
 (3, 125, 35, 'Carlos Sánchez', 3, 3, NULL), -- Tiene COVID-19
 (4, 126, 50, 'María López', 4, 4, NULL), -- Tiene Hipertensión
 (5, 127, 10, 'Luis Martínez', 5, 5, NULL); -- Tiene Varicela
+
+INSERT INTO usuario_data(email, nombre, password) VALUES
+("user@ua","usuarioPrueba","123")
 
