@@ -66,7 +66,8 @@ CREATE TABLE usuario_data (
                               password varchar(500) NOT NULL,
                               fecha_nacimiento date,
                               donado bigint NOT NULL DEFAULT 0,
-                              admin boolean NOT NULL DEFAULT false
+                              admin boolean NOT NULL DEFAULT false,
+                              bloqueado boolean NOT NULL DEFAULT false
 );
 
 INSERT INTO enfermedades (id, nombre, descripcion, peligrosidad, contagiable) VALUES
