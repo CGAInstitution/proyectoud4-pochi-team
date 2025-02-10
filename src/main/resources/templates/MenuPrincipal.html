@@ -8,7 +8,10 @@
 </head>
 <body>
 <div id="contenedorPrincipal">
-    <div th:replace="fragments/header :: header"></div>
+    <div id="cabezera">
+        <h1>Menu Principal</h1>
+        <div th:replace="fragments/header :: header"></div>
+    </div>
     <div th:replace="fragments/menu :: menu"></div>
 
     <h2>Bienvenidos al menu principal de nuestra aplicacion</h2>

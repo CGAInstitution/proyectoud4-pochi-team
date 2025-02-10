@@ -9,27 +9,49 @@
 </head>
 <body>
 <div id="contenedorPrincipal">
-    <div th:replace="fragments/header :: header"></div>
+    <div id="cabezera">
+        <h1>Medicamentos</h1>
+        <div th:replace="fragments/header :: header"></div>
+    </div>
     <div th:replace="fragments/menu :: menu"></div>
 
 
     <h2>Bienvenidos a la pagina de Medicamentos</h2>
 
-    <div id="content" class="container mt-4">
-        <div class="row row-cols-1 row-cols-2 row-cols-md-3 g-4">
-            <div th:each="medicamento : ${medicamentos}" class="col">
-                <div class="card p-3">
-                    <h3 th:text="${medicamento.nombre}" class="card-title"></h3>
-                    <p th:text="${medicamento.descripcion}" class="card-text"></p>
-                    <p th:text="${medicamento.precio}"></p>
-                    <p th:if="${medicamento.receta}">(R)</p>
-                </div>
+
+    <div id="content" class="container mt-4" style="margin-bottom: 20px">
+
+        <div th:if="${usuarioLogeado}">
+            <div th:if="${usuario.isAdmin()}">
+                <div class="row row-cols-md-3 g-4">
+                    <div th:each="medicamento : ${medicamentos}" class="col">
+                        <div class="card p-3">
+                            <div class="row justify-content-between">
+                                <div class="col">
+                                    <h3 th:text="${medicamento.nombre}" class="card-title"></h3>
+                                </div>
+                                <div class="col">
+                                    <button>Eliminar</button>
+                                </div>
+                            </div>
+                            <p th:text="${medicamento.descripcion}" class="card-text"></p>
+                            <p th:text="${medicamento.precio}"></p>
+                            <p th:if="${medicamento.receta}">(R)</p>
+                        </div>
+                    </div>
             </div>
         </div>
-
-
-        <div th:replace="fragments/footer :: footer"></div>
+        <div th:unless="${usuario.isAdmin()}">
+            <div th:replace="fragments/infoMedicamento :: infoMedicamento"></div>
+        </div>
     </div>
+    <div th:unless="${usuarioLogeado}">
+        <div th:replace="fragments/infoMedicamento :: infoMedicamento"></div>
+    </div>
+
+
+</div>
+<div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>
 </html>

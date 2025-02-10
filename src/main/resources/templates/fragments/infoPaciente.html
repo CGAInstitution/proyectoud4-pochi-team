@@ -1,0 +1,11 @@
+<div th:fragment="infoPaciente">
+    <div class="paciente-container" th:each="paciente : ${pacientes}">
+            <img class="imagen-paciente" th:src="${paciente.imagen}" alt="Imagen de paciente">
+            <div id="datos-paciente">
+                <span class="tipo-dato"><strong>Nombre:</strong> <span th:text="${paciente.nombre}"></span></span>
+                <span class="tipo-dato"><strong>Edad:</strong> <span th:text="${paciente.edad}"></span></span>
+                <span class="tipo-dato"><strong>Enfermedad:</strong> <span
+                        th:text="${paciente.enfermedad.nombre}"></span></span>
+            </div>
+        </div>
+</div>
