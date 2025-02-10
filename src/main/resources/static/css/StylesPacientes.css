@@ -89,11 +89,11 @@ body {
 
 #contenedorEnfermedades {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Ajusta para responsividad */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 20px;
     padding: 20px;
-    width: 80%; /* Ancho del contenedor de enfermedades */
-    margin: 20px auto; /* Centra el contenedor */
+    width: 80%;
+    margin: 20px auto;
 }
 
 .card {
@@ -111,11 +111,11 @@ body {
 }
 
 .card:hover {
-    transform: scale(1.05); /* O el valor que prefieras */
+    transform: scale(1.05);
 }
 
 #card-enfermedad-title {
-    font-size: 24px; /* Tamaño de fuente más grande */
+    font-size: 24px;
     font-weight: bold;
     color: #a02855;
     margin-bottom: 15px;
@@ -124,14 +124,14 @@ body {
 #card-enfermedad-text {
     font-size: 16px;
     color: #333;
-    flex-grow: 1; /* El texto se expande para llenar el espacio */
-    margin-bottom: 10px; /* Espacio entre el texto y la peligrosidad */
+    flex-grow: 1;
+    margin-bottom: 10px;
 }
 
 #peligrosidad {
     font-weight: bold;
     font-size: 18px;
-    margin-top: auto; /* Empuja la peligrosidad hacia abajo */
+    margin-top: auto;
 }
 
 
