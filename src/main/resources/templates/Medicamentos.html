@@ -1,50 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Health PochiTeam</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-        <link rel="stylesheet" th:href="@{/css/StylesPacientes.css?v=1}">
-    </head>
-    <body>
-        <div id="contenedorPrincipal">
-            <div id="cabezera">
-                  <h1>Medicamentos</h1>
-                <div th:if="${usuarioLogeado}">
-                    <p>Bienvenido, <span th:text="${usuario.nombre}">Usuario</span>!</p>
-                    <a href="login">LogOut</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health PochiTeam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/StylesPacientes.css?v=1}">
+</head>
+<body>
+<div id="contenedorPrincipal">
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/menu :: menu"></div>
+
+
+    <h2>Bienvenidos a la pagina de Medicamentos</h2>
+
+    <div id="content" class="container mt-4">
+        <div class="row row-cols-1 row-cols-2 row-cols-md-3 g-4">
+            <div th:each="medicamento : ${medicamentos}" class="col">
+                <div class="card p-3">
+                    <h3 th:text="${medicamento.nombre}" class="card-title"></h3>
+                    <p th:text="${medicamento.descripcion}" class="card-text"></p>
+                    <p th:text="${medicamento.precio}"></p>
+                    <p th:if="${medicamento.receta}">(R)</p>
                 </div>
-                <div th:if="${!usuarioLogeado}">
-                    <a href="/login">Login</a>
-                </div>
             </div>
+        </div>
 
-            <div class="menu">
-                <div id=""><a href="#">Menu Principal</a></div>
-                <a href="/pacientes">Pacientes</a>
-                <a href="/enfermedades">Enfermedades</a>
-                <a href="/medicamentos">Medicamentos</a>
-            </div>
 
-            <h2>Bienvenidos a la pagina de Medicamentos</h2>
-
-            <div id="content" class="container mt-4">
-                <div class="row row-cols-1 row-cols-2 row-cols-md-3 g-4">
-                    <div th:each="medicamento : ${medicamentos}" class="col">
-                        <div class="card p-3">
-                            <h3 th:text="${medicamento.nombre}" class="card-title"></h3>
-                            <p th:text="${medicamento.descripcion}" class="card-text"></p>
-                            <p th:text="${medicamento.precio}"></p>
-                            <p th:if="${medicamento.receta}">(R)</p>
-                        </div>
-                    </div>
-            </div>
-
-       
-
-<div th:replace="fragments/footer :: footer"></div>
-</div>
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
 </div>
 </body>
 </html>

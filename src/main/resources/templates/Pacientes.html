@@ -9,21 +9,8 @@
 </head>
 <body>
 <div id="contenedorPrincipal">
-    <div id="cabezera">
-        <h1>Pacientes</h1>
-        <div th:if="${usuarioLogeado}">
-            <p>Bienvenido, <span th:text="${usuario.nombre}">Usuario</span>!</p>
-            <a href="login">LogOut</a>
-        </div>
-        <div th:if="${!usuarioLogeado}">
-            <a href="/login">Login</a>
-        </div>
-    </div>
-    <div class="menu">  <a href="/">Menu Principal</a>
-        <a href="/pacientes">Pacientes</a>
-        <a href="/enfermedades">Enfermedades</a>
-        <a href="/medicamentos">Medicamentos</a>
-    </div>
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/menu :: menu"></div>
 
     <h2>Bienvenidos a la página de pacientes</h2>
 
@@ -33,13 +20,14 @@
             <div id="datos-paciente">
                 <span class="tipo-dato"><strong>Nombre:</strong> <span th:text="${paciente.nombre}"></span></span>
                 <span class="tipo-dato"><strong>Edad:</strong> <span th:text="${paciente.edad}"></span></span>
-                <span class="tipo-dato"><strong>Enfermedad:</strong> <span th:text="${paciente.enfermedad.nombre}"></span></span>
+                <span class="tipo-dato"><strong>Enfermedad:</strong> <span
+                        th:text="${paciente.enfermedad.nombre}"></span></span>
             </div>
         </div>
     </div>
 
 
-<div th:replace="fragments/footer :: footer"></div>
+    <div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>
 </html>

@@ -9,23 +9,8 @@
 </head>
 <body>
 <div id="contenedorPrincipal">
-    <div id="cabezera">
-        <h1>Enfermedades</h1>
-        <div th:if="${usuarioLogeado}">
-            <p>Bienvenido, <span th:text="${usuario.nombre}">Usuario</span>!</p>
-            <a href="login">LogOut</a>
-        </div>
-        <div th:if="${!usuarioLogeado}">
-            <a href="/login">Login</a>
-        </div>
-    </div>
-
-    <div class="menu">
-        <a href="/">Menu Principal</a>
-        <a href="/pacientes">Pacientes</a>
-        <a href="/enfermedades">Enfermedades</a>
-        <a href="/medicamentos">Medicamentos</a>
-    </div>
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/menu :: menu"></div>
 
     <h2>Bienvenidos a la página de enfermedades</h2>
 
@@ -37,9 +22,12 @@
                     <p th:text="${enfermedad.descripcion}" id="card-enfermedad-text"></p>
                     <p id="peligrosidad">
                         <span th:if="${enfermedad.peligrosidad} >= 8" style="color: red;">🔴 Alta</span>
-                        <span th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8" style="color: orange;">🟠 Media-Alta</span>
-                        <span th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6" style="color: yellow;">🟡 Media</span>
-                        <span th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4" style="color: green;">🟢 Baja</span>
+                        <span th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8"
+                              style="color: orange;">🟠 Media-Alta</span>
+                        <span th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6"
+                              style="color: yellow;">🟡 Media</span>
+                        <span th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4"
+                              style="color: green;">🟢 Baja</span>
                     </p>
                     <p th:if="${enfermedad.contagiable}" style="color: blue; font-weight: bold;">(Contagiable)</p>
                 </div>
@@ -47,7 +35,7 @@
         </div>
     </div>
 
-<div th:replace="fragments/footer :: footer"></div>
+    <div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>
 </html>
