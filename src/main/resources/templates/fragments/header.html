@@ -1,13 +1,5 @@
-<!-- src/main/resources/templates/fragments/footer.html -->
 <div th:fragment="header">
     <div th:if="${usuarioLogeado}">
         <p>Bienvenido, <span th:text="${usuario.nombre}">Usuario</span>!</p>
-        <a href="/logout">LogOut</a>
-        <div th:if="${usuario.admin}">
-            <a href="/administrarUsuarios">Administrar Usuarios</a>
-        </div>
-    </div>
-    <div th:if="${!usuarioLogeado}">
-        <a href="/login">Login</a>
     </div>
 </div>

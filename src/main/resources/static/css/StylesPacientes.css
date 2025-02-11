@@ -12,17 +12,57 @@ body {
     padding: 20px;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
 }
-
-#cabezera {
+/*Cabezera*/
+/* Estilo para la barra de menú */
+.menu {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    margin-bottom: 20px;
-    background-color: #f0f0f0;
-    border-bottom: 1px solid #ccc;
+    padding: 1rem 2rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Contenedor de acciones de usuario (Gestión y LogOut) */
+.user-actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Empuja este bloque hacia la derecha */
+}
+
+/* Estilos existentes para los enlaces */
+.user-info a, #Login a, #logout-content, #AdminUsuarios a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
+
+#logout-content, #AdminUsuarios a, #logout {
+    display: block;
+}
+
+.user-info a:hover, #Login a:hover, #logout-content:hover, #AdminUsuarios a:hover {
+    background-color: #0056b3;
+    color: white;
+    border-color: #0056b3;
+    transform: scale(1.01);
+}
+
+#logout-content {
+    color: #d9534f;
+}
+
+#logout-content:hover {
+    background-color: #c9302c;
+    border-color: #c9302c;
+}
+
+/*Fin Cabezera*/
 .menu {
     display: flex;
     justify-content: center;
@@ -52,6 +92,7 @@ body {
     gap: 20px;
 }
 
+/*PACIENTES*/
 .paciente-container {
     display: flex;
     align-items: flex-start;
@@ -87,6 +128,7 @@ body {
     margin-right: 5px;
 }
 
+/*Enfermedades*/
 #contenedorEnfermedades {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -180,3 +222,37 @@ body {
     width: 30px;
     height: 30px;
 }
+
+/*Menu Principal*/
+#content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+#text {
+    flex: 1 1 50%;
+    max-width: 600px;
+    text-align: justify;
+}
+
+#image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.content-section {
+    padding: 40px;
+    text-align: justify;
+}
+
+.content-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
