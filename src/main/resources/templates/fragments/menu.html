@@ -7,12 +7,18 @@
 
         <!-- Si el usuario está logueado se muestran las acciones -->
         <div th:if="${usuarioLogeado}" class="user-actions">
-            <!-- Mostrar el enlace de Gestión solo si el usuario es admin -->
-            <div id="AdminUsuarios" th:if="${usuario.admin}">
-                <a href="/administrarUsuarios">Gestion</a>
-            </div>
-            <div id="logout">
-                <a id="logout-content" href="/logout">LogOut</a>
+            <div class="user-name">
+                <p><span th:text="${usuario.nombre}">Usuario</span>!</p>
+                <!-- Menú desplegable de opciones al pasar el ratón -->
+                <div class="dropdown-menu">
+                    <!-- Mostrar el enlace de Gestión solo si el usuario es admin -->
+                    <div th:if="${usuario.admin}">
+                        <a href="/administrarUsuarios">Gestionar Usuarios</a>
+                    </div>
+                    <div>
+                        <a href="/logout">LogOut</a>
+                    </div>
+                </div>
             </div>
         </div>
 

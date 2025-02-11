@@ -12,57 +12,7 @@ body {
     padding: 20px;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
 }
-/*Cabezera*/
-/* Estilo para la barra de menú */
-.menu {
-    display: flex;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Contenedor de acciones de usuario (Gestión y LogOut) */
-.user-actions {
-    display: flex;
-    align-items: center;
-    margin-left: auto; /* Empuja este bloque hacia la derecha */
-}
-
-/* Estilos existentes para los enlaces */
-.user-info a, #Login a, #logout-content, #AdminUsuarios a {
-    color: #007bff;
-    text-decoration: none;
-    margin: 0 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    border: 1px solid transparent;
-    white-space: nowrap;
-}
-
-#logout-content, #AdminUsuarios a, #logout {
-    display: block;
-}
-
-.user-info a:hover, #Login a:hover, #logout-content:hover, #AdminUsuarios a:hover {
-    background-color: #0056b3;
-    color: white;
-    border-color: #0056b3;
-    transform: scale(1.01);
-}
-
-#logout-content {
-    color: #d9534f;
-}
-
-#logout-content:hover {
-    background-color: #c9302c;
-    border-color: #c9302c;
-}
-
-/*Fin Cabezera*/
+/* Estilos generales del menú */
 .menu {
     display: flex;
     justify-content: center;
@@ -91,6 +41,97 @@ body {
     grid-template-columns: 1fr;
     gap: 20px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Cabezera*/
+/* Estilo para la barra de menú */
+.user-actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Empuja este bloque hacia la derecha */
+}
+
+.user-name {
+    position: relative;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.user-name:hover .dropdown-menu {
+    display: block; /* Muestra el menú al pasar el ratón */
+}
+
+.dropdown-menu {
+    display: none; /* Esconde el menú por defecto */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1;
+    width: 150px;
+}
+
+.dropdown-menu a {
+    display: block;
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Estilo para el enlace de LogOut */
+#logout-content {
+    color: #d9534f;
+}
+
+#logout-content:hover {
+    background-color: #c9302c;
+    border-color: #c9302c;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*PACIENTES*/
 .paciente-container {
