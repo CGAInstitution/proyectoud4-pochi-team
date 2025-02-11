@@ -1,9 +1,30 @@
-<!-- src/main/resources/templates/fragments/footer.html -->
 <div th:fragment="menu">
     <div class="menu">
-        <div id=""><a href="/">Menu Principal</a></div>
+        <a href="/">Menu Principal</a>
         <a href="/pacientes">Pacientes</a>
         <a href="/enfermedades">Enfermedades</a>
         <a href="/medicamentos">Medicamentos</a>
+
+        <!-- Si el usuario está logueado se muestran las acciones -->
+        <div th:if="${usuarioLogeado}" class="user-actions">
+            <div class="user-name">
+                <p><span th:text="${usuario.nombre}">Usuario</span></p>
+                <!-- Menú desplegable de opciones al pasar el ratón -->
+                <div class="dropdown-menu">
+                    <!-- Mostrar el enlace de Gestión solo si el usuario es admin -->
+                    <div th:if="${usuario.admin}">
+                        <a id="gestionar" href="/administrarUsuarios">Gestionar</a>
+                    </div>
+                    <div>
+                        <a id="logout" href="/logout">LogOut</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Si el usuario no está logueado se muestra el login -->
+        <div id="Login" th:unless="${usuarioLogeado}">
+            <a href="/login">Login</a>
+        </div>
     </div>
 </div>

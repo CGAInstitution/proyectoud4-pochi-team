@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col" th:each="usuario : ${usuarios}">
+
+    <p th:text="${usuario.getNombre()}">Nombre: </p>
+    <p th:text="${usuario.getEmail()}">Email: </p>
+    <form th:action="@{usuarios/{id}/admin(id=${usuario.id})}" method="post">
+        <label> Es Admin
+            <input type="checkbox" name="admin" th:checked="${usuario.admin}" onchange="this.form.submit()">
+        </label>
+    </form>
+    <form th:action="@{usuarios/{id}/block(id=${usuario.id})}" method="post">
+        <label> Esta Bloqueado
+            <input type="checkbox" name="block" th:checked="${usuario.isBloqueado}" onchange="this.form.submit()">
+        </label>
+    </form>
+
+</div>
+<a href="/" class="button">Volver al Menu Principal</a>
+</body>
+</html>

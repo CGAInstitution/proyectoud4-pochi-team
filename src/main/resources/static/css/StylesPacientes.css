@@ -12,17 +12,7 @@ body {
     padding: 20px;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
 }
-
-#cabezera {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 20px;
-    background-color: #f0f0f0;
-    border-bottom: 1px solid #ccc;
-}
-
+/* Estilos generales del menú */
 .menu {
     display: flex;
     justify-content: center;
@@ -52,6 +42,105 @@ body {
     gap: 20px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Cabezera */
+/* Estilo para la barra de menú */
+.user-actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.user-name {
+    position: relative;
+    cursor: pointer;
+    padding: 2px 2px;  /* Ajuste del padding para mayor espacio */
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+}
+
+.user-name:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1;
+    width: 150px;
+}
+
+.dropdown-menu a {
+    display: block;
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#logout {
+    color: #d9534f;
+}
+
+.dropdown-menu a:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Estilo para el enlace de LogOut */
+#logout-content {
+    color: #d9534f;
+}
+
+#logout-content:hover {
+    background-color: #c9302c;
+    border-color: #c9302c;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*PACIENTES*/
 .paciente-container {
     display: flex;
     align-items: flex-start;
@@ -87,6 +176,7 @@ body {
     margin-right: 5px;
 }
 
+/*Enfermedades*/
 #contenedorEnfermedades {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -180,3 +270,37 @@ body {
     width: 30px;
     height: 30px;
 }
+
+/*Menu Principal*/
+#content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+#text {
+    flex: 1 1 50%;
+    max-width: 600px;
+    text-align: justify;
+}
+
+#image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.content-section {
+    padding: 40px;
+    text-align: justify;
+}
+
+.content-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
