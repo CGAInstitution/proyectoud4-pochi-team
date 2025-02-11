@@ -56,32 +56,33 @@ body {
 
 
 
-
-
-/*Cabezera*/
+/* Cabezera */
 /* Estilo para la barra de menú */
 .user-actions {
     display: flex;
     align-items: center;
-    margin-left: auto; /* Empuja este bloque hacia la derecha */
+    margin-left: auto;
 }
 
 .user-name {
     position: relative;
     cursor: pointer;
-    padding: 10px;
+    padding: 2px 2px;  /* Ajuste del padding para mayor espacio */
     background-color: #3498db;
     color: white;
     border-radius: 5px;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
 }
 
 .user-name:hover .dropdown-menu {
-    display: block; /* Muestra el menú al pasar el ratón */
+    display: block;
 }
 
 .dropdown-menu {
-    display: none; /* Esconde el menú por defecto */
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
@@ -102,6 +103,10 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+#logout {
+    color: #d9534f;
+}
+
 .dropdown-menu a:hover {
     background-color: #0056b3;
     color: white;
@@ -116,6 +121,8 @@ body {
     background-color: #c9302c;
     border-color: #c9302c;
 }
+
+
 
 
 

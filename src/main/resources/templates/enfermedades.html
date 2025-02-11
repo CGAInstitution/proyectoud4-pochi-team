@@ -9,14 +9,10 @@
 </head>
 <body>
 <div id="contenedorPrincipal">
-
+    <div th:replace="fragments/menu :: menu"></div>
     <div id="cabezera">
         <h1>Enfermedades</h1>
-        <div th:replace="fragments/header :: header"></div>
     </div>
-    <div th:replace="fragments/menu :: menu"></div>
-
-    <h2>Bienvenidos a la página de enfermedades</h2>
 
     <div th:if="${usuarioLogeado}">
         <div th:if="${usuario.isAdmin()}">

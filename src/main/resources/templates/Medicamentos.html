@@ -9,15 +9,11 @@
 </head>
 <body>
 <div id="contenedorPrincipal">
+
+    <div th:replace="fragments/menu :: menu"></div>
     <div id="cabezera">
         <h1>Medicamentos</h1>
-        <div th:replace="fragments/header :: header"></div>
     </div>
-    <div th:replace="fragments/menu :: menu"></div>
-
-
-    <h2>Bienvenidos a la pagina de Medicamentos</h2>
-
 
     <div id="content" class="container mt-4" style="margin-bottom: 20px">
 

@@ -27,14 +27,10 @@
 </head>
 <body>
 <div id="contenedorPrincipal">
+    <nav th:replace="fragments/menu :: menu"></nav>
     <header id="cabezera">
         <h1>Menú Principal</h1>
-        <div th:replace="fragments/header :: header"></div>
     </header>
-
-
-    <nav th:replace="fragments/menu :: menu"></nav>
-
 
     <div id="parallax">Ayuda hoy, cambia un mañana</div>
 
