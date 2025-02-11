@@ -65,7 +65,9 @@ CREATE TABLE usuario_data (
                               nombre varchar(500) NOT NULL,
                               password varchar(500) NOT NULL,
                               fecha_nacimiento date,
-                              donado bigint NOT NULL DEFAULT 0
+                              donado bigint NOT NULL DEFAULT 0,
+                              admin boolean NOT NULL DEFAULT false,
+                              bloqueado boolean NOT NULL DEFAULT false
 );
 
 INSERT INTO enfermedades (id, nombre, descripcion, peligrosidad, contagiable) VALUES
@@ -95,15 +97,16 @@ INSERT INTO tarjetas (id, tarjeta_banco, recaudado) VALUES
 (2, 'Santander 9876 5432 1098 7654', 8000),
 (3, 'HSBC 4567 8901 2345 6789', 12000),
 (4, 'Banorte 3210 6543 9876 5432', 3000),
-(5, 'Citibanamex 8765 4321 0987 6543', 10000);
+(5, 'Citibanamex 8765 4321 0987 6543', 10000),
+(6, 'ABANCA 8765 4321 0987 6543', 10000);
 
 INSERT INTO pacientes (id, NSS, edad, nombre, tarjeta, enfermedad, imagen) VALUES
 (1, 123, 45, 'Juan Pérez', 1, 1, NULL), -- Tiene Gripe
 (2, 124, 60, 'Ana Gómez', 2, 2, NULL), -- Tiene Diabetes
 (3, 125, 35, 'Carlos Sánchez', 3, 3, NULL), -- Tiene COVID-19
 (4, 126, 50, 'María López', 4, 4, NULL), -- Tiene Hipertensión
-(5, 127, 10, 'Luis Martínez', 5, 5, NULL); -- Tiene Varicela
+(5, 127, 10, 'Luis Martínez', 5, 5, NULL), -- Tiene Hipertensión
+(6, 117, 19, 'JUAN BARRIO', 6, 5, NULL); -- Tiene Varicela
 
-INSERT INTO usuario_data(email, nombre, password) VALUES
-("user@ua","usuarioPrueba","123")
-
+INSERT INTO usuario_data(email, nombre, password,admin) VALUES
+("user@ua","usuarioPrueba","123",true)
