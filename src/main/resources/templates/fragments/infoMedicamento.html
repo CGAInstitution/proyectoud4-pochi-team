@@ -1,12 +1,27 @@
-<div th:fragment="infoMedicamento">
-    <div class="row row-cols-md-3 g-4">
-        <div th:each="medicamento : ${medicamentos}" class="col">
-            <div class="card p-3">
-                <h3 th:text="${medicamento.nombre}" class="card-title"></h3>
-                <p th:text="${medicamento.descripcion}" class="card-text"></p>
-                <p th:text="${medicamento.precio}"></p>
-                <p th:if="${medicamento.receta}">(R)</p>
+<div th:fragment="infoMedicamentoFragment" class="container py-3">
+
+    <h2 th:text="${medicamento.nombre}" id="card-medicamento-title" class="text-center text-primary fw-bold"></h2>
+    <p th:text="${medicamento.descripcion}" id="card-medicamento-description" class="text-muted text-center"></p>
+    <p th:text="${medicamento.precio}" id="card-medicamento-price" class="text-muted text-center"></p>
+    <!--<p th:if="${medicamento.recetable}" class="text-primary text-center fw-bold">(Recetable)</p>-->
+
+    <!-- Enfermedades -->
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div th:each="enfermedad : ${enfermedades}" class="col">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h3 th:text="${enfermedad.nombre}" id="card-enfermedad-title" class="text-center text-primary fw-bold"></h3>
+                    <p th:text="${enfermedad.descripcion}" id="card-enfermedad-text" class="text-muted text-center"></p>
+                    <p id="peligrosidad" class="text-center fw-bold">
+                        <span th:if="${enfermedad.peligrosidad} >= 8" class="text-danger">🔴 Alta</span>
+                        <span th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8" class="text-warning">🟠 Media-Alta</span>
+                        <span th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6" class="text-warning">🟡 Media</span>
+                        <span th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4" class="text-success">🟢 Baja</span>
+                    </p>
+                    <p th:if="${enfermedad.contagiable}" class="text-primary text-center fw-bold">(Contagiable)</p>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
