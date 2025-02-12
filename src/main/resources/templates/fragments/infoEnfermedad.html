@@ -19,7 +19,7 @@
         <div class="card-body">
           <h3 th:text="${medicamento.nombre}" class="card-title text-primary"></h3>
           <p th:text="${medicamento.descripcion}" class="card-text text-muted"></p>
-          <p class="fw-bold text-success">Precio: <span th:text="${medicamento.precio}"></span></p>
+          <p class="fw-bold text-success">Precio: <span th:text="${medicamento.precio}"></span>$</p>
           <p th:if="${medicamento.receta}" class="text-danger">(Requiere receta)</p>
         </div>
       </div>
