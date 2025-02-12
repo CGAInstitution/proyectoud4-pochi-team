@@ -75,6 +75,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 35px;
+    margin-bottom: 0px;
 }
 
 .user-name:hover .dropdown-menu {
