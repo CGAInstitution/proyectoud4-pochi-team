@@ -75,6 +75,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 35px;
+    margin-bottom: 0px;
 }
 
 .user-name:hover .dropdown-menu {
@@ -176,6 +177,10 @@ body {
     margin-right: 5px;
 }
 
+
+
+
+
 /*Enfermedades*/
 #contenedorEnfermedades {
     display: grid;
@@ -223,6 +228,26 @@ body {
     font-size: 18px;
     margin-top: auto;
 }
+
+#delete_button {
+    margin-left: auto;
+    display: block;
+    padding: 5px 10px;
+    font-size: 14px;
+    width: auto;
+    min-width: 100px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: right;
+}
+
+#delete_button:hover {
+    background-color: #cc0000;
+}
+
 
 
 

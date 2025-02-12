@@ -32,6 +32,10 @@ public class Paciente {
     @Column(name = "imagen", nullable = true)
     private String imagen;
 
+    @Column(name="Objetivo",nullable=false)
+    private int objetivo;
+
+
     @ManyToOne
     @JoinColumn(name = "enfermedad", nullable = false)
     private Enfermedad enfermedad;
@@ -40,18 +44,20 @@ public class Paciente {
     @JoinColumn(name = "tarjeta")
     private Tarjeta tarjeta;
 
-    public Paciente(String nss, @Null Integer edad, String nombre) {
+    public Paciente(String nss, @Null Integer edad, String nombre,int objetivo) {
         this.nss = nss;
         this.edad = edad;
         this.nombre = nombre;
+        this.objetivo=objetivo;
 
     }
 
-    public Paciente(Long id, String nss, @Null Integer edad, String nombre,String imagen) {
+    public Paciente(Long id, String nss, @Null Integer edad, String nombre,String imagen,int objetivo) {
         this.id = id;
         this.nss = nss;
         this.edad = edad;
         this.nombre = nombre;
         this.imagen = imagen;
+        this.objetivo=objetivo;
     }
 }
