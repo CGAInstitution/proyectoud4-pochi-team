@@ -24,9 +24,6 @@
                                 <div class="col">
                                     <h3 th:text="${enfermedad.nombre}" id="card-enfermedad-title"></h3>
                                 </div>
-                                <div class="col">
-                                    <button>Eliminar</button>
-                                </div>
                             </div>
                             <p th:text="${enfermedad.descripcion}" id="card-enfermedad-text"></p>
                             <p id="peligrosidad">
@@ -38,8 +35,16 @@
                                 <span th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4"
                                       style="color: green;">🟢 Baja</span>
                             </p>
-                            <p th:if="${enfermedad.contagiable}" style="color: blue; font-weight: bold;">
-                                (Contagiable)</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p th:if="${enfermedad.contagiable}" style="color: blue; font-weight: bold;">
+                                        (Contagiable)</p>
+                                </div>
+                                <div class="col offset-4 justify-content-end" style="text-align: end">
+                                    <button>Eliminar</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
