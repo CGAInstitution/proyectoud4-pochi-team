@@ -13,7 +13,9 @@ body {
     box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
 }
 .progress-container {
-    width: 400px;
+    width: 300px;
+    padding-left: 0;
+    padding-right: 0;
     background-color: #f3f3f3;
     border-radius: 25px;
     border-color: black;
@@ -181,6 +183,7 @@ body {
     align-items: center;
     gap: 15px;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 #datos-paciente .tipo-dato {

@@ -15,41 +15,10 @@
         <h1>Pacientes</h1>
     </div>
 
-    <div th:if="${usuarioLogeado}">
-        <div th:if="${usuario.isAdmin()}">
-            <div class="paciente-container" th:each="paciente : ${pacientes}">
-
-                <img class="imagen-paciente" th:src="${paciente.imagen}" alt="Imagen de paciente">
-                <div id="datos-paciente">
-                    <div class="row row-cols-2">
-                                <span class="tipo-dato"><strong>Nombre:</strong> <span
-                                        th:text="${paciente.nombre}"></span></span>
-
-                    </div>
-                    <span class="tipo-dato"><strong>Edad:</strong> <span
-                            th:text="${paciente.edad}"></span></span>
-                    <span class="tipo-dato"><strong>Enfermedad:</strong> <span
-                            th:text="${paciente.enfermedad.nombre}"></span></span>
-
-                    <div class="progress-container">
-                        <div class="progress-bar"
-                             th:style="'width:' + ${paciente.tarjeta.getProgreso()} + '%'"></div>
-                    </div>
-                    <button>Eliminar</button>
-                </div>
-
-            </div>
-        </div>
-        <div th:unless="${usuario.isAdmin()}">
-            <div th:replace="fragments/infoPaciente :: infoPaciente"></div>
-        </div>
-    </div>
-    <div th:unless="${usuarioLogeado}">
-        <div th:replace="fragments/infoPaciente :: infoPaciente"></div>
-    </div>
+    <div th:replace="fragments/infoPaciente :: infoPaciente"></div>
 
 
-    <div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>
 </html>
