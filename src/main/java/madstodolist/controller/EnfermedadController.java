@@ -1,6 +1,9 @@
 package madstodolist.controller;
 
 
+import madstodolist.model.Enfermedad;
+import madstodolist.model.Medicamento;
+import madstodolist.model.Paciente;
 import madstodolist.service.EnfermedadService;
 import madstodolist.authentication.ManagerUserSession;
 import madstodolist.dto.UsuarioData;
@@ -10,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class EnfermedadController {
@@ -43,8 +49,13 @@ public class EnfermedadController {
 
         Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
         boolean usuarioLogeado = usuarioLogeadoId != null;
+        Enfermedad enfermedad = enfermedadeService.findById(idEnfermedad);
         model.addAttribute("usuarioLogeado", usuarioLogeado);
-        model.addAttribute("enfermedad", enfermedadeService.findById(idEnfermedad));
+        model.addAttribute("enfermedad", enfermedad);
+        Set<Paciente> pacientes = enfermedad.getPacientes();
+        model.addAttribute("pacientes", pacientes);
+        Set<Medicamento> medicamentos = enfermedad.getMedicamentos();
+        model.addAttribute("medicamentos", medicamentos);
 
         if (usuarioLogeado) {
             UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);

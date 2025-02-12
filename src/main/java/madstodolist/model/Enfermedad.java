@@ -32,10 +32,10 @@ public class Enfermedad {
     @Column(name = "contagiable", nullable = false)
     private Boolean contagiable = false;
 
-    @OneToMany(mappedBy = "enfermedad", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "enfermedad", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Paciente> pacientes = new HashSet<>();
 
-    @ManyToMany(mappedBy = "enfermedades", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "enfermedades", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Medicamento> medicamentos = new HashSet<>();
 
     public Enfermedad(Long id, String nombre, @Null String descripcion, @Null Short peligrosidad, Boolean contagiable) {
