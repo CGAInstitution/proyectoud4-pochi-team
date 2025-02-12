@@ -11,24 +11,18 @@
 <div id="contenedorPrincipal">
     <div th:replace="fragments/menu :: menu"></div>
     <div id="cabezera">
-        <h1>Enfermedades</h1>
+        <h1 style="display: inline">Enfermedades</h1>
+        <div th:if="${usuarioLogeado}" style="display: inline-block; float: right;">
+            <div th:if="${usuario.isAdmin()}">
+                <button style="display: inline-block; float: right;">Modificar</button>
+                <button style="display: inline-block; float: right;">Eliminar</button>
+            </div>
+        </div>
     </div>
 
-        <div id="contenedorEnfermedades" class="container mt-4" th:object="${enfermedad}">
-            <h2 th:text="${enfermedad.nombre}" id="card-enfermedad-title"></h2>
-            <p th:text="${enfermedad.descripcion}" id="card-enfermedad-text"></p>
-            <p id="peligrosidad">
-                <span th:if="${enfermedad.peligrosidad} >= 8" style="color: red;">🔴 Alta</span>
-                <span th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8"
-                      style="color: orange;">🟠 Media-Alta</span>
-                <span th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6"
-                      style="color: yellow;">🟡 Media</span>
-                <span th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4"
-                      style="color: green;">🟢 Baja</span>
-            </p>
-            <p th:if="${enfermedad.contagiable}" style="color: blue; font-weight: bold;">
-                (Contagiable)</p>
-        </div>
+    <div id="contenedorEnfermedades" th:object="${enfermedad}">
+        <div th:replace="fragments/infoEnfermedad :: infoEnfermedadFragment"></div>
+    </div>
 
 </div>
 

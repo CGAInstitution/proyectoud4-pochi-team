@@ -1,23 +1,45 @@
-<div th:fragment="infoEnfermedad">
+<div th:fragment="infoEnfermedadFragment" class="container py-3">
 
-    <div id="contenedorEnfermedades" class="container mt-4">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div class="col" th:each="enfermedad : ${enfermedades}">
-                <div class="card p-3">
-                    <h3 th:text="${enfermedad.nombre}" id="card-enfermedad-title"></h3>
-                    <p th:text="${enfermedad.descripcion}" id="card-enfermedad-text"></p>
-                    <p id="peligrosidad">
-                        <span th:if="${enfermedad.peligrosidad} >= 8" style="color: red;">🔴 Alta</span>
-                        <span th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8"
-                              style="color: orange;">🟠 Media-Alta</span>
-                        <span th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6"
-                              style="color: yellow;">🟡 Media</span>
-                        <span th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4"
-                              style="color: green;">🟢 Baja</span>
-                    </p>
-                    <p th:if="${enfermedad.contagiable}" style="color: blue; font-weight: bold;">(Contagiable)</p>
-                </div>
-            </div>
+  <h2 th:text="${enfermedad.nombre}" id="card-enfermedad-title" class="text-center text-primary fw-bold"></h2>
+  <p th:text="${enfermedad.descripcion}" id="card-enfermedad-text" class="text-muted text-center"></p>
+
+  <p id="peligrosidad" class="text-center fw-bold">
+    <span th:if="${enfermedad.peligrosidad} >= 8" class="text-danger">🔴 Alta</span>
+    <span th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8" class="text-warning">🟠 Media-Alta</span>
+    <span th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6" class="text-warning">🟡 Media</span>
+    <span th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4" class="text-success">🟢 Baja</span>
+  </p>
+
+  <p th:if="${enfermedad.contagiable}" class="text-primary text-center fw-bold">(Contagiable)</p>
+
+  <!-- Medicamentos -->
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div th:each="medicamento : ${medicamentos}" class="col">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h3 th:text="${medicamento.nombre}" class="card-title text-primary"></h3>
+          <p th:text="${medicamento.descripcion}" class="card-text text-muted"></p>
+          <p class="fw-bold text-success">Precio: <span th:text="${medicamento.precio}"></span></p>
+          <p th:if="${medicamento.receta}" class="text-danger">(Requiere receta)</p>
         </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Pacientes -->
+  <div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
+    <div th:each="paciente : ${pacientes}" class="col">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <img th:src="${paciente.imagen}" alt="Foto de paciente" class="rounded-circle mb-3" width="80" height="80">
+          <h3 th:text="${paciente.nombre}" class="card-title text-dark"></h3>
+          <p class="text-muted">NSS: <span th:text="${paciente.nss}"></span></p>
+          <p class="text-muted">Edad: <span th:text="${paciente.edad}"></span></p>
+          <p class="text-muted">Tarjeta: <span th:text="${paciente.tarjeta.tarjeta_banco}"></span></p>
+          <p class="text-success fw-bold">Recaudado: <span th:text="${paciente.tarjeta.recaudado}"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
