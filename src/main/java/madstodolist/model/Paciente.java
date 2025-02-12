@@ -36,11 +36,11 @@ public class Paciente {
     private int objetivo;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "enfermedad", nullable = false)
     private Enfermedad enfermedad;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "tarjeta")
     private Tarjeta tarjeta;
 

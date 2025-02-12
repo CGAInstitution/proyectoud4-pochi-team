@@ -110,4 +110,5 @@ INSERT INTO pacientes (id, NSS, edad, nombre, tarjeta, enfermedad, imagen,objeti
 (6, 117, 19, 'JUAN BARRIO', 6, 5, NULL,300000); -- Tiene Varicela
 
 INSERT INTO usuario_data(email, nombre, password,admin) VALUES
-("user@ua","usuarioPrueba","123",true)
+("user@ua","usuarioPrueba","
+",true)

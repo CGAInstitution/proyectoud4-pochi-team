@@ -35,7 +35,7 @@ public class Medicamento {
     @Column(name = "recetable", nullable = false)
     private boolean receta;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "enfermedades_medicamentos",
             joinColumns = @JoinColumn(name = "id_enfermedad"),
