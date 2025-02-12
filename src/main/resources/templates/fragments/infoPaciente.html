@@ -1,15 +1,23 @@
 <div th:fragment="infoPaciente">
     <div class="paciente-container" th:each="paciente : ${pacientes}">
         <img class="imagen-paciente" th:src="${paciente.imagen}" alt="Imagen de paciente">
-        <div id="datos-paciente">
+        <div id="datos-paciente" class="row">
             <span class="tipo-dato"><strong>Nombre:</strong> <span th:text="${paciente.nombre}"></span></span>
             <span class="tipo-dato"><strong>Edad:</strong> <span th:text="${paciente.edad}"></span></span>
             <span class="tipo-dato"><strong>Enfermedad:</strong> <span
                     th:text="${paciente.enfermedad.nombre}"></span></span>
-
             <div class="progress-container">
-                <div class="progress-bar" th:style="'width:' + ${107/145} + '%'"></div>
+
+                <div th:if="${paciente.tarjeta.getProgreso()>100}">
+                    <div class="progress-bar" th:style="'width:' + ${paciente.tarjeta.getProgreso()} + '%'"></div>
+                </div>
+                <div th:unless="${paciente.tarjeta.getProgreso()>100}">
+                    <div class="progress-bar"
+                         th:style="'width:' + ${paciente.tarjeta.getProgreso()} + '%; background-color: #74a4d4;'"></div>
+                </div>
             </div>
+            <span class="tipo-dato"><strong>Porcentaje Completado:</strong> <span th:text="${paciente.tarjeta.getProgreso()}"></span><strong>%</strong></span>
+
         </div>
     </div>
 </div>

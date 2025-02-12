@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "tarjetas", schema = "health_database")
 @Getter
@@ -21,6 +22,9 @@ public class Tarjeta {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name="Objetivo",nullable=false)
+    private Long objetivo;
+
     @Column(name = "tarjeta_banco", nullable = false, length = 500)
     private String tarjeta_banco;
 
@@ -30,9 +34,14 @@ public class Tarjeta {
     @OneToOne(mappedBy = "tarjeta")
     private Paciente paciente;
 
-    public Tarjeta(String tarjeta_banco, Long recaudado, Paciente paciente) {
+    public Tarjeta(String tarjeta_banco, Long recaudado, Paciente paciente,Long objetivo) {
         this.tarjeta_banco = tarjeta_banco;
         this.recaudado = recaudado;
         this.paciente = paciente;
+        this.objetivo = objetivo;
+    }
+
+    public int getProgreso(){
+    return (int) ((getRecaudado() * 100.0) / getObjetivo());
     }
 }

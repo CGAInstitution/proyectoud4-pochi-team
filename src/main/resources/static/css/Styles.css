@@ -13,9 +13,11 @@ body {
     box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
 }
 .progress-container {
-    width: 100%;
+    width: 400px;
     background-color: #f3f3f3;
     border-radius: 25px;
+    border-color: black;
+    border-style: solid;
     overflow: hidden;
 }
 
