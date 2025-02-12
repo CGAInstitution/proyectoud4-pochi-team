@@ -31,10 +31,15 @@ public class Usuario implements Serializable {
     private Date fechaNacimiento;
     private boolean admin = false;
     private boolean bloqueado = false;
+
+
     // La relación es lazy por defecto,
     // es necesario acceder a la lista de tareas para que se carguen
     @OneToMany(mappedBy = "usuario")
     Set<Tarea> tareas = new HashSet<>();
+
+    @ManyToMany(mappedBy = "usuarios", cascade = CascadeType.ALL)
+    private Set<Tarjeta> Tarjetas = new HashSet<>();
 
     // Constructor vacío necesario para JPA/Hibernate.
     // No debe usarse desde la aplicación.

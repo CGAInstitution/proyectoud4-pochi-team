@@ -49,6 +49,7 @@ CREATE TABLE pacientes (
                           tarjeta bigint NOT NULL,
                           enfermedad bigint NOT NULL,
                           imagen varchar(500) NULL,
+                          objetivo int not null,
 						  FOREIGN KEY (enfermedad) references enfermedades(id) 
 							on delete cascade 
 							on update cascade,
@@ -100,13 +101,13 @@ INSERT INTO tarjetas (id, tarjeta_banco, recaudado) VALUES
 (5, 'Citibanamex 8765 4321 0987 6543', 10000),
 (6, 'ABANCA 8765 4321 0987 6543', 10000);
 
-INSERT INTO pacientes (id, NSS, edad, nombre, tarjeta, enfermedad, imagen) VALUES
-(1, 123, 45, 'Juan Pérez', 1, 1, NULL), -- Tiene Gripe
-(2, 124, 60, 'Ana Gómez', 2, 2, NULL), -- Tiene Diabetes
-(3, 125, 35, 'Carlos Sánchez', 3, 3, NULL), -- Tiene COVID-19
-(4, 126, 50, 'María López', 4, 4, NULL), -- Tiene Hipertensión
-(5, 127, 10, 'Luis Martínez', 5, 5, NULL), -- Tiene Hipertensión
-(6, 117, 19, 'JUAN BARRIO', 6, 5, NULL); -- Tiene Varicela
+INSERT INTO pacientes (id, NSS, edad, nombre, tarjeta, enfermedad, imagen,objetivo) VALUES
+(1, 123, 45, 'Juan Pérez', 1, 1, NULL,2000), -- Tiene Gripe
+(2, 124, 60, 'Ana Gómez', 2, 2, NULL,38000), -- Tiene Diabetes
+(3, 125, 35, 'Carlos Sánchez', 3, 3, NULL,34), -- Tiene COVID-19
+(4, 126, 50, 'María López', 4, 4, NULL,45000), -- Tiene Hipertensión
+(5, 127, 10, 'Luis Martínez', 5, 5, NULL,200000), -- Tiene Hipertensión
+(6, 117, 19, 'JUAN BARRIO', 6, 5, NULL,300000); -- Tiene Varicela
 
 INSERT INTO usuario_data(email, nombre, password,admin) VALUES
 ("user@ua","usuarioPrueba","123",true)
