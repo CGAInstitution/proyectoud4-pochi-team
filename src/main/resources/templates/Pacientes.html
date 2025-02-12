@@ -30,6 +30,9 @@
                             th:text="${paciente.edad}"></span></span>
                     <span class="tipo-dato"><strong>Enfermedad:</strong> <span
                             th:text="${paciente.enfermedad.nombre}"></span></span>
+                    <div class="progress-container">
+                        <div class="progress-bar" th:style="'width:' + ${127/145} + '%'"></div>
+                    </div>
                     <button>Eliminar</button>
                 </div>
 
