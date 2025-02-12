@@ -42,7 +42,7 @@ public class MedicamentoController {
     }
 
     @GetMapping("/medicamentos/{id}")
-    public String medicamentoDetallao(@PathVariable(value="id") Long idMedicamento, Model model) {
+    public String medicamentoDetallado(@PathVariable(value="id") Long idMedicamento, Model model) {
 
         Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
         boolean usuarioLogeado = usuarioLogeadoId != null;
