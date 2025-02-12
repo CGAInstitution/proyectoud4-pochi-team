@@ -3,6 +3,10 @@ package madstodolist.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Objects;
 
@@ -18,14 +22,7 @@ public class UsuarioData {
     private Date fechaNacimiento;
     private boolean admin = false;
     private boolean bloqueado = false;
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
+    private Long donado = 0L;
 
     // Getters y setters
     // Sobreescribimos equals y hashCode para que dos usuarios sean iguales

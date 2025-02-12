@@ -41,6 +41,11 @@ public class UsuarioService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public Usuario getUsuario(UsuarioData usuarioData) {
+        return modelMapper.map(usuarioData,Usuario.class);
+    }
+
     // Se añade un usuario en la aplicación.
     // El email y password del usuario deben ser distinto de null
     // El email no debe estar registrado en la base de datos
