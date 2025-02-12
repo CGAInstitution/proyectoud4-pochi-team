@@ -18,29 +18,32 @@
         <div th:if="${usuario.isAdmin()}">
             <div id="contenedorEnfermedades" class="container mt-4">
                 <div class="row row-cols-1 row-cols-md-2 g-4">
+
                     <div class="col" th:each="enfermedad : ${enfermedades}">
-                        <div class="card p-3">
-                            <div class="row justify-content-between">
-                                <div class="col">
-                                    <h3 th:text="${enfermedad.nombre}" id="card-enfermedad-title"></h3>
+                        <a th:href="@{/enfermedades/{id}(id=${enfermedad.id})}">
+                            <div class="card p-3">
+                                <div class="row justify-content-between">
+                                    <div class="col">
+                                        <h3 th:text="${enfermedad.nombre}" id="card-enfermedad-title"></h3>
+                                    </div>
+                                    <div class="col">
+                                        <button>Eliminar</button>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <button>Eliminar</button>
-                                </div>
+                                <p th:text="${enfermedad.descripcion}" id="card-enfermedad-text"></p>
+                                <p id="peligrosidad">
+                                    <span th:if="${enfermedad.peligrosidad} >= 8" style="color: red;">🔴 Alta</span>
+                                    <span th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8"
+                                          style="color: orange;">🟠 Media-Alta</span>
+                                    <span th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6"
+                                          style="color: yellow;">🟡 Media</span>
+                                    <span th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4"
+                                          style="color: green;">🟢 Baja</span>
+                                </p>
+                                <p th:if="${enfermedad.contagiable}" style="color: blue; font-weight: bold;">
+                                    (Contagiable)</p>
                             </div>
-                            <p th:text="${enfermedad.descripcion}" id="card-enfermedad-text"></p>
-                            <p id="peligrosidad">
-                                <span th:if="${enfermedad.peligrosidad} >= 8" style="color: red;">🔴 Alta</span>
-                                <span th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8"
-                                      style="color: orange;">🟠 Media-Alta</span>
-                                <span th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6"
-                                      style="color: yellow;">🟡 Media</span>
-                                <span th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4"
-                                      style="color: green;">🟢 Baja</span>
-                            </p>
-                            <p th:if="${enfermedad.contagiable}" style="color: blue; font-weight: bold;">
-                                (Contagiable)</p>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -53,7 +56,6 @@
         <div th:replace="fragments/infoEnfermedad :: infoEnfermedad"></div>
     </div>
 
-</div>
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>
