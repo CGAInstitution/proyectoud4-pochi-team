@@ -38,6 +38,7 @@ public class Tarjeta {
         this.paciente = paciente;
     }
 
+
     public int getRecaudado(){
         return donaciones.stream()
                 .map(donacion -> BigInteger.valueOf(donacion.getCantidad()))
