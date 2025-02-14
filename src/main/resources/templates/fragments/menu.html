@@ -8,7 +8,7 @@
         <!-- Si el usuario está logueado se muestran las acciones -->
         <div th:if="${usuarioLogeado}" class="user-actions">
             <div class="user-name">
-                <p><span th:text="${usuario.nombre}">Usuario</span></p>
+                <p style="margin-bottom: 0"><span th:text="${usuario.nombre}">Usuario</span></p>
                 <!-- Menú desplegable de opciones al pasar el ratón -->
                 <div class="dropdown-menu">
                     <!-- Mostrar el enlace de Gestión solo si el usuario es admin -->
