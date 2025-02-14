@@ -3,67 +3,76 @@
 
 <head>
     <title>Health PochiTeam</title>
-    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/Styles.css?v=1}">
 </head>
 
 <body>
-<div class="background">
-    <div class="container-fluid">
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-8">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-12 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
 
-        <div class="row justify-content-center mb-3">
-            <div class="col-auto">
-                <h2>Registro nuevo usuario</h2>
-            </div>
-        </div>
+                                <form method="post" th:action="@{/registro}" th:object="${registroData}">
+                                    <div class="text-center mb-3">
+                                        <h2 class="fw-bold">Registro nuevo usuario</h2>
+                                    </div>
 
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <form method="post" th:action="@{/registro}" th:object="${registroData}">
-                    <div class="row justify-content-center">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="eMail">Correo electrónico</label>
-                                <input id="eMail" class="form-control" name="eMail" placeholder="Correo electrónico"
-                                       type="text" th:field="*{email}" required/>
-                            </div>
-                            <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input id="nombre" class="form-control" name="nombre" placeholder="Nombre" type="text"
-                                       th:field="*{nombre}"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Contraseña</label>
-                                <input id="password" class="form-control" name="password" placeholder="Contraseña"
-                                       type="password" th:field="*{password}" required/>
-                            </div>
+                                    <div class="mb-3">
+                                        <label for="eMail" class="form-label">Correo electrónico</label>
+                                        <input id="eMail" class="form-control" name="eMail" placeholder="Correo electrónico"
+                                               type="text" th:field="*{email}" required/>
+                                    </div>
 
-                            <div class="form-group">
-                                <label for="fechaNacimiento">Fecha de nacimiento</label>
-                                <input id="fechaNacimiento" class="form-control" name="fechaNacimiento"
-                                       placeholder="01-12-2019" th:field="*{fechaNacimiento}"/>
-                            </div>
-                            <br>
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nombre</label>
+                                        <input id="nombre" class="form-control" name="nombre" placeholder="Nombre" type="text"
+                                               th:field="*{nombre}"/>
+                                    </div>
 
-                            <button type="submit" class="button">Registro</button>
-                            <a  class="button" href="/login">Ir a login</a>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Contraseña</label>
+                                        <input id="password" class="form-control" name="password" placeholder="Contraseña"
+                                               type="password" th:field="*{password}" required/>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+                                        <input id="fechaNacimiento" class="form-control" name="fechaNacimiento"
+                                               placeholder="01-12-2019" th:field="*{fechaNacimiento}"/>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-dark btn-lg">Registro</button>
+                                        <a class="btn btn-outline-dark btn-lg" href="/login">Ir a login</a>
+                                    </div>
+
+                                    <div class="row mt-3 justify-content-center">
+                                        <div class="col-12">
+                                            <div th:object="${registroData}">
+                                                <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                                                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                                                </ul>
+                                            </div>
+                                            <ul th:if="${error != null}" class="alert alert-danger">
+                                                <li th:text="${error}"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-        <div class="row mt-3 justify-content-center">
-            <div class="col-9">
-                <div th:object="${registroData}">
-                    <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-                    </ul>
                 </div>
-                <ul th:if="${error != null}" class="alert alert-danger">
-                    <li th:text="${error}"></li>
-                </ul>
             </div>
         </div>
     </div>
-</div>
+</section>
 </body>
 </html>

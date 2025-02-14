@@ -1,5 +1,5 @@
 body {
-    background: #74a4d4;
+    background: #cdeef4;
     margin: 0;
     font-family: Arial, sans-serif;
 }
@@ -61,18 +61,6 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 /* Cabezera */
 /* Estilo para la barra de menú */
 .user-actions {
@@ -85,7 +73,7 @@ body {
     position: relative;
     cursor: pointer;
     padding: 2px 2px;  /* Ajuste del padding para mayor espacio */
-    background-color: #3498db;
+    background-color: #a02855;
     color: white;
     border-radius: 5px;
     display: flex;
@@ -93,6 +81,7 @@ body {
     align-items: center;
     height: 35px;
     margin-bottom: 0px;
+
 }
 
 .user-name:hover .dropdown-menu {
@@ -143,21 +132,6 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*PACIENTES*/
 .paciente-container {
     display: flex;
@@ -197,8 +171,6 @@ body {
 
 
 
-
-
 /*Enfermedades*/
 #contenedorEnfermedades {
     display: grid;
@@ -223,7 +195,7 @@ body {
     transition: transform 0.2s;
 }
 
-.card:hover {
+.card.enfermedades:hover {
     transform: scale(1.05);
 }
 
@@ -345,4 +317,10 @@ body {
 .content-section h2 {
     text-align: center;
     margin-bottom: 20px;
+}
+
+/*LOGIN Y REGISTRO */
+
+.vh-100 {
+    background: #cdeef4;
 }

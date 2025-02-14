@@ -23,7 +23,7 @@
         <div class="row row-cols-1 row-cols-md-2 g-4">
             <div class="col" th:each="enfermedad : ${enfermedades}">
                 <a th:href="@{/enfermedades/{id}(id=${enfermedad.id})}" style="text-decoration: none;">
-                    <div class="card p-3">
+                    <div class="card enfermedades p-3">
                         <div class="row justify-content-between">
                             <div class="col">
                                 <h3 th:text="${enfermedad.nombre}" id="card-enfermedad-title"></h3>
