@@ -14,11 +14,15 @@
     <div id="cabezera">
         <h1>Pacientes</h1>
     </div>
+    <div class="paciente-container row justify-content-end" th:each="paciente : ${pacientes}">
 
-    <div th:replace="fragments/infoPaciente :: infoPaciente"></div>
+        <a th:href="@{/pacientes/{id}(id=${paciente.id})}" style="text-decoration: none;">
+        <div th:replace="fragments/infoPaciente :: infoPaciente"></div>
+        </a>
+    </div>
 
 
-<div th:replace="fragments/footer :: footer"></div>
+    <div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>
 </html>

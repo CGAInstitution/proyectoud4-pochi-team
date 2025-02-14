@@ -1,5 +1,4 @@
 <div th:fragment="infoPaciente">
-    <div class="paciente-container" th:each="paciente : ${pacientes}">
         <div id="datos-paciente" class="row justify-content-end">
             <div class="col-md-2">
                 <img class="imagen-paciente" th:src="${paciente.imagen}" alt="Imagen de paciente">
@@ -30,5 +29,4 @@
             </div>
         </div>
         </div>
-    </div>
 </div>
