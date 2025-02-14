@@ -38,8 +38,8 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "usuario")
     Set<Tarea> tareas = new HashSet<>();
 
-    @ManyToMany(mappedBy = "usuarios", cascade = CascadeType.ALL)
-    private Set<Tarjeta> Tarjetas = new HashSet<>();
+    @OneToMany(mappedBy = "usuario")
+    Set<Donacion> donaciones = new HashSet<>();
 
     // Constructor vacío necesario para JPA/Hibernate.
     // No debe usarse desde la aplicación.
