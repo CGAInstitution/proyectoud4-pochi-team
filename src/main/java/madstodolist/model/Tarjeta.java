@@ -27,25 +27,17 @@ public class Tarjeta {
     @Column(name = "tarjeta_banco", nullable = false, length = 500)
     private String tarjeta_banco;
 
-    @Column(name = "recaudado", nullable = false)
-    private Long recaudado = 0L;
 
     @OneToOne(mappedBy = "tarjeta")
     private Paciente paciente;
 
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "usuario_tarjeta",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "tarjeta_id")
-    )
-    private Set<Usuario> usuarios = new HashSet<>();
+    @OneToMany(mappedBy = "tarjeta")
+    private Set<Donacion> donaciones = new HashSet<>();
 
-    public Tarjeta(String tarjeta_banco, Long recaudado, Paciente paciente) {
+    public Tarjeta(String tarjeta_banco, Paciente paciente) {
         this.tarjeta_banco = tarjeta_banco;
-        this.recaudado = recaudado;
         this.paciente = paciente;
         this.objetivo = objetivo;
     }

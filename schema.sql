@@ -36,9 +36,7 @@ CREATE TABLE enfermedades_medicamentos (
 
 CREATE TABLE tarjetas (
                          id bigint NOT NULL PRIMARY KEY,
-                         tarjeta_banco varchar(500) NOT NULL,
-                          objetivo bigint not null,
-                         recaudado bigint NOT NULL DEFAULT 0
+                         tarjeta_banco varchar(500) NOT NULL
 );
 
 
@@ -50,6 +48,7 @@ CREATE TABLE pacientes (
                           tarjeta bigint NOT NULL,
                           enfermedad bigint NOT NULL,
                           imagen varchar(500) NULL,
+                          objetivo int not null,
 						  FOREIGN KEY (enfermedad) references enfermedades(id) 
 							on delete cascade 
 							on update cascade,
@@ -70,6 +69,23 @@ CREATE TABLE usuario_data (
                               admin boolean NOT NULL DEFAULT false,
                               bloqueado boolean NOT NULL DEFAULT false
 );
+
+CREATE TABLE usuario_tarjeta (
+							id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+							usuario_id bigint NOT NULL,
+                            tarjeta_id bigint NOT NULL,
+                            fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                            cantidad BIGINT NOT NULL DEFAULT 0,
+                            FOREIGN KEY (usuario_id) references usuario_data(id)
+											on delete cascade 
+											on update cascade,
+							FOREIGN KEY (tarjeta_id) references tarjetas(id) 
+								on delete cascade 
+								on update cascade);
+                            
+                            
+                            
+                            
 
 INSERT INTO enfermedades (id, nombre, descripcion, peligrosidad, contagiable) VALUES
 (1, 'Gripe', 'Infección viral que afecta las vías respiratorias', 3, true),
@@ -93,22 +109,26 @@ INSERT INTO enfermedades_medicamentos (id, id_enfermedad, id_medicamento) VALUES
 (5, 5, 1), -- Varicela - Paracetamol
 (6, 5, 3); -- Varicela - Amoxicilina
 
-INSERT INTO tarjetas (id, tarjeta_banco, recaudado, objetivo) VALUES
-(1, 'BBVA 1234 5678 9012 3456', 5000,2000),
-(2, 'Santander 9876 5432 1098 7654', 8000,38000),
-(3, 'HSBC 4567 8901 2345 6789', 12000,34),
-(4, 'Banorte 3210 6543 9876 5432', 600,6000),
-(5, 'Citibanamex 8765 4321 0987 6543', 400,1000),
-(6, 'ABANCA 8765 4321 0987 6543', 15,100);
+INSERT INTO tarjetas (id, tarjeta_banco) VALUES
+(1, 'BBVA 1234 5678 9012 3456'),
+(2, 'Santander 9876 5432 1098 7654'),
+(3, 'HSBC 4567 8901 2345 6789'),
+(4, 'Banorte 3210 6543 9876 5432'),
+(5, 'Citibanamex 8765 4321 0987 6543'),
+(6, 'ABANCA 8765 4321 0987 6543');
 
-INSERT INTO pacientes (id, NSS, edad, nombre, tarjeta, enfermedad, imagen) VALUES
-(1, 123, 45, 'Juan Pérez', 1, 1, NULL), -- Tiene Gripe
-(2, 124, 60, 'Ana Gómez', 2, 2, NULL), -- Tiene Diabetes
-(3, 125, 35, 'Carlos Sánchez', 3, 3, NULL), -- Tiene COVID-19
-(4, 126, 50, 'María López', 4, 4, NULL), -- Tiene Hipertensión
-(5, 127, 10, 'Luis Martínez', 5, 5, NULL), -- Tiene Hipertensión
-(6, 117, 19, 'JUAN BARRIO', 6, 5, NULL); -- Tiene Varicela
+INSERT INTO pacientes (id, NSS, edad, nombre, tarjeta, enfermedad, imagen,objetivo) VALUES
+(1, 123, 45, 'Juan Pérez', 1, 1, NULL,2000), -- Tiene Gripe
+(2, 124, 60, 'Ana Gómez', 2, 2, NULL,38000), -- Tiene Diabetes
+(3, 125, 35, 'Carlos Sánchez', 3, 3, NULL,34), -- Tiene COVID-19
+(4, 126, 50, 'María López', 4, 4, NULL,45000), -- Tiene Hipertensión
+(5, 127, 10, 'Luis Martínez', 5, 5, NULL,200000), -- Tiene Hipertensión
+(6, 117, 19, 'JUAN BARRIO', 6, 5, NULL,300000); -- Tiene Varicela
 
 INSERT INTO usuario_data(email, nombre, password,admin) VALUES
-("user@ua","usuarioPrueba","
-",true)
+("user@ua1","usuarioPrueba","123",true),
+("user@ua","usuarioPrueba","123",true);
+
+INSERT INTO usuario_tarjeta(usuario_id,tarjeta_id,cantidad) VALUES
+(1,2,2000),
+(2,4,3000)
