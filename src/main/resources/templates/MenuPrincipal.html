@@ -34,31 +34,104 @@
 
     <div id="parallax">Ayuda hoy, cambia un mañana</div>
 
-    <div class="content-section">
-        <h2>¿Por qué donar a Health PochiTeam?</h2>
-        <p>La salud es un derecho y en Health PochiTeam creemos que todos merecen acceso a los medicamentos que necesitan. Tu donación puede marcar la diferencia entre la vida y la enfermedad para quienes no pueden costear su tratamiento.</p>
-        <ul>
-            <li><strong>Impacto directo:</strong> Tu donación se destina completamente a la compra de medicamentos, sin intermediarios ni costos administrativos.</li>
-            <li><strong>Transparencia:</strong> Recibirás informes detallados sobre el uso de tu donación y conocerás las historias de los beneficiarios.</li>
-            <li><strong>Comunidad solidaria:</strong> Formarás parte de una comunidad comprometida con la salud y la solidaridad.</li>
-            <li><strong>Reconocimiento:</strong> Puedes recibir un certificado de donación y aparecer en nuestra lista de donantes si así lo deseas.</li>
-        </ul>
+    <div class="row">
+        <div class="col-md-8">
+
+
+            <div class="content-section" style="padding-right: 10px ">
+                <h2>¿Por qué donar a Health PochiTeam?</h2>
+                <p>La salud es un derecho y en Health PochiTeam creemos que todos merecen acceso a los medicamentos que
+                    necesitan. Tu donación puede marcar la diferencia entre la vida y la enfermedad para quienes no
+                    pueden costear su tratamiento.</p>
+                <ul>
+                    <li><strong>Impacto directo:</strong> Tu donación se destina completamente a la compra de
+                        medicamentos, sin intermediarios ni costos administrativos.
+                    </li>
+                    <li><strong>Transparencia:</strong> Recibirás informes detallados sobre el uso de tu donación y
+                        conocerás las historias de los beneficiarios.
+                    </li>
+                    <li><strong>Comunidad solidaria:</strong> Formarás parte de una comunidad comprometida con la salud
+                        y la solidaridad.
+                    </li>
+                    <li><strong>Reconocimiento:</strong> Puedes recibir un certificado de donación y aparecer en nuestra
+                        lista de donantes si así lo deseas.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col">
+            <div class="tabla tablaObjetivo">
+                <table class="table table-striped">
+                    <caption>Pacientes Más Cerca De Su Objetivo</caption>
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Enfermedad</th>
+                        <th>Objetivo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="paciente : ${masCercaDeObjetivo}">
+                        <td class="texto"><span><span th:text="${paciente.nombre}"></span></span></td>
+                        <td class="texto"><span><span th:text="${paciente.enfermedad.getNombre()}"></span></span></td>
+                        <td class="numero"><span><span
+                                th:text="${paciente.tarjeta.getProgreso()}"></span><strong>%</strong></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <div class="content-section">
-        <h2>¿Cómo funciona el proceso de donación?</h2>
-        <ol>
-            <li><strong>Elige los medicamentos:</strong> Consulta nuestro catálogo y selecciona los medicamentos que deseas donar o realiza una donación general.</li>
-            <li><strong>Realiza tu donación:</strong> Dona en línea a través de nuestra plataforma segura o entrega medicamentos en nuestros centros de acopio.</li>
-            <li><strong>Entrega a los pacientes:</strong> Trabajamos con médicos y centros de salud para distribuir los medicamentos a quienes más los necesitan.</li>
-            <li><strong>Seguimiento:</strong> Te informaremos sobre el impacto de tu donación y las personas beneficiadas.</li>
-        </ol>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="content-section" style="padding-right: 10px ">
+                <h2>¿Cómo funciona el proceso de donación?</h2>
+                <ol>
+                    <li><strong>Elige los medicamentos:</strong> Consulta nuestro catálogo y selecciona los medicamentos
+                        que deseas donar o realiza una donación general.
+                    </li>
+                    <li><strong>Realiza tu donación:</strong> Dona en línea a través de nuestra plataforma segura o
+                        entrega medicamentos en nuestros centros de acopio.
+                    </li>
+                    <li><strong>Entrega a los pacientes:</strong> Trabajamos con médicos y centros de salud para
+                        distribuir los medicamentos a quienes más los necesitan.
+                    </li>
+                    <li><strong>Seguimiento:</strong> Te informaremos sobre el impacto de tu donación y las personas
+                        beneficiadas.
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="col justify-content-end">
+            <div class="tabla tablaDonacion">
+                <table class="table table-striped">
+                    <caption>Mayores Donantes</caption>
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Donacion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="donante : ${mayoresDonantes}">
+                        <td class="texto"><span><span th:text="${donante.nombre}"></span></span></td>
+                        <td class="numero"><span><span th:text="${donante.getDonado()}"></span><strong>$</strong></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
 
     <div id="content">
         <div id="text">
             <h2>Unidos por la Salud</h2>
-            <p>En Health Pochiteam, nuestra historia comenzó hace más de una década, impulsada por una profunda convicción: la salud es un derecho, no un privilegio...</p>
+            <p>En Health Pochiteam, nuestra historia comenzó hace más de una década, impulsada por una profunda
+                convicción: la salud es un derecho, no un privilegio...</p>
         </div>
         <div id="image">
             <img src="/iconos/doctor-paciente.jpg" alt="Médico y pacientes">
@@ -66,6 +139,7 @@
     </div>
 
     <footer th:replace="fragments/footer :: footer"></footer>
+</div>
 </div>
 </body>
 </html>

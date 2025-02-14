@@ -31,7 +31,6 @@ public class Usuario implements Serializable {
     private Date fechaNacimiento;
     private boolean admin = false;
     private boolean bloqueado = false;
-    private Long donado = 0L;
 
 
     // La relación es lazy por defecto,
@@ -52,11 +51,6 @@ public class Usuario implements Serializable {
     }
 
 
-    // Getters y setters de la relación
-
-    public Set<Tarea> getTareas() {
-        return tareas;
-    }
 
     // Método helper para añadir una tarea a la lista y establecer la relación inversa
     public void addTarea(Tarea tarea) {
@@ -86,5 +80,11 @@ public class Usuario implements Serializable {
     public int hashCode() {
         // Generamos un hash basado en los campos obligatorios
         return Objects.hash(email);
+    }
+
+    public Long getDonado(){
+        return donaciones.stream()
+                .map(Donacion::getCantidad)
+                .reduce(0L,Long::sum);
     }
 }
