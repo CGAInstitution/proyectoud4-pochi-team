@@ -29,13 +29,13 @@ public class DonacionService {
 
     @Transactional
     public void nuevaDonacion(Tarjeta tarjeta, Usuario usuario, int donativo) {
-        tarjeta.setRecaudado(tarjeta.getRecaudado()+donativo);
-        usuario.setDonado(usuario.getDonado() + donativo);
-        Set<Usuario> usuarios = tarjeta.getUsuarios();
-        usuarios.add(usuario);
-        tarjeta.setUsuarios(usuarios);
-        tarjetaRepository.save(tarjeta);
-        usuarioRepository.save(usuario);
+//        tarjeta.setRecaudado(tarjeta.getRecaudado()+donativo);
+//        usuario.setDonado(usuario.getDonado() + donativo);
+//        Set<Usuario> usuarios = tarjeta.getUsuarios();
+//        usuarios.add(usuario);
+//        tarjeta.setUsuarios(usuarios);
+//        tarjetaRepository.save(tarjeta);
+//        usuarioRepository.save(usuario);
     }
 
 //    @Transactional

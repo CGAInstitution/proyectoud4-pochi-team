@@ -33,13 +33,20 @@ public class Tarjeta {
 
 
 
-    @OneToMany(mappedBy = "tarjeta")
+    @OneToMany(mappedBy = "tarjeta", fetch = FetchType.EAGER)
     private Set<Donacion> donaciones = new HashSet<>();
 
-    public Tarjeta(String tarjeta_banco, Paciente paciente) {
+    public Tarjeta(String tarjeta_banco, Paciente paciente, Long objetivo) {
         this.tarjeta_banco = tarjeta_banco;
         this.paciente = paciente;
         this.objetivo = objetivo;
+    }
+
+    public Long getRecaudado(){
+        return donaciones.stream()
+                .map(donacion -> BigInteger.valueOf(donacion.getCantidad()))
+                .reduce(BigInteger.ZERO, BigInteger::add)
+                .longValue();
     }
 
     public int getProgreso(){

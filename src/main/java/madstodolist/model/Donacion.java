@@ -28,11 +28,11 @@ public class Donacion {
 
 
     @ManyToOne
-    @JoinColumn(name="id",nullable = false)
+    @JoinColumn(name="usuario_id",nullable = false)
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name="id",nullable = false)
+    @JoinColumn(name="tarjeta_id",nullable = false)
     private Tarjeta tarjeta;
 
 
