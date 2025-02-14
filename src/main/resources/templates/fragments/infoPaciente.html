@@ -1,23 +1,34 @@
 <div th:fragment="infoPaciente">
     <div class="paciente-container" th:each="paciente : ${pacientes}">
-        <img class="imagen-paciente" th:src="${paciente.imagen}" alt="Imagen de paciente">
-        <div id="datos-paciente" class="row">
-            <span class="tipo-dato"><strong>Nombre:</strong> <span th:text="${paciente.nombre}"></span></span>
-            <span class="tipo-dato"><strong>Edad:</strong> <span th:text="${paciente.edad}"></span></span>
-            <span class="tipo-dato"><strong>Enfermedad:</strong> <span
-                    th:text="${paciente.enfermedad.nombre}"></span></span>
-            <div class="progress-container">
-
-                <div th:if="${paciente.tarjeta.getProgreso()>100}">
-                    <div class="progress-bar" th:style="'width:' + ${paciente.tarjeta.getProgreso()} + '%'"></div>
-                </div>
-                <div th:unless="${paciente.tarjeta.getProgreso()>100}">
-                    <div class="progress-bar"
-                         th:style="'width:' + ${paciente.tarjeta.getProgreso()} + '%; background-color: #74a4d4;'"></div>
-                </div>
+        <div id="datos-paciente" class="row justify-content-end">
+            <div class="col-md-2">
+                <img class="imagen-paciente" th:src="${paciente.imagen}" alt="Imagen de paciente">
             </div>
-            <span class="tipo-dato"><strong>Porcentaje Completado:</strong> <span th:text="${paciente.tarjeta.getProgreso()}"></span><strong>%</strong></span>
+            <div class="col-md-3">
+                <span class="tipo-dato"><strong>Nombre:</strong> <span th:text="${paciente.nombre}"></span></span>
+                <span class="tipo-dato"><strong>Edad:</strong> <span th:text="${paciente.edad}"></span></span>
+                <span class="tipo-dato"><strong>Enfermedad:</strong> <span
+                        th:text="${paciente.enfermedad.nombre}"></span></span>
+            </div>
+            <div class="col-md-6">
+                <div th:with="progreso=${paciente.tarjeta.getProgreso()}">
 
+                    <span class="tipo-dato"><strong>Porcentaje Completado:</strong> <span
+                    th:text="${progreso}"></span><strong>%</strong></span>
+                <div class="progress-container">
+                    <div th:if="${progreso<100}">
+                        <div class="progress-bar" th:style="'width:' + ${progreso} + '%'"></div>
+                    </div>
+                    <div th:if="${progreso>=100}">
+                        <div class="progress-bar"
+                             th:style="'width:' + ${progreso} + '%; background-color: #74a4d4;'"></div>
+                    </div>
+                </div>
+                    <br/>
+                    <span class="tipo-dato"><strong>Objetivo:</strong> <span
+                    th:text="${paciente.tarjeta.paciente.objetivo}"></span><strong></strong></span>
+            </div>
+        </div>
         </div>
     </div>
 </div>

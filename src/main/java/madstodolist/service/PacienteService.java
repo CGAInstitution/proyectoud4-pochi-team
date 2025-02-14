@@ -19,8 +19,8 @@ public class PacienteService {
     private PacienteRepository pacienteRepository;
 
     @Transactional
-    public void nuevoPaciente(String nss, @Null Integer edad, String nombre) {
-        Paciente paciente = new Paciente(nss, edad, nombre);
+    public void nuevoPaciente(String nss, @Null Integer edad, String nombre, Long objetivo) {
+        Paciente paciente = new Paciente(nss, edad, nombre, objetivo);
         pacienteRepository.save(paciente);
     }
 

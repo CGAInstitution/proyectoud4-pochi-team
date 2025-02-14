@@ -21,9 +21,6 @@ public class Tarjeta {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name="Objetivo",nullable=false)
-    private Long objetivo;
-
     @Column(name = "tarjeta_banco", nullable = false, length = 500)
     private String tarjeta_banco;
 
@@ -36,20 +33,19 @@ public class Tarjeta {
     @OneToMany(mappedBy = "tarjeta", fetch = FetchType.EAGER)
     private Set<Donacion> donaciones = new HashSet<>();
 
-    public Tarjeta(String tarjeta_banco, Paciente paciente, Long objetivo) {
+    public Tarjeta(String tarjeta_banco, Paciente paciente) {
         this.tarjeta_banco = tarjeta_banco;
         this.paciente = paciente;
-        this.objetivo = objetivo;
     }
 
-    public Long getRecaudado(){
+    public int getRecaudado(){
         return donaciones.stream()
                 .map(donacion -> BigInteger.valueOf(donacion.getCantidad()))
                 .reduce(BigInteger.ZERO, BigInteger::add)
-                .longValue();
+                .intValue();
     }
 
     public int getProgreso(){
-    return (int) ((getRecaudado() * 100.0) / getObjetivo());
+        return (int) ((getRecaudado() * 100.0) / paciente.getObjetivo());
     }
 }

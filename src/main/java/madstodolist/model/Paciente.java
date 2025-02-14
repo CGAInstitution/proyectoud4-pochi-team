@@ -37,21 +37,26 @@ public class Paciente {
     @JoinColumn(name = "enfermedad", nullable = false)
     private Enfermedad enfermedad;
 
+    @Column(name="Objetivo",nullable=false)
+    private Long objetivo;
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "tarjeta")
     private Tarjeta tarjeta;
 
-    public Paciente(String nss, @Null Integer edad, String nombre) {
+    public Paciente(String nss, @Null Integer edad, String nombre, Long objetivo) {
         this.nss = nss;
         this.edad = edad;
+        this.objetivo = objetivo;
         this.nombre = nombre;
 
     }
 
-    public Paciente(Long id, String nss, @Null Integer edad, String nombre,String imagen) {
+    public Paciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre,String imagen) {
         this.id = id;
         this.nss = nss;
         this.edad = edad;
+        this.objetivo = objetivo;
         this.nombre = nombre;
         this.imagen = imagen;
     }

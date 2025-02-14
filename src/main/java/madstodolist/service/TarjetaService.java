@@ -22,9 +22,9 @@ public class TarjetaService {
         Long recaudado = tarjeta.getDonaciones().stream()
                 .map(Donacion::getCantidad)
                 .reduce(0L, Long::sum);
-        int progreso = (int) ((recaudado * 100.0) / tarjeta.getObjetivo());
+        int progreso = (int) ((recaudado * 100.0) / tarjeta.getPaciente().getObjetivo());
 
-        return new TarjetaDTO(tarjeta.getId(), tarjeta.getObjetivo(), tarjeta.getTarjeta_banco(), recaudado, progreso);
+        return new TarjetaDTO(tarjeta.getId(), tarjeta.getPaciente().getObjetivo(), tarjeta.getTarjeta_banco(), recaudado, progreso);
     }
 
     @Transactional
