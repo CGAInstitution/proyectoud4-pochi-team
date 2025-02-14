@@ -1,0 +1,8 @@
+<div th:fragment="formularioFoto">
+    <!--     <form action="@{/pacientes/{id}/upload-profile-picture(id=${paciente.id})}" method="POST" enctype="multipart/form-data">
+-->
+    <form action="/pacientes/1/upload-profile-picture" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/*" required>
+    <button type="submit">Subir Foto</button>
+</form>
+</div>

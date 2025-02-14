@@ -39,6 +39,11 @@ public class PacienteService {
     }
 
     @Transactional
+    public void guardarPaciente(Paciente paciente) {
+        pacienteRepository.save(paciente);
+    }
+
+    @Transactional
     public Paciente findById(Long idPaciente) {
         return pacienteRepository.findById(idPaciente).orElse(null);
     }

@@ -47,6 +47,7 @@ CREATE TABLE pacientes (
                           nombre varchar(500) NOT NULL,
                           tarjeta bigint NOT NULL,
                           enfermedad bigint NOT NULL,
+                          profilePicture blob NULL,
                           imagen varchar(500) NULL,
                           objetivo int not null,
 						  FOREIGN KEY (enfermedad) references enfermedades(id) 

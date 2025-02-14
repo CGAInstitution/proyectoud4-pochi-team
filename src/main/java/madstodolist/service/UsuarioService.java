@@ -109,4 +109,11 @@ public class UsuarioService {
                 .limit(5)
                 .collect(Collectors.toList());
     }
+
+    @Transactional()
+    public void guardarUser( Usuario usuario){
+        usuarioRepository.save(usuario);
+    }
+
+
 }

@@ -44,6 +44,9 @@ public class Paciente {
     @JoinColumn(name = "tarjeta")
     private Tarjeta tarjeta;
 
+    @Lob
+    private byte[] profilePicture;
+
     public Paciente(String nss, @Null Integer edad, String nombre, Long objetivo) {
         this.nss = nss;
         this.edad = edad;
