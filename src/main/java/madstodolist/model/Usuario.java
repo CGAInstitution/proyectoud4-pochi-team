@@ -31,6 +31,7 @@ public class Usuario implements Serializable {
     private Date fechaNacimiento;
     private boolean admin = false;
     private boolean bloqueado = false;
+    private Long donado = 0L;
 
 
     // La relación es lazy por defecto,
