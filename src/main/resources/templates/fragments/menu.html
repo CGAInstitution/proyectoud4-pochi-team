@@ -7,6 +7,7 @@
 
         <!-- Si el usuario está logueado se muestran las acciones -->
         <div th:if="${usuarioLogeado}" class="user-actions">
+                <img src="/iconos/acceso.png" alt="muñeco" width="37px" height="37px" style="margin-right: 5px"/>
             <div class="user-name">
                 <p style="margin-bottom: 0"><span th:text="${usuario.nombre}">Usuario</span></p>
                 <!-- Menú desplegable de opciones al pasar el ratón -->
@@ -23,7 +24,7 @@
         </div>
 
         <!-- Si el usuario no está logueado se muestra el login -->
-        <div id="Login" th:unless="${usuarioLogeado}">
+        <div class="user-actions" th:unless="${usuarioLogeado}">
             <a href="/login">Login</a>
         </div>
     </div>

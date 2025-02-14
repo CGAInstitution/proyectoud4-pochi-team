@@ -324,3 +324,42 @@ body {
 .vh-100 {
     background: #cdeef4;
 }
+
+.table{
+
+    caption-side: top;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+}
+
+caption{
+    text-align: center;
+}
+
+.tabla{
+        margin-top: 10px;
+    padding: 10px;
+
+}
+
+.tabla th{
+    text-align: center;
+}
+
+.texto{
+    text-align: center;
+}
+
+.numero{
+    text-align: end;
+}
+
+.tablaObjetivo{
+    width: 450px;
+}
+
+.tablaDonacion{
+    padding: 30px;
+    width: 300px;
+}

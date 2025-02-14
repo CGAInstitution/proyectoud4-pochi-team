@@ -37,6 +37,7 @@ public class PacienteService {
         paciente.setNombre(nombre);
         pacienteRepository.save(paciente);
     }
+
     @Transactional
     public Paciente findById(Long idPaciente) {
         return pacienteRepository.findById(idPaciente).orElse(null);
@@ -47,4 +48,15 @@ public class PacienteService {
         return StreamSupport.stream(pacienteRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public List<Paciente> getMasCercaDeObjetivo() {
+        return allPacientes().stream()
+                .filter(p -> p.getTarjeta().getProgreso() < 100)
+                .sorted((p1, p2) -> Integer.compare(p2.getTarjeta().getProgreso(), p1.getTarjeta().getProgreso()))
+                .limit(5)
+                .collect(Collectors.toList());
+    }
+
+
 }
