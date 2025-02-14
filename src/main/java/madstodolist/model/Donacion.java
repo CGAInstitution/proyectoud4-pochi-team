@@ -19,11 +19,11 @@ public class Donacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "fecha")
+    @Column(name = "fecha",nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
 
-    @Column(name="cantidad")
+    @Column(name="cantidad",nullable = false)
     private Long cantidad;
 
 
