@@ -32,9 +32,6 @@ public class Paciente {
     @Column(name = "imagen", nullable = true)
     private String imagen;
 
-    @Column(name="Objetivo",nullable=false)
-    private int objetivo;
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "enfermedad", nullable = false)
@@ -44,20 +41,18 @@ public class Paciente {
     @JoinColumn(name = "tarjeta")
     private Tarjeta tarjeta;
 
-    public Paciente(String nss, @Null Integer edad, String nombre,int objetivo) {
+    public Paciente(String nss, @Null Integer edad, String nombre) {
         this.nss = nss;
         this.edad = edad;
         this.nombre = nombre;
-        this.objetivo=objetivo;
 
     }
 
-    public Paciente(Long id, String nss, @Null Integer edad, String nombre,String imagen,int objetivo) {
+    public Paciente(Long id, String nss, @Null Integer edad, String nombre,String imagen) {
         this.id = id;
         this.nss = nss;
         this.edad = edad;
         this.nombre = nombre;
         this.imagen = imagen;
-        this.objetivo=objetivo;
     }
 }

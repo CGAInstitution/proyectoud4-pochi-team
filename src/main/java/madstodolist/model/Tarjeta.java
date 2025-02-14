@@ -21,6 +21,9 @@ public class Tarjeta {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name="Objetivo",nullable=false)
+    private Long objetivo;
+
     @Column(name = "tarjeta_banco", nullable = false, length = 500)
     private String tarjeta_banco;
 
@@ -44,5 +47,10 @@ public class Tarjeta {
         this.tarjeta_banco = tarjeta_banco;
         this.recaudado = recaudado;
         this.paciente = paciente;
+        this.objetivo = objetivo;
+    }
+
+    public int getProgreso(){
+    return (int) ((getRecaudado() * 100.0) / getObjetivo());
     }
 }

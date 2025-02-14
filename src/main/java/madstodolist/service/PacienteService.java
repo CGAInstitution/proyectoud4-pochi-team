@@ -19,8 +19,8 @@ public class PacienteService {
     private PacienteRepository pacienteRepository;
 
     @Transactional
-    public void nuevoPaciente(String nss, @Null Integer edad, String nombre,int objetivo) {
-        Paciente paciente = new Paciente(nss, edad, nombre,objetivo);
+    public void nuevoPaciente(String nss, @Null Integer edad, String nombre) {
+        Paciente paciente = new Paciente(nss, edad, nombre);
         pacienteRepository.save(paciente);
     }
 
@@ -30,12 +30,11 @@ public class PacienteService {
     }
 
     @Transactional
-    public void updatePaciente(Long idPaciente, String nss, @Null Integer edad, String nombre,int objetivo) {
+    public void updatePaciente(Long idPaciente, String nss, @Null Integer edad, String nombre) {
         Paciente paciente = pacienteRepository.findById(idPaciente).orElse(null);
         paciente.setNss(nss);
         paciente.setEdad(edad);
         paciente.setNombre(nombre);
-        paciente.setObjetivo(objetivo);
         pacienteRepository.save(paciente);
     }
     @Transactional

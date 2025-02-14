@@ -12,6 +12,23 @@ body {
     padding: 20px;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
 }
+.progress-container {
+    width: 300px;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #f3f3f3;
+    border-radius: 25px;
+    border-color: black;
+    border-style: solid;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 30px;
+    background-color: #4caf50;
+    width: 0;
+    transition: width 0.5s;
+}
 /* Estilos generales del menú */
 .menu {
     display: flex;
@@ -166,6 +183,7 @@ body {
     align-items: center;
     gap: 15px;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 #datos-paciente .tipo-dato {
@@ -328,4 +346,3 @@ body {
     text-align: center;
     margin-bottom: 20px;
 }
-
