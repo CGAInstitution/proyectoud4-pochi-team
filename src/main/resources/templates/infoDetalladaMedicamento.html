@@ -17,7 +17,10 @@
                 <a th:href="@{/medicamentos/editar/{id}(id=${medicamento.id})}">
                     <button style="display: inline-block; float: right;">Modificar</button>
                 </a>
-                <button style="display: inline-block; float: right;">Eliminar</button>
+                <form th:action="@{/medicamentos/eliminar/{id}(id=${medicamento.id})}" method="post" style="display: inline-block; float: right;">
+                    <input type="hidden" name="_method" value="DELETE"/>
+                    <button type="submit">Eliminar</button>
+                </form>
             </div>
         </div>
     </div>

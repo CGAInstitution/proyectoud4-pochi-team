@@ -1,6 +1,8 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
+import madstodolist.controller.exception.TareaNotFoundException;
+import madstodolist.dto.TareaData;
 import madstodolist.dto.UsuarioData;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Medicamento;
@@ -12,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -124,9 +128,9 @@ public class MedicamentoController {
         return "redirect:/medicamentos";
     }
 
-    @PostMapping("/medicamentos/borrar/{id}")
-    public String borrarMedicamento(@PathVariable(value="id") Long idPaciente) {
-        medicamentoService.deleteMedicamento(idPaciente);
+    @PostMapping("/medicamentos/eliminar/{id}")
+    public String borrarMedicamento(@PathVariable(value="id") Long idMedicamento) {
+        medicamentoService.deleteMedicamento(idMedicamento);
         return "redirect:/medicamentos";
     }
 }
