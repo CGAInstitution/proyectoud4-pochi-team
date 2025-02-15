@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -36,10 +37,9 @@ public class MedicamentoService {
             medicamento.get().setDescripcion(descripcion);
             medicamento.get().setPrecio(precio);
             medicamento.get().setReceta(receta);
-            /*medicamento.get().setEnfermedades(enfermedades);*/
+            //medicamento.get().setEnfermedades(enfermedades);
             medicamentoRepository.save(medicamento.get());
         }
-        System.out.println("Medicamento no encontrado");
     }
 
     @Transactional

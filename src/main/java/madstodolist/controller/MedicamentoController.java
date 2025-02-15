@@ -84,17 +84,15 @@ public class MedicamentoController {
     }
 
     @PostMapping("/medicamentos/actualizar/{id}")
-    public String actualizarMedicamento(@PathVariable(value="id") @ModelAttribute Medicamento medicamento, @RequestParam(required = false) List<Long> enfermedades) {
-        Set<Enfermedad> enfermedadesNuevas = new HashSet<>();
+    public String actualizarMedicamento(@PathVariable(value="id") Long idMedicamento, String nombre, String descripcion, int precio, boolean receta/*, @RequestParam(required = false) List<Long> enfermedades*/) {
+        /*Set<Enfermedad> enfermedadesNuevas = new HashSet<>();
         for (Long id : enfermedades) {
             Enfermedad enfermedad = enfermedadService.findById(id);
             enfermedadesNuevas.add(enfermedad);
         }
-        medicamento.setEnfermedades(enfermedadesNuevas);
-        System.out.println(medicamento.getEnfermedades().size());
-        medicamentoService.updateMedicamento(medicamento.getId(), medicamento.getNombre(), medicamento.getDescripcion(),
-                medicamento.getPrecio(), medicamento.isReceta()/*, enfermedadesNuevas*/);
-        return "redirect:/medicamentos/" + medicamento.getId();
+        System.out.println(enfermedadesNuevas.size());*/
+        medicamentoService.updateMedicamento(idMedicamento, nombre, descripcion, precio, receta/*, enfermedadesNuevas*/);
+        return "redirect:/medicamentos/" + idMedicamento;
     }
 
     @PostMapping("/medicamentos/crear/{id}")
