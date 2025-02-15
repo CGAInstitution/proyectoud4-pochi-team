@@ -42,6 +42,8 @@
                 <label for="tarjeta_banco" class="form-label">Número de Tarjeta</label>
                 <input type="text" class="form-control" id="tarjeta_banco" th:field="*{tarjeta.tarjeta_banco}" required>
             </div>
+
+            <div th:replace="fragments/formularioFoto :: formularioFoto"/>
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
 

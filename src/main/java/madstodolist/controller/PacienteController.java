@@ -10,10 +10,17 @@ import madstodolist.service.EnfermedadService;
 import madstodolist.service.PacienteService;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Objects;
 
 @Controller
@@ -111,6 +118,35 @@ public class PacienteController {
             pacienteService.guardarPaciente(existingPaciente);
         }
         return "redirect:/pacientes";
+    }
+
+    @PostMapping("/pacientes/{id}/upload-profile-picture")
+    public String uploadProfilePicture(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file) throws IOException {
+
+
+        Paciente paciente = pacienteService.findById(id);
+
+        // Guardar la imagen como byte[] en la base de datos
+        paciente.setProfilePicture(file.getBytes());
+        pacienteService.guardarPaciente(paciente);
+
+        return  "redirect:/";
+    }
+
+    // Obtener la imagen desde la base de datos y devolverla como respuesta HTTP
+    @GetMapping("/pacientes/{id}/profile-picture")
+    public String getProfilePicture(@PathVariable Long id) throws IOException {
+
+        byte[] image = pacienteService.findById(id).getProfilePicture();
+
+    if (image == null) {
+        Resource defaultImage = new ClassPathResource("static/iconos/doctor.jpg");
+        image = StreamUtils.copyToByteArray(defaultImage.getInputStream());
+    }
+
+    return "redirect:/";
     }
 
 }
