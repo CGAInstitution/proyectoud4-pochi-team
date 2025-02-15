@@ -13,6 +13,7 @@ body {
     box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
 }
 .progress-container {
+    text-align: center;
     width: 300px;
     padding-left: 0;
     padding-right: 0;

@@ -160,7 +160,7 @@ public class PacienteController {
             donacionService.nuevaDonacion(tarjeta, usuario, donativo);
         }
         model.addAttribute("pacientes", pacienteService.allPacientes());
-        return "pacientes";
+        return "redirect:/pacientes";
     }
 
 }
