@@ -1,5 +1,6 @@
 package madstodolist.service;
 
+import madstodolist.model.Enfermedad;
 import madstodolist.model.Medicamento;
 import madstodolist.repository.MedicamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,14 @@ public class MedicamentoService {
     }
 
     @Transactional
-    public void updateMedicamento(Long id, String nombre, String descripcion, int precio, boolean receta) {
+    public void updateMedicamento(Long id, String nombre, String descripcion, int precio, boolean receta/*, Set<Enfermedad> enfermedades*/) {
         Optional<Medicamento> medicamento = medicamentoRepository.findById(id);
         if (medicamento.isPresent()) {
             medicamento.get().setNombre(nombre);
             medicamento.get().setDescripcion(descripcion);
             medicamento.get().setPrecio(precio);
             medicamento.get().setReceta(receta);
+            /*medicamento.get().setEnfermedades(enfermedades);*/
             medicamentoRepository.save(medicamento.get());
         }
         System.out.println("Medicamento no encontrado");

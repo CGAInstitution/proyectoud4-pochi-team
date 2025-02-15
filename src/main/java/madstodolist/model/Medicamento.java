@@ -57,4 +57,16 @@ public class Medicamento {
         this.precio = precio;
         this.receta = receta;
     }
+
+    @Override
+    public String toString() {
+        return "Medicamento{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", precio=" + precio +
+                ", receta=" + receta +
+                ", enfermedades=" + enfermedades +
+                '}';
+    }
 }
