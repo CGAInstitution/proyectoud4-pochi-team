@@ -29,22 +29,21 @@ public class Paciente {
     @Column(name = "nombre", nullable = false, length = 500)
     private String nombre;
 
-    @Column(name = "imagen", nullable = true)
-    private String imagen;
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "enfermedad", nullable = false)
     private Enfermedad enfermedad;
 
-    @Column(name="Objetivo",nullable=false)
+    @Column(name = "Objetivo", nullable = false)
     private Long objetivo;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "tarjeta")
     private Tarjeta tarjeta;
 
-
+    @Lob
+    @Column(name = "profilePicture", nullable = true)
+    private byte[] profilePicture;
 
     @OneToOne(mappedBy = "paciente")
     private Usuario usuario;
@@ -57,12 +56,11 @@ public class Paciente {
 
     }
 
-    public Paciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre,String imagen) {
+    public Paciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre) {
         this.id = id;
         this.nss = nss;
         this.edad = edad;
         this.objetivo = objetivo;
         this.nombre = nombre;
-        this.imagen = imagen;
     }
 }

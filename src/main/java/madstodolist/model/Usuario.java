@@ -91,4 +91,8 @@ public class Usuario implements Serializable {
                 .map(Donacion::getCantidad)
                 .reduce(0L,Long::sum);
     }
+
+    public boolean isPaciente(){
+        return this.paciente != null;
+    }
 }

@@ -38,8 +38,7 @@ public class EnfermedadController {
         model.addAttribute("enfermedades", enfermedadeService.allEnfermedades());
 
         if (usuarioLogeado) {
-            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
-            model.addAttribute("usuario", usuario);
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
         }
         return "enfermedades";
     }
@@ -58,12 +57,10 @@ public class EnfermedadController {
         model.addAttribute("medicamentos", medicamentos);
 
         if (usuarioLogeado) {
-            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
-            model.addAttribute("usuario", usuario);
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
         }
 
         return "infoDetalladaEnfermedad";
     }
 
 }
-

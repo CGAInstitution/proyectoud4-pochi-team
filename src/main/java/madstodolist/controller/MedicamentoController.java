@@ -38,8 +38,7 @@ public class MedicamentoController {
         model.addAttribute("usuarioLogeado", usuarioLogeado);
 
         if (usuarioLogeado) {
-            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
-            model.addAttribute("usuario", usuario);
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
         }
         model.addAttribute("medicamentos", medicamentoService.getAllMedicamentos());
         return "medicamentos";
@@ -57,8 +56,7 @@ public class MedicamentoController {
         model.addAttribute("enfermedades", enfermedades);
 
         if (usuarioLogeado) {
-            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
-            model.addAttribute("usuario", usuario);
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
         }
         model.addAttribute("enfermedadesAll",enfermedadService.allEnfermedades());
 

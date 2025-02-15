@@ -1,22 +1,20 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
-import madstodolist.dto.UsuarioData;
-import madstodolist.model.Paciente;
-import madstodolist.model.Tarjeta;
-import madstodolist.service.DonacionService;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Paciente;
+import madstodolist.model.Tarjeta;
+import madstodolist.model.Usuario;
+import madstodolist.service.DonacionService;
+import madstodolist.service.EnfermedadService;
 import madstodolist.service.PacienteService;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @Controller
 public class PacienteController {
@@ -26,6 +24,9 @@ public class PacienteController {
 
     @Autowired
     UsuarioService usuarioService;
+
+    @Autowired
+    private EnfermedadService enfermedadService;
 
     @Autowired
     private PacienteService pacienteService;
@@ -40,15 +41,14 @@ public class PacienteController {
         model.addAttribute("usuarioLogeado", usuarioLogeado);
 
         if (usuarioLogeado) {
-            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
-            model.addAttribute("usuario", usuario);
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
         }
         model.addAttribute("pacientes", pacienteService.allPacientes());
         return "pacientes";
     }
 
     @GetMapping("/pacientes/{id}")
-    public String pacienteDetallado(@PathVariable(value="id") Long idPaciente, Model model) {
+    public String pacienteDetallado(@PathVariable(value = "id") Long idPaciente, Model model) {
 
         Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
         boolean usuarioLogeado = usuarioLogeadoId != null;
@@ -59,8 +59,7 @@ public class PacienteController {
         model.addAttribute("enfermedad", enfermedad);
 
         if (usuarioLogeado) {
-            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
-            model.addAttribute("usuario", usuario);
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
         }
 
         return "infoDetalladaPaciente";
@@ -73,14 +72,45 @@ public class PacienteController {
         model.addAttribute("usuarioLogeado", usuarioLogeado);
 
         if (usuarioLogeado) {
-            UsuarioData usuario = (usuarioService.findById(usuarioLogeadoId));
-            model.addAttribute("usuario", usuario);
+            Usuario usuario = usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId));
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
             Paciente paciente = pacienteService.findById(idPaciente);
             Tarjeta tarjeta = paciente.getTarjeta();
-            donacionService.nuevaDonacion(tarjeta, usuarioService.getUsuario(usuario), donativo);
+            donacionService.nuevaDonacion(tarjeta, usuario, donativo);
         }
         model.addAttribute("pacientes", pacienteService.allPacientes());
         return "Pacientes";
+    }
+
+    @GetMapping("pacientes/gestionarPaciente/{id}")
+    public String gestionarPaciente(@PathVariable(value = "id") Long idUsuario, Model model) {
+
+        Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+
+        if (!Objects.equals(usuarioLogeadoId, idUsuario)) {
+            return "/";
+        }
+
+        model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
+        model.addAttribute("enfermedades", enfermedadService.allEnfermedades());
+        model.addAttribute("paciente", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)).getPaciente());
+
+        return "gestionarPaciente";
+    }
+
+    @PostMapping("pacientes/guardar/{id}")
+    public String guardarPaciente(@PathVariable(value = "id") Long idPaciente, @ModelAttribute Paciente paciente) {
+        Paciente existingPaciente = pacienteService.findById(idPaciente);
+        if (existingPaciente != null) {
+            existingPaciente.setNss(paciente.getNss());
+            existingPaciente.setEdad(paciente.getEdad());
+            existingPaciente.setNombre(paciente.getNombre());
+            existingPaciente.setObjetivo(paciente.getObjetivo());
+            existingPaciente.setEnfermedad(paciente.getEnfermedad());
+            existingPaciente.getTarjeta().setTarjeta_banco(paciente.getTarjeta().getTarjeta_banco());
+            pacienteService.guardarPaciente(existingPaciente);
+        }
+        return "redirect:/pacientes";
     }
 
 }

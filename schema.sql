@@ -48,6 +48,7 @@ CREATE TABLE pacientes (
                           tarjeta bigint NOT NULL,
                           enfermedad bigint NOT NULL,
                           objetivo int not null,
+                          profilePicture blob NULL,
 						  FOREIGN KEY (enfermedad) references enfermedades(id) 
 							on delete cascade 
 							on update cascade,
@@ -134,4 +135,7 @@ INSERT INTO usuario_data(email, nombre, password,admin) VALUES
 
 INSERT INTO usuario_tarjeta(usuario_id,tarjeta_id,cantidad) VALUES
 (1,1,2000),
-(2,2,3000)
+(2,2,3000);
+
+INSERT INTO usuario_data(email, nombre, password,admin,paciente) VALUES
+("user@ua2","usuarioPaciente","123",true,1);

@@ -2,6 +2,7 @@ package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
 import madstodolist.dto.UsuarioData;
+import madstodolist.model.Usuario;
 import madstodolist.service.PacienteService;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,7 @@ public class HomeController {
         model.addAttribute("usuarioLogeado", usuarioLogeado);
 
         if (usuarioLogeado) {
-            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
-            model.addAttribute("usuario", usuario);
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
         }
 
         model.addAttribute("mayoresDonantes",usuarioService.mayoresDonantes());

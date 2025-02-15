@@ -58,5 +58,9 @@ public class PacienteService {
                 .collect(Collectors.toList());
     }
 
+    public void guardarPaciente(Paciente paciente) {
+        pacienteRepository.save(paciente);
+    }
+
 
 }

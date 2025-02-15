@@ -2,13 +2,17 @@ package madstodolist.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import madstodolist.model.Donacion;
+import madstodolist.model.Paciente;
 
 import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 // Data Transfer Object para la clase Usuario
 @Getter
@@ -23,6 +27,8 @@ public class UsuarioData {
     private boolean admin = false;
     private boolean bloqueado = false;
     private Long donado = 0L;
+    private Set<Donacion> donaciones = new HashSet<>();
+    private Paciente paciente;
 
     // Getters y setters
     // Sobreescribimos equals y hashCode para que dos usuarios sean iguales
