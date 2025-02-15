@@ -32,13 +32,34 @@ public class PacienteService {
     }
 
     @Transactional
-    public void updatePaciente(Long idPaciente, String nss, @Null Integer edad, String nombre) {
+    public void updatePaciente(
+            Long idPaciente,
+            String nss,
+            @Null Integer edad,
+            String nombre,
+            Enfermedad enfermedadExistente,
+            Tarjeta tarjetaExistente) {
+
         Paciente paciente = pacienteRepository.findById(idPaciente).orElse(null);
+
+        if (paciente == null) {
+            throw new RuntimeException("Paciente no encontrado");
+        }
+
         paciente.setNss(nss);
         paciente.setEdad(edad);
         paciente.setNombre(nombre);
+
+        if (enfermedadExistente != null) {
+            paciente.setEnfermedad(enfermedadExistente);
+        } else if (tarjetaExistente != null) {
+            paciente.setTarjeta(tarjetaExistente);
+        }
+
+
         pacienteRepository.save(paciente);
     }
+
 
     @Transactional
     public Paciente findById(Long idPaciente) {

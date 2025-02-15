@@ -6,10 +6,7 @@ import madstodolist.model.Paciente;
 import madstodolist.service.EnfermedadService;
 import madstodolist.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +51,8 @@ public class PacienteRestController {
 
     @PostMapping("/api/pacientes")
     public void nuevoPaciente(@RequestBody Paciente paciente) {
-        // Verificamos si la enfermedad ya existe
         Enfermedad enfermedadExistente = enfermedadService.findById(paciente.getEnfermedad().getId());
-
-        // Si la enfermedad no existe, la creamos
         if (enfermedadExistente == null) {
-            // Usamos el método nuevaEnfermedad para crearla
             enfermedadExistente = enfermedadService.nuevaEnfermedad(
                     paciente.getEnfermedad().getNombre(),
                     paciente.getEnfermedad().getDescripcion(),
@@ -68,7 +61,6 @@ public class PacienteRestController {
             );
         }
 
-        // Luego, creamos el paciente con la enfermedad
         pacienteService.nuevoPaciente(
                 paciente.getId(),
                 paciente.getNss(),
@@ -79,7 +71,26 @@ public class PacienteRestController {
                 paciente.getTarjeta()
         );
     }
+    //Este aun no funciona
+    @PutMapping("/api/pacientes/{id}")
+    public void modificarPaciente(@PathVariable Long id, @RequestBody Paciente paciente) {
+        Enfermedad enfermedadExistente = enfermedadService.findById(paciente.getEnfermedad().getId());
+        if (enfermedadExistente == null) {
+            enfermedadExistente = enfermedadService.nuevaEnfermedad(
+                    paciente.getEnfermedad().getNombre(),
+                    paciente.getEnfermedad().getDescripcion(),
+                    paciente.getEnfermedad().getPeligrosidad(),
+                    paciente.getEnfermedad().isContagiable()
+            );
+        }
 
-
-
+        pacienteService.updatePaciente(
+                id,
+                paciente.getNss(),
+                paciente.getEdad(),
+                paciente.getNombre(),
+                enfermedadExistente,
+                paciente.getTarjeta()
+        );
+    }
 }
