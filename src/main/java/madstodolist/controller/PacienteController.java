@@ -72,10 +72,12 @@ public class PacienteController {
         return "infoDetalladaPaciente";
     }
 
-    @GetMapping("pacientes/gestionarPaciente/{id}")
+    @GetMapping("/pacientes/gestionarPaciente/{id}")
     public String gestionarPaciente(@PathVariable(value = "id") Long idUsuario, Model model) {
 
         Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+        boolean usuarioLogeado = usuarioLogeadoId != null;
+        model.addAttribute("usuarioLogeado", usuarioLogeado);
 
         if (!Objects.equals(usuarioLogeadoId, idUsuario)) {
             return "/";
@@ -88,7 +90,7 @@ public class PacienteController {
         return "gestionarPaciente";
     }
 
-    @PostMapping("pacientes/guardar/{id}")
+    @PostMapping("/pacientes/guardar/{id}")
     public String guardarPaciente(@PathVariable(value = "id") Long idPaciente, @ModelAttribute Paciente paciente) {
         Paciente existingPaciente = pacienteService.findById(idPaciente);
         if (existingPaciente != null) {
