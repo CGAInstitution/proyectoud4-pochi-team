@@ -5,6 +5,7 @@ import madstodolist.dto.UsuarioData;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Medicamento;
 import madstodolist.model.Paciente;
+import madstodolist.service.EnfermedadService;
 import madstodolist.service.MedicamentoService;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class MedicamentoController {
 
     @Autowired
     UsuarioService usuarioService;
+
+    @Autowired
+    EnfermedadService enfermedadService;
 
     @Autowired
     private MedicamentoService medicamentoService;
@@ -56,6 +60,7 @@ public class MedicamentoController {
             UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
             model.addAttribute("usuario", usuario);
         }
+        model.addAttribute("enfermedadesAll",enfermedadService.allEnfermedades());
 
         return "infoDetalladaMedicamento";
     }

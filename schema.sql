@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS HEALTH_DATABASE;
 use HEALTH_DATABASE;
 
 CREATE TABLE enfermedades (
-                            id bigint NOT NULL PRIMARY KEY,
+                            id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             nombre varchar(500) NOT NULL,
                             descripcion varchar(500),
                             peligrosidad smallint,
@@ -13,7 +13,7 @@ CREATE TABLE enfermedades (
 
 
 CREATE TABLE medicamentos (
-                             id bigint NOT NULL PRIMARY KEY,
+                             id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                              nombre varchar(500) NOT NULL,
                              descripcion varchar(500),
                              precio int default 0,
@@ -22,7 +22,7 @@ CREATE TABLE medicamentos (
 
 
 CREATE TABLE enfermedades_medicamentos (
-                                        id bigint NOT NULL PRIMARY KEY,
+                                        id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                         id_enfermedad bigint NOT NULL,
                                         id_medicamento bigint NOT NULL,
                                         FOREIGN KEY (id_enfermedad) references enfermedades(id)
@@ -35,19 +35,18 @@ CREATE TABLE enfermedades_medicamentos (
 
 
 CREATE TABLE tarjetas (
-                         id bigint NOT NULL PRIMARY KEY,
+                         id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                          tarjeta_banco varchar(500) NOT NULL
 );
 
 
 CREATE TABLE pacientes (
-                          id bigint NOT NULL PRIMARY KEY,
+                          id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                           NSS tinyint NOT NULL,
                           edad int,
                           nombre varchar(500) NOT NULL,
                           tarjeta bigint NOT NULL,
                           enfermedad bigint NOT NULL,
-                          imagen varchar(500) NULL,
                           objetivo int not null,
 						  FOREIGN KEY (enfermedad) references enfermedades(id) 
 							on delete cascade 
@@ -64,10 +63,14 @@ CREATE TABLE usuario_data (
                               email varchar(500) NOT NULL,
                               nombre varchar(500) NOT NULL,
                               password varchar(500) NOT NULL,
-                              fecha_nacimiento date,
+                              fecha_nacimiento date null,
                               donado bigint NOT NULL DEFAULT 0,
                               admin boolean NOT NULL DEFAULT false,
-                              bloqueado boolean NOT NULL DEFAULT false
+                              bloqueado boolean NOT NULL DEFAULT false,
+							  paciente bigint NULL,
+							  FOREIGN KEY (paciente) references pacientes(id) 
+								on delete cascade 
+								on update cascade
 );
 
 CREATE TABLE usuario_tarjeta (
@@ -117,13 +120,13 @@ INSERT INTO tarjetas (id, tarjeta_banco) VALUES
 (5, 'Citibanamex 8765 4321 0987 6543'),
 (6, 'ABANCA 8765 4321 0987 6543');
 
-INSERT INTO pacientes (id, NSS, edad, nombre, tarjeta, enfermedad, imagen,objetivo) VALUES
-(1, 123, 45, 'Juan Pérez', 1, 1, NULL,2000), -- Tiene Gripe
-(2, 124, 60, 'Ana Gómez', 2, 2, NULL,38000), -- Tiene Diabetes
-(3, 125, 35, 'Carlos Sánchez', 3, 3, NULL,34), -- Tiene COVID-19
-(4, 126, 50, 'María López', 4, 4, NULL,45000), -- Tiene Hipertensión
-(5, 127, 10, 'Luis Martínez', 5, 5, NULL,200000), -- Tiene Hipertensión
-(6, 117, 19, 'JUAN BARRIO', 6, 5, NULL,300000); -- Tiene Varicela
+INSERT INTO pacientes (id, NSS, edad, nombre, tarjeta, enfermedad,objetivo) VALUES
+(1, 123, 45, 'Juan Pérez', 1, 1,2000), -- Tiene Gripe
+(2, 124, 60, 'Ana Gómez', 2, 2,38000), -- Tiene Diabetes
+(3, 125, 35, 'Carlos Sánchez', 3, 3,34), -- Tiene COVID-19
+(4, 126, 50, 'María López', 4, 4,45000), -- Tiene Hipertensión
+(5, 127, 10, 'Luis Martínez', 5, 5,200000), -- Tiene Hipertensión
+(6, 117, 19, 'JUAN BARRIO', 6, 5,300000); -- Tiene Varicela
 
 INSERT INTO usuario_data(email, nombre, password,admin) VALUES
 ("user@ua1","usuarioPrueba","123",true),

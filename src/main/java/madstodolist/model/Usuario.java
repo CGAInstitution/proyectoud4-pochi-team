@@ -32,6 +32,10 @@ public class Usuario implements Serializable {
     private boolean admin = false;
     private boolean bloqueado = false;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "paciente")
+    private Paciente paciente;
+
 
     // La relación es lazy por defecto,
     // es necesario acceder a la lista de tareas para que se carguen

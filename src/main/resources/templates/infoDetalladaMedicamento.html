@@ -22,6 +22,13 @@
 
     <div id="contenedorMedicamentos" th:object="${medicamento}">
         <div th:replace="fragments/infoMedicamento :: infoMedicamentoFragment"></div>
+        <select name="enfermedades" multiple size="10">
+            <option th:each="enfermedad : ${enfermedadesAll}"
+                    th:value="${enfermedad.id}"
+                    th:text="${enfermedad.nombre}"
+                    th:selected="${medicamento.enfermedades.contains(enfermedad)}">
+            </option>
+        </select>
     </div>
 
 </div>

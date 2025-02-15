@@ -44,6 +44,11 @@ public class Paciente {
     @JoinColumn(name = "tarjeta")
     private Tarjeta tarjeta;
 
+
+
+    @OneToOne(mappedBy = "paciente")
+    private Usuario usuario;
+
     public Paciente(String nss, @Null Integer edad, String nombre, Long objetivo) {
         this.nss = nss;
         this.edad = edad;

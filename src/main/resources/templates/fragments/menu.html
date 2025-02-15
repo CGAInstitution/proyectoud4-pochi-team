@@ -19,6 +19,9 @@
                     <div>
                         <a id="logout" href="/logout">LogOut</a>
                     </div>
+                    <div th:if="${usuario.admin}">
+                        <a id="gestionarPaciente" href="/logout">LogOut</a>
+                    </div>
                 </div>
             </div>
         </div>
