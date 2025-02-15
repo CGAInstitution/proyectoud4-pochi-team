@@ -72,23 +72,6 @@ public class PacienteController {
         return "infoDetalladaPaciente";
     }
 
-    @PostMapping("/pacientes/donacion/{idPaciente}")
-    public String donar(@PathVariable Long idPaciente, @RequestParam int donativo, Model model) {
-        Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
-        boolean usuarioLogeado = usuarioLogeadoId != null;
-        model.addAttribute("usuarioLogeado", usuarioLogeado);
-
-        if (usuarioLogeado) {
-            Usuario usuario = usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId));
-            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
-            Paciente paciente = pacienteService.findById(idPaciente);
-            Tarjeta tarjeta = paciente.getTarjeta();
-            donacionService.nuevaDonacion(tarjeta, usuario, donativo);
-        }
-        model.addAttribute("pacientes", pacienteService.allPacientes());
-        return "Pacientes";
-    }
-
     @GetMapping("pacientes/gestionarPaciente/{id}")
     public String gestionarPaciente(@PathVariable(value = "id") Long idUsuario, Model model) {
 
@@ -121,7 +104,7 @@ public class PacienteController {
     }
 
     @PostMapping("/pacientes/{id}/upload-profile-picture")
-    public String  uploadProfilePicture(
+    public String uploadProfilePicture(
             @PathVariable Long id,
             @RequestParam("file") MultipartFile file) throws IOException {
 
@@ -141,14 +124,43 @@ public class PacienteController {
 
         byte[] image = pacienteService.findById(id).getProfilePicture();
 
-    if (image == null) {
-        Resource defaultImage = new ClassPathResource("static/iconos/doctor.jpg");
-        image = StreamUtils.copyToByteArray(defaultImage.getInputStream());
+        if (image == null) {
+            Resource defaultImage = new ClassPathResource("static/iconos/doctor.jpg");
+            image = StreamUtils.copyToByteArray(defaultImage.getInputStream());
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(image);
     }
 
-    return ResponseEntity.ok()
-            .contentType(MediaType.IMAGE_JPEG)
-            .body(image);
+    @GetMapping("/donar/{id}")
+    public String formDonar(@PathVariable("id") Long idPaciente, Model model) {
+        Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+        boolean usuarioLogeado = usuarioLogeadoId != null;
+
+        if (usuarioLogeado) {
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
+        }
+        model.addAttribute("paciente", pacienteService.findById(idPaciente));
+        return "formDonar";
+    }
+
+    @PostMapping("/pacientes/donacion/{idPaciente}")
+    public String donar(@PathVariable Long idPaciente, @RequestParam Long donativo, Model model) {
+        Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+        boolean usuarioLogeado = usuarioLogeadoId != null;
+        model.addAttribute("usuarioLogeado", usuarioLogeado);
+
+        if (usuarioLogeado) {
+            Usuario usuario = usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId));
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
+            Paciente paciente = pacienteService.findById(idPaciente);
+            Tarjeta tarjeta = paciente.getTarjeta();
+            donacionService.nuevaDonacion(tarjeta, usuario, donativo);
+        }
+        model.addAttribute("pacientes", pacienteService.allPacientes());
+        return "pacientes";
     }
 
 }

@@ -17,7 +17,7 @@
                         <a id="gestionar" href="/administrarUsuarios">Gestionar</a>
                     </div>
                     <div th:if="${usuario.isPaciente()}">
-                        <a id="gestionarPaciente" th:href="@{pacientes/gestionarPaciente/{id}(id=${usuario.id})}">gestionarPaciente</a>
+                        <a id="gestionarPaciente" th:href="@{pacientes/gestionarPaciente/{id}(id=${usuario.id})}">Paciente</a>
                     </div>
                     <div>
                         <a id="logout" href="/logout">LogOut</a>

@@ -24,6 +24,17 @@
         <div th:replace="fragments/infoPaciente :: infoPaciente"></div>
     </div>
 
+    <div th:if="${usuarioLogeado}">
+        <div style="margin-top: 20px;">
+            <a th:href="@{'/donar/' + ${paciente.id}}" class="btn btn-primary">Donar</a>
+        </div>
+    </div>
+    <div th:unless="${usuarioLogeado}">
+        <div style="margin-top: 20px;">
+            <p>Haz LogIn para poder donar</p>
+    </div>
+    </div>
+
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>
