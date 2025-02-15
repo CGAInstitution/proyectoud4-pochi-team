@@ -1,10 +1,8 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
-import madstodolist.dto.UsuarioData;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Medicamento;
-import madstodolist.model.Paciente;
 import madstodolist.service.EnfermedadService;
 import madstodolist.service.MedicamentoService;
 import madstodolist.service.UsuarioService;
@@ -45,7 +43,7 @@ public class MedicamentoController {
     }
 
     @GetMapping("/medicamentos/{id}")
-    public String medicamentoDetallado(@PathVariable(value="id") Long idMedicamento, Model model) {
+    public String medicamentoDetallado(@PathVariable(value = "id") Long idMedicamento, Model model) {
 
         Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
         boolean usuarioLogeado = usuarioLogeadoId != null;
@@ -58,7 +56,7 @@ public class MedicamentoController {
         if (usuarioLogeado) {
             model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
         }
-        model.addAttribute("enfermedadesAll",enfermedadService.allEnfermedades());
+        model.addAttribute("enfermedadesAll", enfermedadService.allEnfermedades());
 
         return "infoDetalladaMedicamento";
     }

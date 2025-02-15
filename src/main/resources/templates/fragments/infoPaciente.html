@@ -1,19 +1,20 @@
 <div th:fragment="infoPaciente">
-        <div id="datos-paciente" class="row justify-content-end">
-            <div class="col-md-2">
-                <img style="width: 100px; height: 100px" th:src="@{/pacientes/{id}/profile-picture(id=${paciente.id})}" alt="Foto de perfil">
-            </div>
-            <div class="col-md-3">
-                <span class="tipo-dato"><strong>Nombre:</strong> <span th:text="${paciente.nombre}"></span></span>
-                <span class="tipo-dato"><strong>Edad:</strong> <span th:text="${paciente.edad}"></span></span>
-                <span class="tipo-dato"><strong>Enfermedad:</strong> <span
-                        th:text="${paciente.enfermedad.nombre}"></span></span>
-            </div>
-            <div class="col-md-6">
-                <div th:with="progreso=${paciente.tarjeta.getProgreso()}">
+    <div class="row justify-content-end" id="datos-paciente">
+        <div class="col-md-2">
+            <img alt="Foto de perfil" style="width: 100px; height: 100px"
+                 th:src="@{/pacientes/{id}/profile-picture(id=${paciente.id})}">
+        </div>
+        <div class="col-md-3">
+            <span class="tipo-dato"><strong>Nombre:</strong> <span th:text="${paciente.nombre}"></span></span>
+            <span class="tipo-dato"><strong>Edad:</strong> <span th:text="${paciente.edad}"></span></span>
+            <span class="tipo-dato"><strong>Enfermedad:</strong> <span
+                    th:text="${paciente.enfermedad.nombre}"></span></span>
+        </div>
+        <div class="col-md-6">
+            <div th:with="progreso=${paciente.tarjeta.getProgreso()}">
 
                     <span class="tipo-dato"><strong>Porcentaje Completado:</strong> <span
-                    th:text="${progreso}"></span><strong>%</strong></span>
+                            th:text="${progreso}"></span><strong>%</strong></span>
                 <div class="progress-container">
                     <div th:if="${progreso<100}">
                         <div class="progress-bar" th:style="'width:' + ${progreso} + '%'"></div>
@@ -23,10 +24,10 @@
                              th:style="'width:' + ${progreso} + '%; background-color: #74a4d4;'"></div>
                     </div>
                 </div>
-                    <br/>
-                    <span class="tipo-dato"><strong>Objetivo:</strong> <span
-                    th:text="${paciente.objetivo}"></span><strong></strong></span>
+                <br/>
+                <span class="tipo-dato"><strong>Objetivo:</strong> <span
+                        th:text="${paciente.objetivo}"></span><strong></strong></span>
             </div>
         </div>
-        </div>
+    </div>
 </div>

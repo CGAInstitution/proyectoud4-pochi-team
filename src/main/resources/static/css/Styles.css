@@ -10,8 +10,9 @@ body {
     background: white;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }
+
 .progress-container {
     text-align: center;
     width: 300px;
@@ -30,6 +31,7 @@ body {
     width: 0;
     transition: width 0.5s;
 }
+
 /* Estilos generales del menú */
 .menu {
     display: flex;
@@ -61,8 +63,10 @@ body {
 }
 
 
+#cabezera h1 {
+    display: inline;
+}
 
-/* Cabezera */
 /* Estilo para la barra de menú */
 .user-actions {
     display: flex;
@@ -73,7 +77,7 @@ body {
 .user-name {
     position: relative;
     cursor: pointer;
-    padding: 2px 2px;  /* Ajuste del padding para mayor espacio */
+    padding: 2px 2px; /* Ajuste del padding para mayor espacio */
     background-color: #a02855;
     color: white;
     border-radius: 5px;
@@ -131,8 +135,6 @@ body {
 }
 
 
-
-
 /*PACIENTES*/
 .paciente-container {
     display: flex;
@@ -169,7 +171,6 @@ body {
 #datos-paciente .tipo-dato strong {
     margin-right: 5px;
 }
-
 
 
 /*Enfermedades*/
@@ -238,8 +239,6 @@ body {
 #delete_button:hover {
     background-color: #cc0000;
 }
-
-
 
 
 #footer {
@@ -326,7 +325,7 @@ body {
     background: #cdeef4;
 }
 
-.table{
+.table {
 
     caption-side: top;
     border-style: solid;
@@ -334,33 +333,33 @@ body {
     border-width: 2px;
 }
 
-caption{
+caption {
     text-align: center;
 }
 
-.tabla{
-        margin-top: 10px;
+.tabla {
+    margin-top: 10px;
     padding: 10px;
 
 }
 
-.tabla th{
+.tabla th {
     text-align: center;
 }
 
-.texto{
+.texto {
     text-align: center;
 }
 
-.numero{
+.numero {
     text-align: end;
 }
 
-.tablaObjetivo{
+.tablaObjetivo {
     width: 450px;
 }
 
-.tablaDonacion{
+.tablaDonacion {
     padding: 30px;
     width: 300px;
 }

@@ -72,8 +72,8 @@ public class UsuarioWebTest {
         // Realizamos una petición POST con los datos del usuario mockeado y
         // se debe devolver una página que contenga el mensaja "No existe usuario"
         this.mockMvc.perform(post("/login")
-                        .param("eMail","pepito.perez@gmail.com")
-                        .param("password","12345678"))
+                        .param("eMail", "pepito.perez@gmail.com")
+                        .param("password", "12345678"))
                 .andExpect(content().string(containsString("No existe usuario")));
     }
 
@@ -89,8 +89,8 @@ public class UsuarioWebTest {
         // Realizamos una petición POST con los datos del usuario mockeado y
         // se debe devolver una página que contenga el mensaja "Contraseña incorrecta"
         this.mockMvc.perform(post("/login")
-                        .param("eMail","ana.garcia@gmail.com")
-                        .param("password","000"))
+                        .param("eMail", "ana.garcia@gmail.com")
+                        .param("password", "000"))
                 .andExpect(content().string(containsString("Contraseña incorrecta")));
     }
 }

@@ -1,22 +1,13 @@
 package madstodolist.service;
 
-import madstodolist.dto.TareaData;
 import madstodolist.model.Enfermedad;
-import madstodolist.model.Tarea;
-import madstodolist.model.Usuario;
 import madstodolist.repository.EnfermedadRepository;
-import madstodolist.repository.TareaRepository;
-import madstodolist.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.Null;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -31,7 +22,7 @@ public class EnfermedadService {
 
     @Transactional
     public Enfermedad nuevaEnfermedad(String nombre, @Null String descripcion, @Null Short peligrosidad, boolean contagiable) {
-        Enfermedad enfermedad = new Enfermedad(nombre,descripcion,peligrosidad,contagiable);
+        Enfermedad enfermedad = new Enfermedad(nombre, descripcion, peligrosidad, contagiable);
         enfermedadRepository.save(enfermedad);
         return enfermedad;
     }
@@ -39,7 +30,7 @@ public class EnfermedadService {
     @Transactional(readOnly = true)
     public List<Enfermedad> allEnfermedades() {
         return StreamSupport.stream(enfermedadRepository.findAll().spliterator(), false)
-                            .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

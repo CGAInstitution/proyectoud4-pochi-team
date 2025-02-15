@@ -20,9 +20,6 @@ import java.util.stream.StreamSupport;
 public class UsuarioService {
 
     Logger logger = LoggerFactory.getLogger(UsuarioService.class);
-
-    public enum LoginStatus {LOGIN_OK, USER_NOT_FOUND, ERROR_PASSWORD, USER_BLOCKED}
-
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
@@ -44,7 +41,7 @@ public class UsuarioService {
 
     @Transactional(readOnly = true)
     public Usuario getUsuario(UsuarioData usuarioData) {
-        return modelMapper.map(usuarioData,Usuario.class);
+        return modelMapper.map(usuarioData, Usuario.class);
     }
 
     // Se añade un usuario en la aplicación.
@@ -103,10 +100,12 @@ public class UsuarioService {
     }
 
     @Transactional(readOnly = true)
-    public List<Usuario> mayoresDonantes(){
+    public List<Usuario> mayoresDonantes() {
         return getAllUsers().stream()
                 .sorted(Comparator.comparingLong(Usuario::getDonado).reversed())
                 .limit(5)
                 .collect(Collectors.toList());
     }
+
+    public enum LoginStatus {LOGIN_OK, USER_NOT_FOUND, ERROR_PASSWORD, USER_BLOCKED}
 }

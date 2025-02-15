@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +28,6 @@ public class Tarjeta {
     private Paciente paciente;
 
 
-
     @OneToMany(mappedBy = "tarjeta", fetch = FetchType.EAGER)
     private Set<Donacion> donaciones = new HashSet<>();
 
@@ -39,14 +37,14 @@ public class Tarjeta {
     }
 
 
-    public int getRecaudado(){
+    public int getRecaudado() {
         return donaciones.stream()
                 .map(donacion -> BigInteger.valueOf(donacion.getCantidad()))
                 .reduce(BigInteger.ZERO, BigInteger::add)
                 .intValue();
     }
 
-    public int getProgreso(){
+    public int getProgreso() {
         return (int) ((getRecaudado() * 100.0) / paciente.getObjetivo());
     }
 }

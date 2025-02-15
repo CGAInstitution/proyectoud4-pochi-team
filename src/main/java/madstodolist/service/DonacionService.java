@@ -1,24 +1,16 @@
 package madstodolist.service;
 
-import madstodolist.dto.UsuarioData;
 import madstodolist.model.Donacion;
-import madstodolist.model.Paciente;
 import madstodolist.model.Tarjeta;
 import madstodolist.model.Usuario;
 import madstodolist.repository.DonacionRepository;
-import madstodolist.repository.PacienteRepository;
 import madstodolist.repository.TarjetaRepository;
 import madstodolist.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.Null;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 
 @Service

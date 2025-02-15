@@ -27,7 +27,8 @@ public class Tarea implements Serializable {
 
     // Constructor vacío necesario para JPA/Hibernate.
     // No debe usarse desde la aplicación.
-    public Tarea() {}
+    public Tarea() {
+    }
 
     // Al crear una tarea la asociamos automáticamente a un usuario
     public Tarea(Usuario usuario, String titulo) {
@@ -63,7 +64,7 @@ public class Tarea implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         // Comprueba si el usuario ya está establecido
-        if(this.usuario != usuario) {
+        if (this.usuario != usuario) {
             this.usuario = usuario;
             // Añade la tarea a la lista de tareas del usuario
             usuario.addTarea(this);

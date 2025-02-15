@@ -2,9 +2,9 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Health PochiTeam</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/Styles.css?v=1}">
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div th:replace="fragments/menu :: menu"></div>
     <div id="cabezera">
         <h1 style="display: inline">Enfermedades</h1>
-        <div th:if="${usuarioLogeado}" style="display: inline-block; float: right;">
+        <div style="display: inline-block; float: right;" th:if="${usuarioLogeado}">
             <div th:if="${usuario.isAdmin()}">
                 <button style="display: inline-block; float: right;">Modificar</button>
                 <button style="display: inline-block; float: right;">Eliminar</button>

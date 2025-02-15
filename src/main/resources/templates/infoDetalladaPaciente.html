@@ -2,9 +2,9 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Health PochiTeam</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/Styles.css?v=1}">
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div th:replace="fragments/menu :: menu"></div>
     <div id="cabezera">
         <h1 style="display: inline">Pacientes</h1>
-        <div th:if="${usuarioLogeado}" style="display: inline-block; float: right;">
+        <div style="display: inline-block; float: right;" th:if="${usuarioLogeado}">
             <div th:if="${usuario.isAdmin()}">
                 <button style="display: inline-block; float: right;">Modificar</button>
                 <button style="display: inline-block; float: right;">Eliminar</button>
@@ -21,18 +21,56 @@
     </div>
 
     <div id="contenedorPacientes" th:object="${paciente}">
-        <div th:replace="fragments/infoPaciente :: infoPaciente"></div>
+        <div th:replace="fragments/infoPaciente :: infoPaciente"/>
+        <a style="text-decoration: none;" th:href="@{/enfermedades/{id}(id=${enfermedad.id})}">
+
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h3 class="text-center text-primary fw-bold" id="card-enfermedad-title"
+                            th:text="${enfermedad.nombre}"></h3>
+                        <p class="text-muted text-center" id="card-enfermedad-text"
+                           th:text="${enfermedad.descripcion}"></p>
+                        <p class="text-center fw-bold" id="peligrosidad">
+                            <span class="text-danger" th:if="${enfermedad.peligrosidad} >= 8">🔴 Alta</span>
+                            <span class="text-warning"
+                                  th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8">🟠 Media-Alta</span>
+                            <span class="text-warning"
+                                  th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6">🟡 Media</span>
+                            <span class="text-success"
+                                  th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4">🟢 Baja</span>
+                        </p>
+                        <p class="text-primary text-center fw-bold" th:if="${enfermedad.contagiable}">(Contagiable)</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col" th:each="medicamento : ${enfermedad.medicamentos}">
+                <a style="text-decoration: none;" th:href="@{/medicamentos/{id}(id=${medicamento.id})}">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h3 class="card-title text-primary" th:text="${medicamento.nombre}"></h3>
+                            <p class="card-text text-muted" th:text="${medicamento.descripcion}"></p>
+                            <p class="fw-bold text-success">Precio: <span th:text="${medicamento.precio}"></span>$</p>
+                            <p class="text-danger" th:if="${medicamento.receta}">(Requiere receta)</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
 
     <div th:if="${usuarioLogeado}">
         <div style="margin-top: 20px;">
-            <a th:href="@{'/donar/' + ${paciente.id}}" class="btn btn-primary">Donar</a>
+            <a class="btn btn-primary" th:href="@{'/donar/' + ${paciente.id}}">Donar</a>
         </div>
     </div>
     <div th:unless="${usuarioLogeado}">
         <div style="margin-top: 20px;">
             <p>Haz LogIn para poder donar</p>
-    </div>
+        </div>
     </div>
 
 </div>

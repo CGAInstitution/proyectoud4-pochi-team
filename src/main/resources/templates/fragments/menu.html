@@ -6,21 +6,21 @@
         <a href="/medicamentos">Medicamentos</a>
 
         <!-- Si el usuario está logueado se muestran las acciones -->
-        <div th:if="${usuarioLogeado}" class="user-actions">
-                <img src="/iconos/acceso.png" alt="muñeco" width="37px" height="37px" style="margin-right: 5px"/>
+        <div class="user-actions" th:if="${usuarioLogeado}">
+            <img alt="muñeco" height="37px" src="/iconos/acceso.png" style="margin-right: 5px" width="37px"/>
             <div class="user-name">
                 <p style="margin-bottom: 0"><span th:text="${usuario.nombre}">Usuario</span></p>
                 <!-- Menú desplegable de opciones al pasar el ratón -->
                 <div class="dropdown-menu">
                     <!-- Mostrar el enlace de Gestión solo si el usuario es admin -->
                     <div th:if="${usuario.admin}">
-                        <a id="gestionar" href="/administrarUsuarios">Gestionar</a>
+                        <a href="/administrarUsuarios" id="gestionar">Gestionar</a>
                     </div>
                     <div th:if="${usuario.isPaciente()}">
                         <a id="gestionarPaciente" th:href="@{pacientes/gestionarPaciente/{id}(id=${usuario.id})}">Paciente</a>
                     </div>
                     <div>
-                        <a id="logout" href="/logout">LogOut</a>
+                        <a href="/logout" id="logout">LogOut</a>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
 
         <!-- Si el usuario no está logueado se muestra el login -->
         <div class="user-actions" th:unless="${usuarioLogeado}">
-            <img src="/iconos/acceso.png" alt="muñeco" width="37px" height="37px" style="margin-right: 5px"/>
+            <img alt="muñeco" height="37px" src="/iconos/acceso.png" style="margin-right: 5px" width="37px"/>
             <a href="/login">Login</a>
         </div>
     </div>

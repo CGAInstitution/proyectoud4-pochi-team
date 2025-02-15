@@ -2,9 +2,9 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Health PochiTeam</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/Styles.css?v=1}">
 </head>
 <body>
@@ -15,36 +15,37 @@
         <h1>Gestionar Paciente</h1>
     </div>
     <div>
-            <div th:replace="fragments/formularioFoto :: formularioFoto"/>
-        <form th:action="@{'/pacientes/guardar/' + ${paciente.id}}" th:object="${paciente}" method="post">
+        <div th:replace="fragments/formularioFoto :: formularioFoto"/>
+        <form method="post" th:action="@{'/pacientes/guardar/' + ${paciente.id}}" th:object="${paciente}">
             <div class="mb-3">
-                <label for="nss" class="form-label">NSS</label>
-                <input type="text" class="form-control" id="nss" th:field="*{nss}" required>
+                <label class="form-label" for="nss">NSS</label>
+                <input class="form-control" id="nss" required th:field="*{nss}" type="text">
             </div>
             <div class="mb-3">
-                <label for="edad" class="form-label">Edad</label>
-                <input type="number" class="form-control" id="edad" th:field="*{edad}" required>
+                <label class="form-label" for="edad">Edad</label>
+                <input class="form-control" id="edad" required th:field="*{edad}" type="number">
             </div>
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                <label class="form-label" for="nombre">Nombre</label>
+                <input class="form-control" id="nombre" required th:field="*{nombre}" type="text">
             </div>
             <div class="mb-3">
-                <label for="objetivo" class="form-label">Objetivo</label>
-                <input type="number" class="form-control" id="objetivo" th:field="*{objetivo}" required>
+                <label class="form-label" for="objetivo">Objetivo</label>
+                <input class="form-control" id="objetivo" required th:field="*{objetivo}" type="number">
             </div>
             <div class="mb-3">
-                <label for="enfermedad" class="form-label">Enfermedad</label>
+                <label class="form-label" for="enfermedad">Enfermedad</label>
                 <select class="form-control" id="enfermedad" th:field="*{enfermedad.id}">
-                    <option th:each="enfermedad : ${enfermedades}" th:value="${enfermedad.id}" th:text="${enfermedad.nombre}"></option>
+                    <option th:each="enfermedad : ${enfermedades}" th:text="${enfermedad.nombre}"
+                            th:value="${enfermedad.id}"></option>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="tarjeta_banco" class="form-label">Número de Tarjeta</label>
-                <input type="text" class="form-control" id="tarjeta_banco" th:field="*{tarjeta.tarjeta_banco}" required>
+                <label class="form-label" for="tarjeta_banco">Número de Tarjeta</label>
+                <input class="form-control" id="tarjeta_banco" required th:field="*{tarjeta.tarjeta_banco}" type="text">
             </div>
 
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button class="btn btn-primary" type="submit">Guardar</button>
         </form>
 
     </div>

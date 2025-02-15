@@ -25,18 +25,22 @@
                                 <div class="mb-4" th:each="usuario : ${usuarios}">
                                     <div class="card mb-3">
                                         <div class="card-body">
-                                            <p><strong>Nombre:</strong> <span th:text="${usuario.getNombre()}"></span></p>
+                                            <p><strong>Nombre:</strong> <span th:text="${usuario.getNombre()}"></span>
+                                            </p>
                                             <p><strong>Email:</strong> <span th:text="${usuario.getEmail()}"></span></p>
 
-                                            <form th:action="@{usuarios/{id}/admin(id=${usuario.id})}" method="post">
+                                            <form method="post" th:action="@{usuarios/{id}/admin(id=${usuario.id})}">
                                                 <label class="form-check-label">Es Admin
-                                                    <input type="checkbox" class="form-check-input" name="admin" th:checked="${usuario.admin}" onchange="this.form.submit()">
+                                                    <input class="form-check-input" name="admin" onchange="this.form.submit()"
+                                                           th:checked="${usuario.admin}" type="checkbox">
                                                 </label>
                                             </form>
 
-                                            <form th:action="@{usuarios/{id}/block(id=${usuario.id})}" method="post">
+                                            <form method="post" th:action="@{usuarios/{id}/block(id=${usuario.id})}">
                                                 <label class="form-check-label">Está Bloqueado
-                                                    <input type="checkbox" class="form-check-input" name="block" th:checked="${usuario.isBloqueado}" onchange="this.form.submit()">
+                                                    <input class="form-check-input" name="block" onchange="this.form.submit()"
+                                                           th:checked="${usuario.isBloqueado}"
+                                                           type="checkbox">
                                                 </label>
                                             </form>
                                         </div>
@@ -44,7 +48,7 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <a href="/" class="btn btn-outline-dark btn-lg">Volver al Menú Principal</a>
+                                    <a class="btn btn-outline-dark btn-lg" href="/">Volver al Menú Principal</a>
                                 </div>
 
                             </div>
