@@ -59,7 +59,7 @@ public class EnfermedadService {
     }
 
     @Transactional
-    public void borraTarea(Long idEnfermedad) {
+    public void borrarEnfermedad(Long idEnfermedad) {
         enfermedadRepository.delete(enfermedadRepository.findById(idEnfermedad).orElseThrow(() -> new RuntimeException("Enfermedad no encontrada")));
     }
 }
