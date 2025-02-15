@@ -15,6 +15,7 @@
         <h1>Gestionar Paciente</h1>
     </div>
     <div>
+            <div th:replace="fragments/formularioFoto :: formularioFoto"/>
         <form th:action="@{'/pacientes/guardar/' + ${paciente.id}}" th:object="${paciente}" method="post">
             <div class="mb-3">
                 <label for="nss" class="form-label">NSS</label>
@@ -43,7 +44,6 @@
                 <input type="text" class="form-control" id="tarjeta_banco" th:field="*{tarjeta.tarjeta_banco}" required>
             </div>
 
-            <div th:replace="fragments/formularioFoto :: formularioFoto"/>
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
 

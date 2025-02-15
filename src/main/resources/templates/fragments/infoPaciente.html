@@ -1,7 +1,7 @@
 <div th:fragment="infoPaciente">
         <div id="datos-paciente" class="row justify-content-end">
             <div class="col-md-2">
-                <img class="imagen-paciente" th:src="${paciente.profilePicture}" alt="Imagen de paciente">
+                <img style="width: 100px; height: 100px" th:src="@{/pacientes/{id}/profile-picture(id=${paciente.id})}" alt="Foto de perfil">
             </div>
             <div class="col-md-3">
                 <span class="tipo-dato"><strong>Nombre:</strong> <span th:text="${paciente.nombre}"></span></span>

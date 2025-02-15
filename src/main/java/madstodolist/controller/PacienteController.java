@@ -121,7 +121,7 @@ public class PacienteController {
     }
 
     @PostMapping("/pacientes/{id}/upload-profile-picture")
-    public String uploadProfilePicture(
+    public String  uploadProfilePicture(
             @PathVariable Long id,
             @RequestParam("file") MultipartFile file) throws IOException {
 
@@ -132,12 +132,12 @@ public class PacienteController {
         paciente.setProfilePicture(file.getBytes());
         pacienteService.guardarPaciente(paciente);
 
-        return  "redirect:/";
+        return "redirect:/pacientes/gestionarPaciente/" + paciente.getUsuario().getId();
     }
 
     // Obtener la imagen desde la base de datos y devolverla como respuesta HTTP
     @GetMapping("/pacientes/{id}/profile-picture")
-    public String getProfilePicture(@PathVariable Long id) throws IOException {
+    public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long id) throws IOException {
 
         byte[] image = pacienteService.findById(id).getProfilePicture();
 
@@ -146,7 +146,9 @@ public class PacienteController {
         image = StreamUtils.copyToByteArray(defaultImage.getInputStream());
     }
 
-    return "redirect:/";
+    return ResponseEntity.ok()
+            .contentType(MediaType.IMAGE_JPEG)
+            .body(image);
     }
 
 }
