@@ -35,17 +35,17 @@ CREATE TABLE enfermedades_medicamentos (
 
 
 CREATE TABLE tarjetas (
-                         id bigint NOT NULL PRIMARY KEY,
+                         id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                          tarjeta_banco varchar(500) NOT NULL
 );
 
 
 CREATE TABLE pacientes (
-                          id bigint NOT NULL PRIMARY KEY,
+                          id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                           NSS tinyint NOT NULL,
                           edad int,
                           nombre varchar(500) NOT NULL,
-                          tarjeta bigint NOT NULL,
+                          tarjeta bigint NULL,
                           enfermedad bigint NOT NULL,
                           imagen varchar(500) NULL,
                           objetivo int not null,
@@ -131,4 +131,5 @@ INSERT INTO usuario_data(email, nombre, password,admin) VALUES
 
 INSERT INTO usuario_tarjeta(usuario_id,tarjeta_id,cantidad) VALUES
 (1,1,2000),
-(2,2,3000)
+(2,2,3000);
+

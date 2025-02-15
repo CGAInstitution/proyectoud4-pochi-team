@@ -55,4 +55,8 @@ public class Enfermedad {
         this.peligrosidad = peligrosidad;
         this.contagiable = contagiable;
     }
+
+    public boolean isContagiable() {
+        return contagiable;
+    }
 }

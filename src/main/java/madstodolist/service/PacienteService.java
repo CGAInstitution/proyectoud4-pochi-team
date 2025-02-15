@@ -1,6 +1,8 @@
 package madstodolist.service;
 
+import madstodolist.model.Enfermedad;
 import madstodolist.model.Paciente;
+import madstodolist.model.Tarjeta;
 import madstodolist.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,8 @@ public class PacienteService {
     private PacienteRepository pacienteRepository;
 
     @Transactional
-    public void nuevoPaciente(String nss, @Null Integer edad, String nombre, Long objetivo) {
-        Paciente paciente = new Paciente(nss, edad, nombre, objetivo);
+    public void nuevoPaciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta) {
+        Paciente paciente = new Paciente(id, nss, edad, objetivo, nombre, enfermedad, tarjeta);
         pacienteRepository.save(paciente);
     }
 

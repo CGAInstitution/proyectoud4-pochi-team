@@ -41,7 +41,7 @@ public class Paciente {
     private Long objetivo;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "tarjeta")
+    @JoinColumn(name = "tarjeta",nullable = true)
     private Tarjeta tarjeta;
 
     public Paciente(String nss, @Null Integer edad, String nombre, Long objetivo) {
@@ -59,5 +59,15 @@ public class Paciente {
         this.objetivo = objetivo;
         this.nombre = nombre;
         this.imagen = imagen;
+    }
+
+    public Paciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta) {
+        this.id = id;
+        this.nss = nss;
+        this.edad = edad;
+        this.objetivo = objetivo;
+        this.nombre = nombre;
+        this.enfermedad = enfermedad;
+        this.tarjeta = tarjeta;
     }
 }
