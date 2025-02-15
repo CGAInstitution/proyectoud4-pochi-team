@@ -22,8 +22,8 @@ CREATE TABLE medicamentos (
 
 
 CREATE TABLE enfermedades_medicamentos (
-                                           id bigint NOT NULL PRIMARY KEY,
-                                           id_enfermedad bigint NOT NULL,
+                                           id bigint NOT NULL PRIMARY KEY auto_increment,
+                                              id_enfermedad bigint NOT NULL,
                                            id_medicamento bigint NOT NULL,
                                            FOREIGN KEY (id_enfermedad) references enfermedades(id)
                                                on delete cascade

@@ -52,6 +52,14 @@ public class Paciente {
 
     }
 
+    public Paciente(String nss, @Null Integer edad, String nombre, Long objetivo, @Null String imagen) {
+        this.nss = nss;
+        this.edad = edad;
+        this.objetivo = objetivo;
+        this.nombre = nombre;
+        this.imagen = imagen;
+    }
+
     public Paciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre,String imagen) {
         this.id = id;
         this.nss = nss;
@@ -60,4 +68,6 @@ public class Paciente {
         this.nombre = nombre;
         this.imagen = imagen;
     }
+
+
 }

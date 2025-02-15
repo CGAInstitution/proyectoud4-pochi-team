@@ -14,31 +14,33 @@
 
 <div class="contenedorPrincipal">
 
-    <h2 th:text="'Creación de un medicamento'"></h2>
+    <h2 th:text="'Modificación del paciente ' + ${paciente.getId()}"></h2>
 
-    <form method="post" th:action="@{/medicamentos/crear}" th:object="${medicamento}">
+    <form method="post" th:action="@{/pacientes/editar/{id}(id=${paciente.id})}" th:object="${paciente}">
         <div class="col-6">
             <div class="form-group">
                 <br/>
-                <label for="nombre">Nombre del medicamento:</label>
-                <input class="form-control" id="nombre" name="nombre" th:field="${medicamento.nombre}" required type="text"/>
+                <label for="nombre">Nombre del paciente:</label>
+                <input class="form-control" id="nombre" name="nombre" th:field="${paciente.nombre}" th:value="${paciente.nombre}" required type="text"/>
                 <br/>
-                <label for="descripcion">Descripción del medicamento:</label>
-                <input class="form-control" id="descripcion" name="descripcion" th:field="${medicamento.descripcion}" type="text"/>
+                <label for="nss">Nss del paciente:</label>
+                <input class="form-control" id="nss" name="nss" th:field="${paciente.nss}" th:value="${paciente.nss}" type="number" required/>
                 <br/>
-                <label for="precio">Precio del medicamento:</label>
-                <input class="form-control" id="precio" name="precio" th:field="${medicamento.precio}" type="number" min="0"/>
+                <label for="nss">Edad del paciente:</label>
+                <input class="form-control" id="edad" name="edad" th:field="${paciente.edad}" th:value="${paciente.edad}" type="number" required/>
                 <br/>
-                <label> Es Recetable
-                    <input type="checkbox" name="block" th:field="${medicamento.receta}"/>
-                </label>
+                <label for="imagen">Imagen de perfil:</label>
+                <input class="form-control" id="imagen" name="imagen" th:field="${paciente.imagen}" th:value="${paciente.imagen}" type="number"/>
+                <br/>
+                <label for="objetivo">Objetivo recaudaciones:</label>
+                <input class="form-control" id="objetivo" name="objetivo" th:field="${paciente.objetivo}" th:value="${paciente.objetivo}" type="number"/>
                 <br/>
             </div>
         </div>
 
         <div class="custom-select">
             <div class="select-box" onclick="toggleOptions()">
-                <span>Seleccionar enfermedades</span>
+                <span>Seleccionar enfermedad</span>
                 <i class="arrow">&#9660;</i>
             </div>
             <div class="options-container" id="optionsContainer" style="display: none;">
@@ -63,8 +65,8 @@
             }
         </script>
 
-        <button class="btn btn-primary" type="submit">Crear</button>
-        <a class="btn btn-link" th:href="@{/medicamentos}">Cancelar</a>
+        <button class="btn btn-primary" type="submit">Modificar</button>
+        <a class="btn btn-link" th:href="@{/medicamentos/{id}(id=${medicamento.id})}">Cancelar</a>
     </form>
 
 </div>

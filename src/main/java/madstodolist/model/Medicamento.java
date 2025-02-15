@@ -51,11 +51,12 @@ public class Medicamento {
         this.receta = receta;
     }
 
-    public Medicamento(String nombre, @Null String descripcion, @Null int precio, boolean receta) {
+    public Medicamento(String nombre, @Null String descripcion, @Null int precio, boolean receta, Set<Enfermedad> enfermedades) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.receta = receta;
+        this.enfermedades = enfermedades;
     }
 
     @Override

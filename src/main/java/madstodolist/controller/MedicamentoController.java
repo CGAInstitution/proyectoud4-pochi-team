@@ -110,21 +110,24 @@ public class MedicamentoController {
     }
 
     @PostMapping("/medicamentos/editar/{id}")
-    public String actualizarMedicamento(@PathVariable(value="id") Long idMedicamento, String nombre, String descripcion, int precio, boolean receta/*, @RequestParam(required = false) List<Long> enfermedades*/) {
-        /*Set<Enfermedad> enfermedadesNuevas = new HashSet<>();
+    public String actualizarMedicamento(@PathVariable(value="id") Long idMedicamento, String nombre, String descripcion, int precio, boolean receta, @RequestParam(required = false) List<Long> enfermedades) {
+        Set<Enfermedad> enfermedadesNuevas = new HashSet<>();
         for (Long id : enfermedades) {
             Enfermedad enfermedad = enfermedadService.findById(id);
             enfermedadesNuevas.add(enfermedad);
         }
-        System.out.println(enfermedadesNuevas.size());*/
-        medicamentoService.updateMedicamento(idMedicamento, nombre, descripcion, precio, receta/*, enfermedadesNuevas*/);
+        medicamentoService.updateMedicamento(idMedicamento, nombre, descripcion, precio, receta, enfermedadesNuevas);
         return "redirect:/medicamentos/" + idMedicamento;
     }
 
     @PostMapping("/medicamentos/crear")
-    public String crearMedicamento(String nombre, String descripcion, int precio, boolean receta) {
-        System.out.println(nombre + " " + descripcion + " " + precio + " " + receta);
-        medicamentoService.addMedicamento(nombre, descripcion, precio, receta);
+    public String crearMedicamento(String nombre, String descripcion, int precio, boolean receta, @RequestParam(required = false) List<Long> enfermedades) {
+        Set<Enfermedad> enfermedadesNuevas = new HashSet<>();
+        for (Long id : enfermedades) {
+            Enfermedad enfermedad = enfermedadService.findById(id);
+            enfermedadesNuevas.add(enfermedad);
+        }
+        medicamentoService.addMedicamento(nombre, descripcion, precio, receta, enfermedadesNuevas);
         return "redirect:/medicamentos";
     }
 

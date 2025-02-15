@@ -20,8 +20,8 @@ public class MedicamentoService {
     private MedicamentoRepository medicamentoRepository;
 
     @Transactional
-    public void addMedicamento(String nombre, String descripcion, int precio, boolean receta) {
-        medicamentoRepository.save(new Medicamento(nombre, descripcion, precio, receta));
+    public void addMedicamento(String nombre, String descripcion, int precio, boolean receta, Set<Enfermedad> enfermedades) {
+        medicamentoRepository.save(new Medicamento(nombre, descripcion, precio, receta, enfermedades));
     }
 
     @Transactional
@@ -30,14 +30,14 @@ public class MedicamentoService {
     }
 
     @Transactional
-    public void updateMedicamento(Long id, String nombre, String descripcion, int precio, boolean receta/*, Set<Enfermedad> enfermedades*/) {
+    public void updateMedicamento(Long id, String nombre, String descripcion, int precio, boolean receta, Set<Enfermedad> enfermedades) {
         Optional<Medicamento> medicamento = medicamentoRepository.findById(id);
         if (medicamento.isPresent()) {
             medicamento.get().setNombre(nombre);
             medicamento.get().setDescripcion(descripcion);
             medicamento.get().setPrecio(precio);
             medicamento.get().setReceta(receta);
-            //medicamento.get().setEnfermedades(enfermedades);
+            medicamento.get().setEnfermedades(enfermedades);
             medicamentoRepository.save(medicamento.get());
         }
     }
