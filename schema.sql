@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS HEALTH_DATABASE;
-CREATE DATABASE IF NOT EXISTS HEALTH_DATABASE;
+DROP DATABASE IF EXISTS health_database;
+CREATE DATABASE IF NOT EXISTS health_database;
 
-use HEALTH_DATABASE;
+use health_database;
 
 CREATE TABLE enfermedades (
                             id bigint NOT NULL PRIMARY KEY,
