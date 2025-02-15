@@ -14,7 +14,7 @@
         <h1 style="display: inline">Medicamentos</h1>
         <div th:if="${usuarioLogeado}" style="display: inline-block; float: right;">
             <div th:if="${usuario.isAdmin()}">
-                <button>Crear</button>
+                <button style="display: inline-block; float: right;" th:href="@{/medicamentos/crear}">Crear</button>
             </div>
         </div>
     </div>

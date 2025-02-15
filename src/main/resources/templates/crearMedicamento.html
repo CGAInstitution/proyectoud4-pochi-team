@@ -14,23 +14,23 @@
 
 <div class="contenedorPrincipal">
 
-    <h2 th:text="'Modificación del medicamento ' + ${medicamento.getId()}"></h2>
+    <h2 th:text="'Creación de un medicamento'"></h2>
 
-    <form method="post" th:action="@{/medicamentos/editar/{id}(id=${medicamento.id})}" th:object="${medicamento}">
+    <form method="post" th:action="@{/medicamentos/crear}" th:object="${medicamento}">
         <div class="col-6">
             <div class="form-group">
                 <br/>
                 <label for="nombre">Nombre del medicamento:</label>
-                <input class="form-control" id="nombre" name="nombre" th:field="${medicamento.nombre}" th:value="${medicamento.nombre}" required type="text"/>
+                <input class="form-control" id="nombre" name="nombre" th:field="${medicamento.nombre}" required type="text"/>
                 <br/>
                 <label for="descripcion">Descripción del medicamento:</label>
-                <input class="form-control" id="descripcion" name="descripcion" th:field="${medicamento.descripcion}" th:value="${medicamento.descripcion}" type="text"/>
+                <input class="form-control" id="descripcion" name="descripcion" th:field="${medicamento.descripcion}" type="text"/>
                 <br/>
                 <label for="precio">Precio del medicamento:</label>
-                <input class="form-control" id="precio" name="precio" th:field="${medicamento.precio}" th:value="${medicamento.precio}" type="number"/>
+                <input class="form-control" id="precio" name="precio" th:field="${medicamento.precio}" type="number"/>
                 <br/>
                 <label> Es Recetable
-                    <input type="checkbox" name="block" th:field="${medicamento.receta}" th:checked="${medicamento.receta}" />
+                    <input type="checkbox" name="block" th:field="${medicamento.receta}"/>
                 </label>
                 <br/>
             </div>
@@ -63,8 +63,8 @@
             }
         </script>
 
-        <button class="btn btn-primary" type="submit">Modificar</button>
-        <a class="btn btn-link" th:href="@{/medicamentos/{id}(id=${medicamento.id})}">Cancelar</a>
+        <button class="btn btn-primary" type="submit">Crear</button>
+        <a class="btn btn-link" th:href="@{/medicamentos}">Cancelar</a>
     </form>
 
 </div>

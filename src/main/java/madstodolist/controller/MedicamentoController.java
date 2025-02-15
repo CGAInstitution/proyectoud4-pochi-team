@@ -83,7 +83,29 @@ public class MedicamentoController {
         return "modificarMedicamento";
     }
 
-    @PostMapping("/medicamentos/actualizar/{id}")
+    @GetMapping("/medicamentos/crear")
+    public String abrirCrearMedicamento(Model model) {
+
+        // Todo falta añadir enfermedades
+
+        /*Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+        boolean usuarioLogeado = usuarioLogeadoId != null;*/
+        //model.addAttribute("usuarioLogeado", usuarioLogeado);
+
+        /*if (usuarioLogeado) {
+            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
+            model.addAttribute("usuario", usuario);
+        }*/
+
+        Medicamento medicamento = new Medicamento();
+        List<Enfermedad> enfermedades = enfermedadService.allEnfermedades();
+        model.addAttribute("medicamento", medicamento);
+        model.addAttribute("enfermedades", enfermedades);
+
+        return "crearMedicamento";
+    }
+
+    @PostMapping("/medicamentos/editar/{id}")
     public String actualizarMedicamento(@PathVariable(value="id") Long idMedicamento, String nombre, String descripcion, int precio, boolean receta/*, @RequestParam(required = false) List<Long> enfermedades*/) {
         /*Set<Enfermedad> enfermedadesNuevas = new HashSet<>();
         for (Long id : enfermedades) {
@@ -95,14 +117,14 @@ public class MedicamentoController {
         return "redirect:/medicamentos/" + idMedicamento;
     }
 
-    @PostMapping("/medicamentos/crear/{id}")
-    public String crearMedicamento(@PathVariable(value="id") @ModelAttribute Medicamento medicamento) {
-        /*System.out.println(medicamento);
-        medicamentoService.addMedicamento(nombre, descripcion, precio, receta);*/
+    @PostMapping("/medicamentos/crear")
+    public String crearMedicamento(String nombre, String descripcion, int precio, boolean receta) {
+        System.out.println(nombre + " " + descripcion + " " + precio + " " + receta);
+        medicamentoService.addMedicamento(nombre, descripcion, precio, receta);
         return "redirect:/medicamentos";
     }
 
-    @PostMapping("/medicamentos/borar/{id}")
+    @PostMapping("/medicamentos/borrar/{id}")
     public String borrarMedicamento(@PathVariable(value="id") Long idPaciente) {
         medicamentoService.deleteMedicamento(idPaciente);
         return "redirect:/medicamentos";
