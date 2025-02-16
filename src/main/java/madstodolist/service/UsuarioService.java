@@ -107,5 +107,9 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
+    public void save(Usuario usuario) {
+        usuarioRepository.save(usuario);
+    }
+
     public enum LoginStatus {LOGIN_OK, USER_NOT_FOUND, ERROR_PASSWORD, USER_BLOCKED}
 }

@@ -31,18 +31,42 @@
 
                                             <form method="post" th:action="@{usuarios/{id}/admin(id=${usuario.id})}">
                                                 <label class="form-check-label">Es Admin
-                                                    <input class="form-check-input" name="admin" onchange="this.form.submit()"
+                                                    <input class="form-check-input" name="admin"
+                                                           onchange="this.form.submit()"
                                                            th:checked="${usuario.admin}" type="checkbox">
                                                 </label>
                                             </form>
 
                                             <form method="post" th:action="@{usuarios/{id}/block(id=${usuario.id})}">
                                                 <label class="form-check-label">Está Bloqueado
-                                                    <input class="form-check-input" name="block" onchange="this.form.submit()"
+                                                    <input class="form-check-input" name="block"
+                                                           onchange="this.form.submit()"
                                                            th:checked="${usuario.isBloqueado}"
                                                            type="checkbox">
                                                 </label>
                                             </form>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="paciente">Paciente</label>
+                                                <form method="post"
+                                                      th:action="@{usuarios/{id}/asignarPaciente(id=${usuario.id})}">
+                                                    <select class="form-control" id="paciente" name="pacienteId">
+                                                        <option th:text="'Usuario sin Paciente'" th:value="0"
+                                                                th:selected="${usuario.paciente == null}"/>
+
+                                                        <option th:if="${usuario.isPaciente()}"
+                                                                th:text="${usuario.paciente.nombre}"
+                                                                th:value="usuario.paciente.id"
+                                                                th:selected="${usuario.isPaciente()}"/>
+
+                                                        <option th:each="paciente : ${pacientes}"
+                                                                th:text="${paciente.nombre}"
+                                                                th:value="${paciente.id}"/>
+                                                    </select>
+                                                    <button type="submit" class="btn btn-primary mt-2">Asignar
+                                                        Paciente
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

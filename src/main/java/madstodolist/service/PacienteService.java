@@ -43,9 +43,16 @@ public class PacienteService {
         return pacienteRepository.findById(idPaciente).orElse(null);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Paciente> allPacientes() {
         return StreamSupport.stream(pacienteRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<Paciente> allPacientesWithoutUsers() {
+        return StreamSupport.stream(pacienteRepository.findAll().spliterator(), false)
+                .filter(paciente -> paciente.getUsuario() == null)
                 .collect(Collectors.toList());
     }
 
