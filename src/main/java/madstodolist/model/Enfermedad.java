@@ -46,12 +46,11 @@ public class Enfermedad {
         this.contagiable = contagiable;
     }
 
-    public Enfermedad(String nombre, @Null String descripcion, @Null Short peligrosidad, Boolean contagiable, Set<Medicamento> medicamentos) {
+    public Enfermedad(String nombre, @Null String descripcion, @Null Short peligrosidad, Boolean contagiable) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.peligrosidad = peligrosidad;
         this.contagiable = contagiable;
-        this.medicamentos = medicamentos;
     }
 
     public void setMedicamentos(Set<Medicamento> medicamentos) {

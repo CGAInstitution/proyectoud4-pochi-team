@@ -116,27 +116,13 @@ public class EnfermedadController {
 
     @PostMapping("/enfermedades/editar/{id}")
     public String actualizarEnfermedad(@PathVariable(value="id") Long idEnfermedad, String nombre, String descripcion, short peligrosidad, boolean contagiable, @RequestParam(required = false) List<Long> medicamentos) {
-        Set<Medicamento> medicamentosNuevos = new HashSet<>();
-        if (medicamentos != null) {
-            for (Long id : medicamentos) {
-                Medicamento medicamento = medicamentoService.getMedicamentoById(id);
-                medicamentosNuevos.add(medicamento);
-            }
-        }
-        enfermedadeService.modificarEnfermedad(idEnfermedad, nombre, descripcion, peligrosidad, contagiable, medicamentosNuevos);
+        enfermedadeService.modificarEnfermedad(idEnfermedad, nombre, descripcion, peligrosidad, contagiable, medicamentos);
         return "redirect:/enfermedades/" + idEnfermedad;
     }
 
     @PostMapping("/enfermedades/crear")
     public String crearEnfermedad(String nombre, String descripcion, short peligrosidad, boolean contagiable, @RequestParam(required = false) List<Long> medicamentos) {
-        Set<Medicamento> medicamentosNuevos = new HashSet<>();
-        if (medicamentos != null) {
-            for (Long id : medicamentos) {
-                Medicamento medicamento = medicamentoService.getMedicamentoById(id);
-                medicamentosNuevos.add(medicamento);
-            }
-        }
-        enfermedadeService.nuevaEnfermedad(nombre, descripcion, peligrosidad, contagiable, medicamentosNuevos);
+        enfermedadeService.nuevaEnfermedad(nombre, descripcion, peligrosidad, contagiable, medicamentos);
         return "redirect:/enfermedades";
     }
 

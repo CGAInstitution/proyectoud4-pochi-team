@@ -3,6 +3,7 @@ package madstodolist.service;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Medicamento;
 import madstodolist.repository.EnfermedadRepository;
+import madstodolist.repository.MedicamentoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,21 @@ public class EnfermedadService {
     @Autowired
     private EnfermedadRepository enfermedadRepository;
 
+    @Autowired
+    private MedicamentoRepository medicamentoRepository;
+
     @Transactional
-    public void nuevaEnfermedad(String nombre, @Null String descripcion, @Null Short peligrosidad, boolean contagiable, Set<Medicamento> medicamentos) {
-        enfermedadRepository.save(new Enfermedad(nombre,descripcion,peligrosidad,contagiable, medicamentos));
+    public void nuevaEnfermedad(String nombre, String descripcion, Short peligrosidad, Boolean contagiable, List<Long> medicamentoIds) {
+        Enfermedad nuevaEnfermedad = new Enfermedad(nombre, descripcion, peligrosidad, contagiable);
+
+        for (Long medicamentoId : medicamentoIds) {
+            Medicamento managedMedicamento = medicamentoRepository.findById(medicamentoId)
+                    .orElseThrow(() -> new RuntimeException("Medicamento no encontrado"));
+            nuevaEnfermedad.getMedicamentos().add(managedMedicamento);
+            managedMedicamento.getEnfermedades().add(nuevaEnfermedad);
+        }
+
+        enfermedadRepository.save(nuevaEnfermedad);
     }
 
     @Transactional(readOnly = true)
@@ -38,15 +51,24 @@ public class EnfermedadService {
     }
 
     @Transactional
-    public void modificarEnfermedad(Long id, String nuevoNombre, String nuevaDescripcion, Short nuevaPeligrosidad, Boolean nuevoContagiable, Set<Medicamento> medicamentos) {
+    public void modificarEnfermedad(Long id, String nuevoNombre, String nuevaDescripcion, Short nuevaPeligrosidad, Boolean nuevoContagiable, List<Long> medicamentoIds) {
         Optional<Enfermedad> enfermedad = enfermedadRepository.findById(id);
         if (enfermedad.isPresent()) {
-            enfermedad.get().setNombre(nuevoNombre);
-            enfermedad.get().setDescripcion(nuevaDescripcion);
-            enfermedad.get().setPeligrosidad(nuevaPeligrosidad);
-            enfermedad.get().setContagiable(nuevoContagiable);
-            enfermedad.get().setMedicamentos(medicamentos);
-            enfermedadRepository.save(enfermedad.get());
+            Enfermedad existingEnfermedad = enfermedad.get();
+            existingEnfermedad.setNombre(nuevoNombre);
+            existingEnfermedad.setDescripcion(nuevaDescripcion);
+            existingEnfermedad.setPeligrosidad(nuevaPeligrosidad);
+            existingEnfermedad.setContagiable(nuevoContagiable);
+
+            existingEnfermedad.getMedicamentos().clear();
+            for (Long medicamentoId : medicamentoIds) {
+                Medicamento managedMedicamento = medicamentoRepository.findById(medicamentoId)
+                        .orElseThrow(() -> new RuntimeException("Medicamento no encontrado"));
+                existingEnfermedad.getMedicamentos().add(managedMedicamento);
+                managedMedicamento.getEnfermedades().add(existingEnfermedad);
+            }
+
+            enfermedadRepository.save(existingEnfermedad);
         }
     }
 

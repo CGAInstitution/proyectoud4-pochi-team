@@ -72,4 +72,9 @@ public class Medicamento {
                 ", enfermedades=" + enfermedades +
                 '}';
     }
+
+    public void addEnfermedad(Enfermedad enfermedad) {
+        enfermedades.add(enfermedad);
+        enfermedad.getMedicamentos().add(this);
+    }
 }
