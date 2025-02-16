@@ -1,5 +1,6 @@
 package madstodolist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,9 +34,11 @@ public class Enfermedad {
     private Boolean contagiable = false;
 
     @OneToMany(mappedBy = "enfermedad", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Paciente> pacientes = new HashSet<>();
 
     @ManyToMany(mappedBy = "enfermedades", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Medicamento> medicamentos = new HashSet<>();
 
     public Enfermedad(Long id, String nombre, @Null String descripcion, @Null Short peligrosidad, Boolean contagiable) {
@@ -51,5 +54,9 @@ public class Enfermedad {
         this.descripcion = descripcion;
         this.peligrosidad = peligrosidad;
         this.contagiable = contagiable;
+    }
+
+    public boolean isContagiable() {
+        return contagiable;
     }
 }

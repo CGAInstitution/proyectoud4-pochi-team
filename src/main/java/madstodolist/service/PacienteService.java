@@ -1,6 +1,8 @@
 package madstodolist.service;
 
+import madstodolist.model.Enfermedad;
 import madstodolist.model.Paciente;
+import madstodolist.model.Tarjeta;
 import madstodolist.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,24 +21,49 @@ public class PacienteService {
     private PacienteRepository pacienteRepository;
 
     @Transactional
-    public void nuevoPaciente(String nss, @Null Integer edad, String nombre, Long objetivo) {
-        Paciente paciente = new Paciente(nss, edad, nombre, objetivo);
+    public void nuevoPaciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta) {
+        Paciente paciente = new Paciente(id, nss, edad, objetivo, nombre, enfermedad, tarjeta);
         pacienteRepository.save(paciente);
     }
 
     @Transactional
     public void borrarPaciente(Long idPaciente) {
-        pacienteRepository.deleteById(idPaciente);
+        Paciente paciente = findById(idPaciente);
+        paciente.getEnfermedad().getPacientes().remove(paciente);
+        pacienteRepository.save(paciente);
+        pacienteRepository.delete(paciente);
     }
 
+
     @Transactional
-    public void updatePaciente(Long idPaciente, String nss, @Null Integer edad, String nombre) {
+    public void updatePaciente(
+            Long idPaciente,
+            String nss,
+            @Null Integer edad,
+            String nombre,
+            Enfermedad enfermedadExistente,
+            Tarjeta tarjetaExistente) {
+
         Paciente paciente = pacienteRepository.findById(idPaciente).orElse(null);
+
+        if (paciente == null) {
+            throw new RuntimeException("Paciente no encontrado");
+        }
+
         paciente.setNss(nss);
         paciente.setEdad(edad);
         paciente.setNombre(nombre);
+
+        if (enfermedadExistente != null) {
+            paciente.setEnfermedad(enfermedadExistente);
+        } else if (tarjetaExistente != null) {
+            paciente.setTarjeta(tarjetaExistente);
+        }
+
+
         pacienteRepository.save(paciente);
     }
+
 
     @Transactional
     public Paciente findById(Long idPaciente) {
