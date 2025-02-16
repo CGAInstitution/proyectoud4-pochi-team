@@ -1,7 +1,6 @@
 package madstodolist.rest;
 
 import madstodolist.dto.MedicamentoDTO;
-import madstodolist.model.Enfermedad;
 import madstodolist.model.Medicamento;
 import madstodolist.service.EnfermedadService;
 import madstodolist.service.MedicamentoService;
@@ -9,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class MedicamentoRestController {
@@ -52,4 +49,10 @@ public class MedicamentoRestController {
         dto.setEnfermedades(medicamento.getEnfermedades());
         return dto;
     }
+
+
+
+
+
+
 }
