@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Setter
@@ -71,6 +72,19 @@ public class Medicamento {
                 ", receta=" + receta +
                 ", enfermedades=" + enfermedades +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Medicamento that = (Medicamento) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public void addEnfermedad(Enfermedad enfermedad) {

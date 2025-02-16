@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Null;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -63,5 +64,18 @@ public class Enfermedad {
     public void addMedicamento(Medicamento medicamento) {
         medicamentos.add(medicamento);
         medicamento.getEnfermedades().add(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Enfermedad that = (Enfermedad) o;
+        return Objects.equals(id, that.id) && Objects.equals(nombre, that.nombre) && Objects.equals(descripcion, that.descripcion) && Objects.equals(peligrosidad, that.peligrosidad) && Objects.equals(contagiable, that.contagiable) && Objects.equals(pacientes, that.pacientes) && Objects.equals(medicamentos, that.medicamentos);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, descripcion, peligrosidad, contagiable, pacientes, medicamentos);
     }
 }
