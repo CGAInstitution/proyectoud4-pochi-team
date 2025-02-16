@@ -71,18 +71,18 @@ public class MedicamentoController {
     @GetMapping("/medicamentos/editar/{id}")
     public String abrirEditarMedicamento(@PathVariable(value="id") Long idMedicamento, Model model) {
 
-        /*Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
-        boolean usuarioLogeado = usuarioLogeadoId != null;*/
+        Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+        boolean usuarioLogeado = usuarioLogeadoId != null;
         Medicamento medicamento = medicamentoService.getMedicamentoById(idMedicamento);
-        //model.addAttribute("usuarioLogeado", usuarioLogeado);
+        model.addAttribute("usuarioLogeado", usuarioLogeado);
         model.addAttribute("medicamento", medicamento);
         List<Enfermedad> enfermedades = enfermedadService.allEnfermedades();
         model.addAttribute("enfermedades", enfermedades);
 
-        /*if (usuarioLogeado) {
+        if (usuarioLogeado) {
             UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
             model.addAttribute("usuario", usuario);
-        }*/
+        }
 
         return "modificarMedicamento";
     }
@@ -90,16 +90,14 @@ public class MedicamentoController {
     @GetMapping("/medicamentos/crear")
     public String abrirCrearMedicamento(Model model) {
 
-        // Todo falta añadir enfermedades
+        Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+        boolean usuarioLogeado = usuarioLogeadoId != null;
+        model.addAttribute("usuarioLogeado", usuarioLogeado);
 
-        /*Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
-        boolean usuarioLogeado = usuarioLogeadoId != null;*/
-        //model.addAttribute("usuarioLogeado", usuarioLogeado);
-
-        /*if (usuarioLogeado) {
+        if (usuarioLogeado) {
             UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
             model.addAttribute("usuario", usuario);
-        }*/
+        }
 
         Medicamento medicamento = new Medicamento();
         List<Enfermedad> enfermedades = enfermedadService.allEnfermedades();

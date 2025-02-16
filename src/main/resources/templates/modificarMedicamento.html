@@ -16,56 +16,70 @@
 
     <h2 th:text="'Modificación del medicamento ' + ${medicamento.getId()}"></h2>
 
-    <form method="post" th:action="@{/medicamentos/editar/{id}(id=${medicamento.id})}" th:object="${medicamento}">
-        <div class="col-6">
-            <div class="form-group">
-                <br/>
-                <label for="nombre">Nombre del medicamento:</label>
-                <input class="form-control" id="nombre" name="nombre" th:field="${medicamento.nombre}" th:value="${medicamento.nombre}" required type="text"/>
-                <br/>
-                <label for="descripcion">Descripción del medicamento:</label>
-                <input class="form-control" id="descripcion" name="descripcion" th:field="${medicamento.descripcion}" th:value="${medicamento.descripcion}" type="text"/>
-                <br/>
-                <label for="precio">Precio del medicamento:</label>
-                <input class="form-control" id="precio" name="precio" th:field="${medicamento.precio}" th:value="${medicamento.precio}" type="number"/>
-                <br/>
-                <label> Es Recetable
-                    <input type="checkbox" name="block" th:field="${medicamento.receta}" th:checked="${medicamento.receta}" />
-                </label>
-                <br/>
-            </div>
-        </div>
-
-        <div class="custom-select">
-            <div class="select-box" onclick="toggleOptions()">
-                <span>Seleccionar enfermedades</span>
-                <i class="arrow">&#9660;</i>
-            </div>
-            <div class="options-container" id="optionsContainer" style="display: none;">
-                <div th:each="enfermedad : ${enfermedades}">
-                    <label>
-                        <input type="checkbox" class="option-checkbox" name="enfermedades"
-                               th:value="${enfermedad.id}" th:text="${enfermedad.nombre}"
-                               th:checked="${medicamento.enfermedades.contains(enfermedad)}">
-                    </label>
+    <div th:if="${usuarioLogeado}">
+        <div th:if="${usuario.isAdmin()}">
+            <form method="post" th:action="@{/medicamentos/editar/{id}(id=${medicamento.id})}" th:object="${medicamento}">
+                <div class="col-6">
+                    <div class="form-group">
+                        <br/>
+                        <label for="nombre">Nombre del medicamento:</label>
+                        <input class="form-control" id="nombre" name="nombre" th:field="${medicamento.nombre}" th:value="${medicamento.nombre}" required type="text"/>
+                        <br/>
+                        <label for="descripcion">Descripción del medicamento:</label>
+                        <input class="form-control" id="descripcion" name="descripcion" th:field="${medicamento.descripcion}" th:value="${medicamento.descripcion}" type="text"/>
+                        <br/>
+                        <label for="precio">Precio del medicamento:</label>
+                        <input class="form-control" id="precio" name="precio" th:field="${medicamento.precio}" th:value="${medicamento.precio}" type="number"/>
+                        <br/>
+                        <label> Es Recetable
+                            <input type="checkbox" name="block" th:field="${medicamento.receta}" th:checked="${medicamento.receta}" />
+                        </label>
+                        <br/>
+                    </div>
                 </div>
-            </div>
+
+                <div class="custom-select">
+                    <div class="select-box" onclick="toggleOptions()">
+                        <span>Seleccionar enfermedades</span>
+                        <i class="arrow">&#9660;</i>
+                    </div>
+                    <div class="options-container" id="optionsContainer" style="display: none;">
+                        <div th:each="enfermedad : ${enfermedades}">
+                            <label>
+                                <input type="checkbox" class="option-checkbox" name="enfermedades"
+                                       th:value="${enfermedad.id}" th:text="${enfermedad.nombre}"
+                                       th:checked="${medicamento.enfermedades.contains(enfermedad)}">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function toggleOptions() {
+                        const optionsContainer = document.getElementById('optionsContainer');
+                        if (optionsContainer.style.display === 'none' || optionsContainer.style.display === '') {
+                            optionsContainer.style.display = 'block';
+                        } else {
+                            optionsContainer.style.display = 'none';
+                        }
+                    }
+                </script>
+
+                <button class="btn btn-primary" type="submit">Modificar</button>
+                <a class="btn btn-link" th:href="@{/medicamentos/{id}(id=${medicamento.id})}">Cancelar</a>
+            </form>
         </div>
+    </div>
 
-        <script>
-            function toggleOptions() {
-                const optionsContainer = document.getElementById('optionsContainer');
-                if (optionsContainer.style.display === 'none' || optionsContainer.style.display === '') {
-                    optionsContainer.style.display = 'block';
-                } else {
-                    optionsContainer.style.display = 'none';
-                }
-            }
-        </script>
+    <div th:if="${usuarioLogeado}">
+        <div th:if="${!usuario.isAdmin()}">
+            <p>Debes ser administrador para acceder a esta página</p>
+        </div>
+    </div>
 
-        <button class="btn btn-primary" type="submit">Modificar</button>
-        <a class="btn btn-link" th:href="@{/medicamentos/{id}(id=${medicamento.id})}">Cancelar</a>
-    </form>
+    <div th:if="${!usuarioLogeado}">
+        <p>Debes estar logeado y ser administrador para acceder a esta página</p>
+    </div>
 
 </div>
 

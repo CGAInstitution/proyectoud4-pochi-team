@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,56 +16,75 @@
 
     <h2 th:text="'Modificación de la enfermedad ' + ${enfermedad.getId()}"></h2>
 
-    <form method="post" th:action="@{/enfermedades/editar/{id}(id=${enfermedad.id})}" th:object="${enfermedad}">
-        <div class="col-6">
-            <div class="form-group">
-                <br/>
-                <label for="nombre">Nombre de la enfermedad:</label>
-                <input class="form-control" id="nombre" name="nombre" th:field="${enfermedad.nombre}" th:value="${enfermedad.nombre}" required type="text"/>
-                <br/>
-                <label for="descripcion">Descripción de la enfermedad:</label>
-                <input class="form-control" id="descripcion" name="descripcion" th:field="${enfermedad.descripcion}" th:value="${enfermedad.descripcion}" type="text"/>
-                <br/>
-                <label for="peligrosidad">Peligrosidad de la enfermedad:</label>
-                <input class="form-control" id="peligrosidad" name="peligrosidad" th:field="${enfermedad.peligrosidad}" th:value="${enfermedad.peligrosidad}" type="number" min="0" max="10" th:default="0"/>
-                <br/>
-                <label> Es Contagiable
-                    <input type="checkbox" name="block" th:field="${enfermedad.contagiable}" th:checked="${enfermedad.contagiable}" />
-                </label>
-                <br/>
-            </div>
-        </div>
-
-        <div class="custom-select">
-            <div class="select-box" onclick="toggleOptions()">
-                <span>Seleccionar medicamentos</span>
-                <i class="arrow">&#9660;</i>
-            </div>
-            <div class="options-container" id="optionsContainer" style="display: none;">
-                <div th:each="medicamento : ${medicamentos}">
-                    <label>
-                        <input type="checkbox" class="option-checkbox" name="medicamentos"
-                               th:value="${medicamento.id}" th:text="${medicamento.nombre}"
-                               th:checked="${enfermedad.medicamentos.contains(medicamento)}">
-                    </label>
+    <div th:if="${usuarioLogeado}">
+        <div th:if="${usuario.isAdmin()}">
+            <form method="post" th:action="@{/enfermedades/editar/{id}(id=${enfermedad.id})}" th:object="${enfermedad}">
+                <div class="col-6">
+                    <div class="form-group">
+                        <br/>
+                        <label for="nombre">Nombre de la enfermedad:</label>
+                        <input class="form-control" id="nombre" name="nombre" th:field="${enfermedad.nombre}"
+                               th:value="${enfermedad.nombre}" required type="text"/>
+                        <br/>
+                        <label for="descripcion">Descripción de la enfermedad:</label>
+                        <input class="form-control" id="descripcion" name="descripcion"
+                               th:field="${enfermedad.descripcion}" th:value="${enfermedad.descripcion}" type="text"/>
+                        <br/>
+                        <label for="peligrosidad">Peligrosidad de la enfermedad:</label>
+                        <input class="form-control" id="peligrosidad" name="peligrosidad"
+                               th:field="${enfermedad.peligrosidad}" th:value="${enfermedad.peligrosidad}" type="number"
+                               min="0" max="10" th:default="0"/>
+                        <br/>
+                        <label> Es Contagiable
+                            <input type="checkbox" name="block" th:field="${enfermedad.contagiable}"
+                                   th:checked="${enfermedad.contagiable}"/>
+                        </label>
+                        <br/>
+                    </div>
                 </div>
-            </div>
+
+                <div class="custom-select">
+                    <div class="select-box" onclick="toggleOptions()">
+                        <span>Seleccionar medicamentos</span>
+                        <i class="arrow">&#9660;</i>
+                    </div>
+                    <div class="options-container" id="optionsContainer" style="display: none;">
+                        <div th:each="medicamento : ${medicamentos}">
+                            <label>
+                                <input type="checkbox" class="option-checkbox" name="medicamentos"
+                                       th:value="${medicamento.id}" th:text="${medicamento.nombre}"
+                                       th:checked="${enfermedad.medicamentos.contains(medicamento)}">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function toggleOptions() {
+                        const optionsContainer = document.getElementById('optionsContainer');
+                        if (optionsContainer.style.display === 'none' || optionsContainer.style.display === '') {
+                            optionsContainer.style.display = 'block';
+                        } else {
+                            optionsContainer.style.display = 'none';
+                        }
+                    }
+                </script>
+
+                <button class="btn btn-primary" type="submit">Modificar</button>
+                <a class="btn btn-link" th:href="@{/enfermedades/{id}(id=${enfermedad.id})}">Cancelar</a>
+            </form>
         </div>
+    </div>
 
-        <script>
-            function toggleOptions() {
-                const optionsContainer = document.getElementById('optionsContainer');
-                if (optionsContainer.style.display === 'none' || optionsContainer.style.display === '') {
-                    optionsContainer.style.display = 'block';
-                } else {
-                    optionsContainer.style.display = 'none';
-                }
-            }
-        </script>
+    <div th:if="${usuarioLogeado}">
+        <div th:if="${!usuario.isAdmin()}">
+            <p>Debes ser administrador para acceder a esta página</p>
+        </div>
+    </div>
 
-        <button class="btn btn-primary" type="submit">Modificar</button>
-        <a class="btn btn-link" th:href="@{/enfermedades/{id}(id=${enfermedad.id})}">Cancelar</a>
-    </form>
+    <div th:if="${!usuarioLogeado}">
+        <p>Debes estar logeado y ser administrador para acceder a esta página</p>
+    </div>
 
 </div>
 
