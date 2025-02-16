@@ -4,33 +4,33 @@ CREATE DATABASE IF NOT EXISTS HEALTH_DATABASE;
 use HEALTH_DATABASE;
 
 CREATE TABLE enfermedades (
-                              id bigint NOT NULL PRIMARY KEY auto_increment,
-                              nombre varchar(500) NOT NULL,
-                              descripcion varchar(500),
-                              peligrosidad smallint,
-                              contagiable boolean NOT NULL
+                              id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                              nombre VARCHAR(500) NOT NULL,
+                              descripcion VARCHAR(500),
+                              peligrosidad SMALLINT,
+                              contagiable BOOLEAN NOT NULL
 );
-
 
 CREATE TABLE medicamentos (
-                              id bigint NOT NULL PRIMARY KEY auto_increment,
-                              nombre varchar(500) NOT NULL,
-                              descripcion varchar(500),
-                              precio int default 0,
-                              recetable boolean NOT NULL DEFAULT true
+                              id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                              nombre VARCHAR(500) NOT NULL,
+                              descripcion VARCHAR(500),
+                              precio INT DEFAULT 0,
+                              recetable BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-
 CREATE TABLE enfermedades_medicamentos (
-                                           id bigint NOT NULL PRIMARY KEY auto_increment,
-                                              id_enfermedad bigint NOT NULL,
-                                           id_medicamento bigint NOT NULL,
-                                           FOREIGN KEY (id_enfermedad) references enfermedades(id)
-                                               on delete cascade
-                                               on update cascade,
-                                           FOREIGN KEY (id_medicamento) references medicamentos(id)
-                                               on delete cascade
-                                               on update cascade
+                                           id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                                           id_enfermedad BIGINT NOT NULL,
+                                           id_medicamento BIGINT NOT NULL,
+                                           CONSTRAINT fk_enfermedades_medicamentos_enfermedad FOREIGN KEY (id_enfermedad)
+                                               REFERENCES enfermedades(id)
+                                               ON DELETE CASCADE
+                                               ON UPDATE CASCADE,
+                                           CONSTRAINT fk_enfermedades_medicamentos_medicamento FOREIGN KEY (id_medicamento)
+                                               REFERENCES medicamentos(id)
+                                               ON DELETE CASCADE
+                                               ON UPDATE CASCADE
 );
 
 
@@ -88,27 +88,27 @@ CREATE TABLE usuario_tarjeta (
 
 
 
-INSERT INTO enfermedades (id, nombre, descripcion, peligrosidad, contagiable) VALUES
-                                                                                  (1, 'Gripe', 'Infección viral que afecta las vías respiratorias', 3, true),
-                                                                                  (2, 'Diabetes', 'Enfermedad crónica que afecta los niveles de azúcar en sangre', 5, false),
-                                                                                  (3, 'COVID-19', 'Infección viral que afecta las vías respiratorias y otros órganos', 5, true),
-                                                                                  (4, 'Hipertensión', 'Presión arterial alta', 4, false),
-                                                                                  (5, 'Varicela', 'Infección viral que causa erupciones cutáneas y fiebre', 4, true);
+INSERT INTO enfermedades (nombre, descripcion, peligrosidad, contagiable) VALUES
+                                                                              ('Gripe', 'Infección viral que afecta las vías respiratorias', 3, true),
+                                                                              ('Diabetes', 'Enfermedad crónica que afecta los niveles de azúcar en sangre', 5, false),
+                                                                              ('COVID-19', 'Infección viral que afecta las vías respiratorias y otros órganos', 5, true),
+                                                                              ('Hipertensión', 'Presión arterial alta', 4, false),
+                                                                              ('Varicela', 'Infección viral que causa erupciones cutáneas y fiebre', 4, true);
 
-INSERT INTO medicamentos (id, nombre, descripcion, precio, recetable) VALUES
-                                                                          (1, 'Paracetamol', 'Medicamento para aliviar el dolor y la fiebre', 50, true),
-                                                                          (2, 'Insulina', 'Hormona para tratar la diabetes', 300, true),
-                                                                          (3, 'Amoxicilina', 'Antibiótico para tratar infecciones bacterianas', 100, true),
-                                                                          (4, 'Ibuprofeno', 'Medicamento antiinflamatorio', 75, true),
-                                                                          (5, 'Remdesivir', 'Antiviral utilizado en casos graves de COVID-19', 2000, true);
+INSERT INTO medicamentos (nombre, descripcion, precio, recetable) VALUES
+                                                                      ('Paracetamol', 'Medicamento para aliviar el dolor y la fiebre', 50, true),
+                                                                      ('Insulina', 'Hormona para tratar la diabetes', 300, true),
+                                                                      ('Amoxicilina', 'Antibiótico para tratar infecciones bacterianas', 100, true),
+                                                                      ('Ibuprofeno', 'Medicamento antiinflamatorio', 75, true),
+                                                                      ('Remdesivir', 'Antiviral utilizado en casos graves de COVID-19', 2000, true);
 
-INSERT INTO enfermedades_medicamentos (id, id_enfermedad, id_medicamento) VALUES
-                                                                              (1, 1, 1), -- Gripe - Paracetamol
-                                                                              (2, 2, 2), -- Diabetes - Insulina
-                                                                              (3, 3, 5), -- COVID-19 - Remdesivir
-                                                                              (4, 4, 4), -- Hipertensión - Ibuprofeno
-                                                                              (5, 5, 1), -- Varicela - Paracetamol
-                                                                              (6, 5, 3); -- Varicela - Amoxicilina
+INSERT INTO enfermedades_medicamentos (id_enfermedad, id_medicamento) VALUES
+                                                                          (1, 1), -- Gripe - Paracetamol
+                                                                          (2, 2), -- Diabetes - Insulina
+                                                                          (3, 5), -- COVID-19 - Remdesivir
+                                                                          (4, 4), -- Hipertensión - Ibuprofeno
+                                                                          (5, 1), -- Varicela - Paracetamol
+                                                                          (5, 3); -- Varicela - Amoxicilina
 
 INSERT INTO tarjetas (id, tarjeta_banco) VALUES
                                              (1, 'BBVA 1234 5678 9012 3456'),

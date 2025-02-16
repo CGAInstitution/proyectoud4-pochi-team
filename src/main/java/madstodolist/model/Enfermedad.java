@@ -35,7 +35,7 @@ public class Enfermedad {
     @OneToMany(mappedBy = "enfermedad", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Paciente> pacientes = new HashSet<>();
 
-    @ManyToMany(mappedBy = "enfermedades", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "enfermedades",fetch = FetchType.EAGER)
     private Set<Medicamento> medicamentos = new HashSet<>();
 
     public Enfermedad(Long id, String nombre, @Null String descripcion, @Null Short peligrosidad, Boolean contagiable) {
@@ -52,4 +52,6 @@ public class Enfermedad {
         this.peligrosidad = peligrosidad;
         this.contagiable = contagiable;
     }
+
+
 }

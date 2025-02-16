@@ -26,7 +26,9 @@ public class MedicamentoService {
 
     @Transactional
     public void deleteMedicamento(Long id) {
-        medicamentoRepository.deleteById(id);
+        Medicamento medicamento = getMedicamentoById(id);
+        medicamento.getEnfermedades().clear();
+        medicamentoRepository.delete(medicamento);
     }
 
     @Transactional

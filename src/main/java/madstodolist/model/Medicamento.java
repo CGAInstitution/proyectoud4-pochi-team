@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -38,10 +39,12 @@ public class Medicamento {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "enfermedades_medicamentos",
-            joinColumns = @JoinColumn(name = "id_enfermedad"),
-            inverseJoinColumns = @JoinColumn(name = "id_medicamento")
+            joinColumns = @JoinColumn(name = "id_medicamento"),
+            inverseJoinColumns = @JoinColumn(name = "id_enfermedad")
     )
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private Set<Enfermedad> enfermedades = new HashSet<>();
+
 
     public Medicamento(Long id, String nombre, @Null String descripcion, @Null int precio, boolean receta) {
         this.id = id;
