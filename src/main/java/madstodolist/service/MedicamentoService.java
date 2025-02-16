@@ -2,6 +2,7 @@ package madstodolist.service;
 
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Medicamento;
+import madstodolist.repository.EnfermedadRepository;
 import madstodolist.repository.MedicamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class MedicamentoService {
 
     @Autowired
     private MedicamentoRepository medicamentoRepository;
+
+    @Autowired
+    private EnfermedadRepository enfermedadRepository;
 
     @Transactional
     public void addMedicamento(String nombre, String descripcion, int precio, boolean receta, Set<Enfermedad> enfermedades) {

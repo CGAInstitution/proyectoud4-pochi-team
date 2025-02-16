@@ -15,7 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -113,14 +115,28 @@ public class EnfermedadController {
     }
 
     @PostMapping("/enfermedades/editar/{id}")
-    public String actualizarEnfermedad(@PathVariable(value="id") Long idEnfermedad, String nombre, String descripcion, short peligrosidad, boolean contagiable) {
-        enfermedadeService.modificarEnfermedad(idEnfermedad, nombre, descripcion, peligrosidad, contagiable/*, enfermedadesNuevas*/);
+    public String actualizarEnfermedad(@PathVariable(value="id") Long idEnfermedad, String nombre, String descripcion, short peligrosidad, boolean contagiable, @RequestParam(required = false) List<Long> medicamentos) {
+        Set<Medicamento> medicamentosNuevos = new HashSet<>();
+        if (medicamentos != null) {
+            for (Long id : medicamentos) {
+                Medicamento medicamento = medicamentoService.getMedicamentoById(id);
+                medicamentosNuevos.add(medicamento);
+            }
+        }
+        enfermedadeService.modificarEnfermedad(idEnfermedad, nombre, descripcion, peligrosidad, contagiable, medicamentosNuevos);
         return "redirect:/enfermedades/" + idEnfermedad;
     }
 
     @PostMapping("/enfermedades/crear")
-    public String crearEnfermedad(String nombre, String descripcion, short peligrosidad, boolean contagiable) {
-        enfermedadeService.nuevaEnfermedad(nombre, descripcion, peligrosidad, contagiable);
+    public String crearEnfermedad(String nombre, String descripcion, short peligrosidad, boolean contagiable, @RequestParam(required = false) List<Long> medicamentos) {
+        Set<Medicamento> medicamentosNuevos = new HashSet<>();
+        if (medicamentos != null) {
+            for (Long id : medicamentos) {
+                Medicamento medicamento = medicamentoService.getMedicamentoById(id);
+                medicamentosNuevos.add(medicamento);
+            }
+        }
+        enfermedadeService.nuevaEnfermedad(nombre, descripcion, peligrosidad, contagiable, medicamentosNuevos);
         return "redirect:/enfermedades";
     }
 

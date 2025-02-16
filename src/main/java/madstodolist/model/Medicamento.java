@@ -36,13 +36,12 @@ public class Medicamento {
     @Column(name = "recetable", nullable = false)
     private boolean receta;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "enfermedades_medicamentos",
             joinColumns = @JoinColumn(name = "id_medicamento"),
             inverseJoinColumns = @JoinColumn(name = "id_enfermedad")
     )
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private Set<Enfermedad> enfermedades = new HashSet<>();
 
 

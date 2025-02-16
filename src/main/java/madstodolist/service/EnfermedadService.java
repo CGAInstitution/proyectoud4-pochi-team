@@ -1,23 +1,16 @@
 package madstodolist.service;
 
-import madstodolist.dto.TareaData;
 import madstodolist.model.Enfermedad;
-import madstodolist.model.Tarea;
-import madstodolist.model.Usuario;
+import madstodolist.model.Medicamento;
 import madstodolist.repository.EnfermedadRepository;
-import madstodolist.repository.TareaRepository;
-import madstodolist.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.validation.constraints.Null;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -26,14 +19,10 @@ public class EnfermedadService {
 
     @Autowired
     private EnfermedadRepository enfermedadRepository;
-    @Autowired
-    private ModelMapper modelMapper;
 
     @Transactional
-    public Enfermedad nuevaEnfermedad(String nombre, @Null String descripcion, @Null Short peligrosidad, boolean contagiable) {
-        Enfermedad enfermedad = new Enfermedad(nombre,descripcion,peligrosidad,contagiable);
-        enfermedadRepository.save(enfermedad);
-        return enfermedad;
+    public void nuevaEnfermedad(String nombre, @Null String descripcion, @Null Short peligrosidad, boolean contagiable, Set<Medicamento> medicamentos) {
+        enfermedadRepository.save(new Enfermedad(nombre,descripcion,peligrosidad,contagiable, medicamentos));
     }
 
     @Transactional(readOnly = true)
@@ -49,13 +38,16 @@ public class EnfermedadService {
     }
 
     @Transactional
-    public Enfermedad modificarEnfermedad(Long id, String nuevoNombre, String nuevaDescripcion, Short nuevaPeligrosidad, Boolean nuevoContagiable) {
-        Enfermedad enfermedad = enfermedadRepository.findById(id).orElseThrow(() -> new RuntimeException("Enfermedad no encontrada"));
-        enfermedad.setNombre(nuevoNombre);
-        enfermedad.setDescripcion(nuevaDescripcion);
-        enfermedad.setPeligrosidad(nuevaPeligrosidad);
-        enfermedad.setContagiable(nuevoContagiable);
-        return enfermedadRepository.save(enfermedad);
+    public void modificarEnfermedad(Long id, String nuevoNombre, String nuevaDescripcion, Short nuevaPeligrosidad, Boolean nuevoContagiable, Set<Medicamento> medicamentos) {
+        Optional<Enfermedad> enfermedad = enfermedadRepository.findById(id);
+        if (enfermedad.isPresent()) {
+            enfermedad.get().setNombre(nuevoNombre);
+            enfermedad.get().setDescripcion(nuevaDescripcion);
+            enfermedad.get().setPeligrosidad(nuevaPeligrosidad);
+            enfermedad.get().setContagiable(nuevoContagiable);
+            enfermedad.get().setMedicamentos(medicamentos);
+            enfermedadRepository.save(enfermedad.get());
+        }
     }
 
     @Transactional
