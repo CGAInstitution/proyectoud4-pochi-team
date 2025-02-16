@@ -29,6 +29,7 @@ public class PacienteService {
     @Transactional
     public void borrarPaciente(Long idPaciente) {
         pacienteRepository.deleteById(idPaciente);
+        pacienteRepository.flush();
     }
 
     @Transactional

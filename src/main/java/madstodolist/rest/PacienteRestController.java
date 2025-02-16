@@ -93,4 +93,9 @@ public class PacienteRestController {
                 paciente.getTarjeta()
         );
     }
+
+    @DeleteMapping("/api/pacientes/{id}")
+    public void borrarPaciente(@PathVariable Long id) {
+        pacienteService.borrarPaciente(id);
+    }
 }
