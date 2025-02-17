@@ -34,4 +34,9 @@ public class HomeController {
         model.addAttribute("masCercaDeObjetivo", pacienteService.getMasCercaDeObjetivo());
         return "MenuPrincipal"; // Nombre del archivo HTML sin la extensión
     }
+
+    @GetMapping("/error")
+    public String error(Model model) {
+        return "error"; // Nombre del archivo HTML sin la extensión
+    }
 }

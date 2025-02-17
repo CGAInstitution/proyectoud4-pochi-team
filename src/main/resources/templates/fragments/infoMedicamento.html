@@ -2,7 +2,7 @@
 
     <h2 class="text-center text-primary fw-bold" id="card-medicamento-title" th:text="${medicamento.nombre}"></h2>
     <p class="text-muted text-center" id="card-medicamento-description" th:text="${medicamento.descripcion}"></p>
-    <p class="text-muted text-center" id="card-medicamento-price" th:text="${medicamento.precio}"></p>
+    <p class="text-muted text-center" id="card-medicamento-price" th:text="${medicamento.precio} + '$'"></p>
     <!--<p th:if="${medicamento.recetable}" class="text-primary text-center fw-bold">(Recetable)</p>-->
 
     <!-- Enfermedades -->

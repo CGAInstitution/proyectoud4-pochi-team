@@ -28,7 +28,7 @@
                     <div class="card p-3">
                         <h3 class="card-title" th:text="${medicamento.nombre}"></h3>
                         <p class="card-text" th:text="${medicamento.descripcion}"></p>
-                        <p th:text="${medicamento.precio}"></p>
+                        <p th:text="${medicamento.precio} + '$'"></p>
                         <p th:if="${medicamento.receta}">(R)</p>
                     </div>
                 </a>

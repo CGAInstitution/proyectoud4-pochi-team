@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health PochiTeam</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/StylesPacientes.css?v=1}">
+</head>
+
+<body>
+
+<!--<div th:replace="fragments/menu :: menu"></div>-->
+
+<div class="contenedorPrincipal">
+
+    <h2 th:text="'Creación de un paciente'"/>
+    <form method="post" th:action="@{'/pacientes/guardar/'}" th:object="${paciente}">
+        <div class="mb-3">
+            <label class="form-label" for="nss">NSS</label>
+            <input class="form-control" id="nss" required th:field="*{nss}" type="text">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="edad">Edad</label>
+            <input class="form-control" id="edad" required th:field="*{edad}" type="number">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="nombre">Nombre</label>
+            <input class="form-control" id="nombre" required th:field="*{nombre}" type="text">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="objetivo">Objetivo</label>
+            <input class="form-control" id="objetivo" required th:field="*{objetivo}" type="number">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="enfermedad">Enfermedad</label>
+            <select class="form-control" id="enfermedad" th:field="*{enfermedad.id}">
+                <option th:each="enfermedad : ${enfermedades}" th:text="${enfermedad.nombre}"
+                        th:value="${enfermedad.id}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="tarjeta_banco">Número de Tarjeta</label>
+            <input class="form-control" id="tarjeta_banco" required th:field="*{tarjeta.tarjeta_banco}" type="text">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Crear</button>
+        <a class="btn btn-link" th:href="@{/pacientes}">Cancelar</a>
+    </form>
+
+</div>
+
+<!--<div th:replace="fragments/footer :: footer"></div>-->
+</body>
+</html>

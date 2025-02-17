@@ -1,19 +1,16 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
+import madstodolist.dto.UsuarioData;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Paciente;
 import madstodolist.model.Tarjeta;
 import madstodolist.model.Usuario;
-import madstodolist.dto.UsuarioData;
-import madstodolist.model.*;
 import madstodolist.service.DonacionService;
-import madstodolist.service.EnfermedadService;
-import madstodolist.model.Paciente;
-import madstodolist.service.EnfermedadService;
 import madstodolist.service.EnfermedadService;
 import madstodolist.service.PacienteService;
 import madstodolist.service.UsuarioService;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -26,9 +23,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Objects;
-
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class PacienteController {
@@ -81,19 +78,21 @@ public class PacienteController {
     }
 
     @GetMapping("/pacientes/gestionarPaciente/{id}")
-    public String gestionarPaciente(@PathVariable(value = "id") Long idUsuario, Model model) {
+    public String gestionarPaciente(@PathVariable(value = "id") Long idPaciente, Model model) {
 
         Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
         boolean usuarioLogeado = usuarioLogeadoId != null;
         model.addAttribute("usuarioLogeado", usuarioLogeado);
 
-        if (!Objects.equals(usuarioLogeadoId, idUsuario)) {
-            return "/";
+        Paciente paciente = pacienteService.findById(idPaciente);
+
+        if (paciente.getUsuario() != null && !Objects.equals(usuarioLogeadoId, paciente.getUsuario().getId())) {
+            return "redirect:/";
         }
 
         model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
         model.addAttribute("enfermedades", enfermedadService.allEnfermedades());
-        model.addAttribute("paciente", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)).getPaciente());
+        model.addAttribute("paciente", paciente);
 
         return "gestionarPaciente";
     }
@@ -132,16 +131,20 @@ public class PacienteController {
     @GetMapping("/pacientes/{id}/profile-picture")
     public ResponseEntity<byte[]> getProfilePicture(@PathVariable Long id) throws IOException {
 
-        byte[] image = pacienteService.findById(id).getProfilePicture();
+        try {
+            byte[] image = pacienteService.findById(id).getProfilePicture();
 
-        if (image == null) {
-            Resource defaultImage = new ClassPathResource("static/iconos/doctor.jpg");
-            image = StreamUtils.copyToByteArray(defaultImage.getInputStream());
+            if (image == null) {
+                Resource defaultImage = new ClassPathResource("static/iconos/doctor.jpg");
+                image = StreamUtils.copyToByteArray(defaultImage.getInputStream());
+            }
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(image);
+        } catch (FileSizeLimitExceededException e) {
+            return ResponseEntity.badRequest().body("El archivo excede el tamaño máximo permitido.".getBytes(StandardCharsets.UTF_8));
         }
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
-                .body(image);
     }
 
     @GetMapping("/donar/{id}")
@@ -176,7 +179,7 @@ public class PacienteController {
     /* PARTE DEL CRUD */
 
     @GetMapping("/pacientes/editar/{id}")
-    public String abrirEditarPaciente(@PathVariable(value="id") Long idPaciente, Model model) {
+    public String abrirEditarPaciente(@PathVariable(value = "id") Long idPaciente, Model model) {
 
         /*Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
         boolean usuarioLogeado = usuarioLogeadoId != null;*/
@@ -193,26 +196,6 @@ public class PacienteController {
 
         return "modificarPaciente";
     }
-
-    @GetMapping("/pacientes/crear")
-    public String abrirCrearPaciente(Model model) {
-
-        /*Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
-        boolean usuarioLogeado = usuarioLogeadoId != null;*/
-        //model.addAttribute("usuarioLogeado", usuarioLogeado);
-
-        /*if (usuarioLogeado) {
-            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
-            model.addAttribute("usuario", usuario);
-        }*/
-
-        Paciente paciente = new Paciente();
-        List<Enfermedad> enfermedades = enfermedadService.allEnfermedades();
-        model.addAttribute("paciente", paciente);
-        model.addAttribute("enfermedades", enfermedades);
-
-        return "crearPaciente";
-    }
     /*
     @PostMapping("/pacientes/editar/{id}")
     public String actualizarPaciente(@PathVariable(value="id") Long idPaciente, String nss, Integer edad, String nombre, String imagen) {
@@ -227,9 +210,40 @@ public class PacienteController {
     }*/
 
     @PostMapping("/pacientes/eliminar/{id}")
-    public String borrarEnfermedad(@PathVariable(value="id") Long idPaciente) {
-        pacienteService.borrarPaciente(idPaciente);
-        return "redirect:/pacientes";
+    public String borrarEnfermedad(@PathVariable(value = "id") Long idPaciente) {
+        Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+        if (usuarioLogeadoId != null && usuarioService.findById(usuarioLogeadoId).isAdmin()) {
+            pacienteService.borrarPaciente(idPaciente);
+            return "redirect:/pacientes";
+        }
+        return "redirect:/";
     }
 
+    @GetMapping("/pacientes/crear")
+    public String abrirCrearPaciente(Model model) {
+
+        Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+        boolean usuarioLogeado = usuarioLogeadoId != null;
+        model.addAttribute("usuarioLogeado", usuarioLogeado);
+
+        if (usuarioLogeado) {
+            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
+            model.addAttribute("usuario", usuario);
+            if (usuario.isAdmin()) {
+                model.addAttribute("paciente", new Paciente());
+                List<Enfermedad> enfermedades = enfermedadService.allEnfermedades();
+                model.addAttribute("enfermedades", enfermedades);
+                return "crearPaciente";
+            }
+        }
+        return "redirect:/";
+
+    }
+
+    @PostMapping("/pacientes/guardar")
+    public String crearPaciente(@ModelAttribute Paciente paciente) {
+        pacienteService.guardarPaciente(paciente);
+        return "redirect:/pacientes";
+
+    }
 }
