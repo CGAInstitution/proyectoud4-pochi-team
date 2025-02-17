@@ -68,7 +68,6 @@ public class PacienteRestController {
                     paciente.getEnfermedad().isContagiable()
             );
         }
-
         Tarjeta nuevaTarjeta = new Tarjeta();
         nuevaTarjeta.setTarjeta_banco(paciente.getTarjeta().getTarjeta_banco());
         paciente.setTarjeta(nuevaTarjeta);
@@ -83,6 +82,7 @@ public class PacienteRestController {
                 paciente.getUsuario()
         );
     }
+
 
     @PutMapping("/api/pacientes/{id}")
     public void modificarPaciente(@PathVariable Long id, @RequestBody Paciente paciente) {
