@@ -67,15 +67,29 @@ public class Enfermedad {
     }
 
     @Override
+    public String toString() {
+        return "Enfermedad{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", peligrosidad=" + peligrosidad +
+                ", contagiable=" + contagiable +
+                ", pacientes=" + pacientes +
+                ", medicamentos=" + medicamentos +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Enfermedad that = (Enfermedad) o;
-        return Objects.equals(id, that.id) && Objects.equals(nombre, that.nombre) && Objects.equals(descripcion, that.descripcion) && Objects.equals(peligrosidad, that.peligrosidad) && Objects.equals(contagiable, that.contagiable) && Objects.equals(pacientes, that.pacientes) && Objects.equals(medicamentos, that.medicamentos);
+        return Objects.equals(id, that.id);  // Compara por id
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, descripcion, peligrosidad, contagiable, pacientes, medicamentos);
+        return Objects.hash(id);  // Usa el id para el hash
     }
+
 }

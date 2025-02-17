@@ -4,11 +4,9 @@ import madstodolist.model.Enfermedad;
 import madstodolist.model.Medicamento;
 import madstodolist.repository.EnfermedadRepository;
 import madstodolist.repository.MedicamentoRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import javax.validation.constraints.Null;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -26,7 +24,6 @@ public class EnfermedadService {
     public void nuevaEnfermedad(String nombre, String descripcion, Short peligrosidad, Boolean contagiable, List<Long> medicamentoIds) {
         Enfermedad nuevaEnfermedad = new Enfermedad(nombre, descripcion, peligrosidad, contagiable);
 
-        // Si la lista de medicamentos no está vacía, añadir los medicamentos
         if (medicamentoIds != null && !medicamentoIds.isEmpty()) {
             for (Long medicamentoId : medicamentoIds) {
                 Medicamento managedMedicamento = medicamentoRepository.findById(medicamentoId)
@@ -38,7 +35,6 @@ public class EnfermedadService {
 
         enfermedadRepository.save(nuevaEnfermedad);
     }
-
 
     @Transactional(readOnly = true)
     public List<Enfermedad> allEnfermedades() {
@@ -52,46 +48,52 @@ public class EnfermedadService {
                 .orElseThrow(() -> new RuntimeException("Enfermedad no encontrada"));
     }
 
+    /* METODO ARREGLADO PARA COPIAR EN LA RAMA DE DEVELOP */
+
     @Transactional
     public void modificarEnfermedad(Long id, String nuevoNombre, String nuevaDescripcion, Short nuevaPeligrosidad, Boolean nuevoContagiable, List<Long> medicamentoIds) {
-        Optional<Enfermedad> enfermedad = enfermedadRepository.findById(id);
-        if (enfermedad.isPresent()) {
-            Enfermedad existingEnfermedad = enfermedad.get();
-            existingEnfermedad.setNombre(nuevoNombre);
-            existingEnfermedad.setDescripcion(nuevaDescripcion);
-            existingEnfermedad.setPeligrosidad(nuevaPeligrosidad);
-            existingEnfermedad.setContagiable(nuevoContagiable);
+        Optional<Enfermedad> enfermedadOpt = enfermedadRepository.findById(id);
+        if (enfermedadOpt.isPresent()) {
+            Enfermedad enfermedad = enfermedadOpt.get();
+            enfermedad.setNombre(nuevoNombre);
+            enfermedad.setDescripcion(nuevaDescripcion);
+            enfermedad.setPeligrosidad(nuevaPeligrosidad);
+            enfermedad.setContagiable(nuevoContagiable);
 
-            if (medicamentoIds == null) {
-                medicamentoIds = new ArrayList<>();
+            for (Medicamento medicamento : new HashSet<>(enfermedad.getMedicamentos())) {
+                medicamento.getEnfermedades().remove(enfermedad);
             }
+            enfermedad.getMedicamentos().clear();
 
-            Set<Medicamento> currentMedicamentos = existingEnfermedad.getMedicamentos();
-
-            List<Long> finalMedicamentoIds = medicamentoIds;
-            currentMedicamentos.removeIf(medicamento -> {
-                if (!finalMedicamentoIds.contains(medicamento.getId())) {
-                    medicamento.getEnfermedades().remove(existingEnfermedad);
-                    return true;
-                }
-                return false;
-            });
-
-            for (Long medicamentoId : medicamentoIds) {
-                if (currentMedicamentos.stream().noneMatch(medicamento -> medicamento.getId().equals(medicamentoId))) {
+            if (medicamentoIds != null && !medicamentoIds.isEmpty()) {
+                for (Long medicamentoId : medicamentoIds) {
                     Medicamento managedMedicamento = medicamentoRepository.findById(medicamentoId)
-                            .orElseThrow(() -> new RuntimeException("Medicamento no encontrado"));
-                    currentMedicamentos.add(managedMedicamento);
-                    managedMedicamento.getEnfermedades().add(existingEnfermedad);
+                            .orElseThrow(() -> new RuntimeException("Medicamento no encontrado: " + medicamentoId));
+                    enfermedad.getMedicamentos().add(managedMedicamento);
+                    managedMedicamento.getEnfermedades().add(enfermedad);
                 }
             }
 
-            enfermedadRepository.save(existingEnfermedad);
+            enfermedadRepository.save(enfermedad);
+        } else {
+            throw new RuntimeException("Enfermedad no encontrada");
         }
     }
 
+    /* METODO ARREGLADO PARA COPIAR EN LA RAMA DE DEVELOP */
+
     @Transactional
     public void borrarEnfermedad(Long idEnfermedad) {
-        enfermedadRepository.delete(enfermedadRepository.findById(idEnfermedad).orElseThrow(() -> new RuntimeException("Enfermedad no encontrada")));
+        Enfermedad enfermedad = enfermedadRepository.findById(idEnfermedad)
+                .orElseThrow(() -> new RuntimeException("Enfermedad no encontrada"));
+
+        for (Medicamento medicamento : new HashSet<>(enfermedad.getMedicamentos())) {
+            medicamento.getEnfermedades().remove(enfermedad);
+        }
+        enfermedad.getMedicamentos().clear();
+
+        enfermedadRepository.save(enfermedad);
+
+        enfermedadRepository.delete(enfermedad);
     }
 }
