@@ -22,43 +22,36 @@
 
     <div id="contenedorPacientes" th:object="${paciente}">
         <div th:replace="fragments/infoPaciente :: infoPaciente"/>
-        <a style="text-decoration: none;" th:href="@{/enfermedades/{id}(id=${enfermedad.id})}">
-
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <h3 class="text-center text-primary fw-bold" id="card-enfermedad-title"
-                            th:text="${enfermedad.nombre}"></h3>
-                        <p class="text-muted text-center" id="card-enfermedad-text"
-                           th:text="${enfermedad.descripcion}"></p>
-                        <p class="text-center fw-bold" id="peligrosidad">
-                            <span class="text-danger" th:if="${enfermedad.peligrosidad} >= 8">🔴 Alta</span>
-                            <span class="text-warning"
-                                  th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8">🟠 Media-Alta</span>
-                            <span class="text-warning"
-                                  th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6">🟡 Media</span>
-                            <span class="text-success"
-                                  th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4">🟢 Baja</span>
-                        </p>
-                        <p class="text-primary text-center fw-bold" th:if="${enfermedad.contagiable}">(Contagiable)</p>
-                    </div>
+    </div>
+    <h3 style="margin-top: 20px">Enfermedad que padece el Paciente</h3>
+    <a class="linkEnfermedadPaciente" style="text-decoration: none;"
+       th:href="@{/enfermedades/{id}(id=${enfermedad.id})}">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h3 class="text-center text-primary fw-bold card-enfermedad-title"
+                        th:text="${enfermedad.nombre}"></h3>
+                    <p class="text-center fw-bold peligrosidad">
+                        <span class="text-danger" th:if="${enfermedad.peligrosidad} >= 8">🔴 Alta</span>
+                        <span class="text-warning"
+                              th:if="${enfermedad.peligrosidad} >= 6 and ${enfermedad.peligrosidad} < 8">🟠 Media-Alta</span>
+                        <span class="text-warning"
+                              th:if="${enfermedad.peligrosidad} >= 4 and ${enfermedad.peligrosidad} < 6">🟡 Media</span>
+                        <span class="text-success"
+                              th:if="${enfermedad.peligrosidad} >= 1 and ${enfermedad.peligrosidad} < 4">🟢 Baja</span>
+                    </p>
+                    <p class="text-primary text-center fw-bold" th:if="${enfermedad.contagiable}">(Contagiable)</p>
                 </div>
             </div>
-        </a>
+        </div>
+    </a>
 
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div class="col" th:each="medicamento : ${enfermedad.medicamentos}">
-                <a style="text-decoration: none;" th:href="@{/medicamentos/{id}(id=${medicamento.id})}">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h3 class="card-title text-primary" th:text="${medicamento.nombre}"></h3>
-                            <p class="card-text text-muted" th:text="${medicamento.descripcion}"></p>
-                            <p class="fw-bold text-success">Precio: <span th:text="${medicamento.precio}"></span>$</p>
-                            <p class="text-danger" th:if="${medicamento.receta}">(Requiere receta)</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
+    <h3 style="margin-top: 20px">Medicamentos necesarios para tratar al paciente</h3>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col" th:each="medicamento : ${enfermedad.medicamentos}">
+            <a style="text-decoration: none;" th:href="@{/medicamentos/{id}(id=${medicamento.id})}">
+                <nav th:replace="fragments/infoMedicamento :: cartaMedicamento"></nav>
+            </a>
         </div>
     </div>
 
@@ -72,8 +65,8 @@
             <p>Haz LogIn para poder donar</p>
         </div>
     </div>
-
 </div>
+
 
 <div th:replace="fragments/footer :: footer"></div>
 </body>

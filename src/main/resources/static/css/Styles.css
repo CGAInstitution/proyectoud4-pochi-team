@@ -67,6 +67,10 @@ body {
     display: inline;
 }
 
+.mt-4{
+    margin-top: 0;
+}
+
 /* Estilo para la barra de menú */
 .user-actions {
     display: flex;
@@ -201,7 +205,7 @@ body {
     transform: scale(1.05);
 }
 
-#card-enfermedad-title {
+.card-enfermedad-title {
     font-size: 24px;
     font-weight: bold;
     color: #a02855;
@@ -215,7 +219,15 @@ body {
     margin-bottom: 10px;
 }
 
-#peligrosidad {
+a.linkEnfermedadPaciente div{
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: 0;
+    margin-left: 0;
+    display: inline;
+}
+
+.peligrosidad {
     font-weight: bold;
     font-size: 18px;
     margin-top: auto;
