@@ -84,12 +84,6 @@ public class PacienteRestController {
         );
     }
 
-
-
-
-
-
-
     @PutMapping("/api/pacientes/{id}")
     public void modificarPaciente(@PathVariable Long id, @RequestBody Paciente paciente) {
         Enfermedad enfermedadExistente = enfermedadService.findById(paciente.getEnfermedad().getId());
