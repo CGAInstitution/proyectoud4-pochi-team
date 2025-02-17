@@ -8,9 +8,15 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: health_database
     ports:
-      - "3307:3306"  # El puerto local 3307 mapea al puerto 3306 del contenedor
+      - "3307:3306"
     networks:
       - app-network
+    restart: always
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   app:
     build: .
@@ -22,9 +28,11 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - app-network
+
 
 networks:
   app-network:

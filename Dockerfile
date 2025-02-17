@@ -1,14 +1,12 @@
-# Imagen base de OpenJDK 17
-FROM openjdk:17-jdk-slim
-
-# Establecer el directorio de trabajo en el contenedor
+# Imagen base de Maven para compilar
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copiar el JAR dentro del contenedor
-COPY mads-todolist-1.0.0.jar app.jar
-
-# Exponer el puerto en el que corre Spring Boot (puedes modificarlo si tu app usa otro puerto)
+# Imagen ligera para ejecutar la app
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Comando para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "app.jar"]
