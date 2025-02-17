@@ -29,7 +29,6 @@ public class Tarjeta {
     @JsonIgnore
     private Paciente paciente;
 
-
     @OneToMany(mappedBy = "tarjeta", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Donacion> donaciones = new HashSet<>();

@@ -23,10 +23,9 @@ public class EnfermedadService {
     private MedicamentoRepository medicamentoRepository;
 
     @Transactional
-    public void nuevaEnfermedad(String nombre, String descripcion, Short peligrosidad, Boolean contagiable, List<Long> medicamentoIds) {
+    public Enfermedad nuevaEnfermedad(String nombre, String descripcion, Short peligrosidad, Boolean contagiable, List<Long> medicamentoIds) {
         Enfermedad nuevaEnfermedad = new Enfermedad(nombre, descripcion, peligrosidad, contagiable);
 
-        // Si la lista de medicamentos no está vacía, añadir los medicamentos
         if (medicamentoIds != null && !medicamentoIds.isEmpty()) {
             for (Long medicamentoId : medicamentoIds) {
                 Medicamento managedMedicamento = medicamentoRepository.findById(medicamentoId)
@@ -37,7 +36,17 @@ public class EnfermedadService {
         }
 
         enfermedadRepository.save(nuevaEnfermedad);
+        return nuevaEnfermedad;
     }
+    @Transactional
+    public Enfermedad nuevaEnfermedad(String nombre, @Null String descripcion, @Null Short peligrosidad, boolean contagiable) {
+        Enfermedad enfermedad = new Enfermedad(nombre,descripcion,peligrosidad,contagiable);
+        enfermedadRepository.save(enfermedad);
+        return enfermedad;
+    }
+
+
+
 
 
     @Transactional(readOnly = true)

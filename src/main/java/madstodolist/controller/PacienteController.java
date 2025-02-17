@@ -213,12 +213,12 @@ public class PacienteController {
 
         return "crearPaciente";
     }
-
+    /*
     @PostMapping("/pacientes/editar/{id}")
     public String actualizarPaciente(@PathVariable(value="id") Long idPaciente, String nss, Integer edad, String nombre, String imagen) {
         pacienteService.updatePaciente(idPaciente, nss, edad, nombre, imagen);
         return "redirect:/pacientes/" + idPaciente;
-    }
+    }*/
 
     /*@PostMapping("/pacientes/crear")
     public String crearPaciente(String nombre, String descripcion, short peligrosidad, boolean contagiable) {

@@ -3,6 +3,7 @@ package madstodolist.service;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Paciente;
 import madstodolist.model.Tarjeta;
+import madstodolist.model.Usuario;
 import madstodolist.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,20 @@ public class PacienteService {
     private PacienteRepository pacienteRepository;
 
     @Transactional
-    public void nuevoPaciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta) {
-        Paciente paciente = new Paciente(id, nss, edad, objetivo, nombre, enfermedad, tarjeta);
+    public void nuevoPaciente(String nss, Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta, Usuario usuario) {
+        Paciente paciente = new Paciente(nss, edad, objetivo, nombre, enfermedad, tarjeta);
+        if (usuario != null) {
+            paciente.setUsuario(usuario);
+        }
         pacienteRepository.save(paciente);
     }
+    @Transactional
+    public Paciente nuevoPaciente(String nss, Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta) {
+        Paciente paciente = new Paciente(nss, edad, objetivo, nombre, enfermedad, tarjeta);
+        pacienteRepository.save(paciente);
+        return paciente;
+    }
+
 
     @Transactional
     public void borrarPaciente(Long idPaciente) {

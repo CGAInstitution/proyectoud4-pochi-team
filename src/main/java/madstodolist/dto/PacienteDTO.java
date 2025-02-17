@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Tarjeta;
+import madstodolist.model.Usuario;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,5 +20,5 @@ public class PacienteDTO {
     private Enfermedad enfermedad;
     private Long objetivo;
     private Tarjeta tarjeta;
-
+    private Long usuarioId;
 }

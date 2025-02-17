@@ -1,15 +1,18 @@
 package madstodolist.rest;
 
 import madstodolist.dto.PacienteDTO;
-import madstodolist.model.Enfermedad;
-import madstodolist.model.Paciente;
+import madstodolist.dto.UsuarioData;
+import madstodolist.model.*;
 import madstodolist.service.EnfermedadService;
 import madstodolist.service.PacienteService;
+import madstodolist.service.TarjetaService;
+import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class PacienteRestController {
@@ -17,6 +20,9 @@ public class PacienteRestController {
     private PacienteService pacienteService;
     @Autowired
     private EnfermedadService enfermedadService;
+    @Autowired
+    private TarjetaService tarjetaService;
+
 
     @GetMapping("/api/pacientes")
     public List<PacienteDTO> pacientes() {
@@ -30,7 +36,6 @@ public class PacienteRestController {
             dto.setEnfermedad(paciente.getEnfermedad());
             dto.setObjetivo(paciente.getObjetivo());
             dto.setTarjeta(paciente.getTarjeta());
-
 
             pacienteDTOList.add(dto);
         }
@@ -46,6 +51,9 @@ public class PacienteRestController {
         dto.setNombre(paciente.getNombre());
         dto.setEdad(paciente.getEdad());
         dto.setNss(paciente.getNss());
+        dto.setEnfermedad(paciente.getEnfermedad());
+        dto.setObjetivo(paciente.getObjetivo());
+        dto.setTarjeta(paciente.getTarjeta());
         return dto;
     }
 
@@ -61,17 +69,27 @@ public class PacienteRestController {
             );
         }
 
+        Tarjeta nuevaTarjeta = new Tarjeta();
+        nuevaTarjeta.setTarjeta_banco(paciente.getTarjeta().getTarjeta_banco());
+        paciente.setTarjeta(nuevaTarjeta);
+        paciente.setEnfermedad(enfermedadExistente);
         pacienteService.nuevoPaciente(
-                paciente.getId(),
                 paciente.getNss(),
                 paciente.getEdad(),
                 paciente.getObjetivo(),
                 paciente.getNombre(),
                 enfermedadExistente,
-                paciente.getTarjeta()
+                paciente.getTarjeta(),
+                paciente.getUsuario()
         );
     }
-    //Este aun no funciona
+
+
+
+
+
+
+
     @PutMapping("/api/pacientes/{id}")
     public void modificarPaciente(@PathVariable Long id, @RequestBody Paciente paciente) {
         Enfermedad enfermedadExistente = enfermedadService.findById(paciente.getEnfermedad().getId());

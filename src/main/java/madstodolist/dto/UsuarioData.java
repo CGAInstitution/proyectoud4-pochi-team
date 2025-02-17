@@ -42,4 +42,8 @@ public class UsuarioData {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    public boolean isPaciente() {
+        return this.paciente != null;
+    }
 }
