@@ -35,7 +35,7 @@
 
 
     CREATE TABLE tarjetas (
-                              id bigint NOT NULL PRIMARY KEY,
+                              id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                               tarjeta_banco varchar(500) NOT NULL
     );
 
