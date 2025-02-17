@@ -36,7 +36,6 @@ public class PacienteController {
     @Autowired
     UsuarioService usuarioService;
 
-
     @Autowired
     private PacienteService pacienteService;
 

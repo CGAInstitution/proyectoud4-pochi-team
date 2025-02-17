@@ -1,10 +1,12 @@
 package madstodolist.service;
 
+import madstodolist.dto.PacienteDTO;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Paciente;
 import madstodolist.model.Tarjeta;
 import madstodolist.model.Usuario;
 import madstodolist.repository.PacienteRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,8 @@ public class PacienteService {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Transactional
     public Paciente nuevoPaciente(String nss, Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta, Usuario usuario) {
@@ -89,6 +93,13 @@ public class PacienteService {
     }
 
     @Transactional(readOnly = true)
+    public List<PacienteDTO> allPacientesData() {
+        return StreamSupport.stream(pacienteRepository.findAll().spliterator(), false)
+                .map(p -> modelMapper.map(p, PacienteDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public List<Paciente> allPacientesWithoutUsers() {
         return StreamSupport.stream(pacienteRepository.findAll().spliterator(), false)
                 .filter(paciente -> paciente.getUsuario() == null)
@@ -96,8 +107,8 @@ public class PacienteService {
     }
 
     @Transactional(readOnly = true)
-    public List<Paciente> getMasCercaDeObjetivo() {
-        return allPacientes().stream()
+    public List<PacienteDTO> getMasCercaDeObjetivo() {
+        return allPacientesData().stream()
                 .filter(p -> p.getTarjeta().getProgreso() < 100)
                 .sorted((p1, p2) -> Integer.compare(p2.getTarjeta().getProgreso(), p1.getTarjeta().getProgreso()))
                 .limit(5)

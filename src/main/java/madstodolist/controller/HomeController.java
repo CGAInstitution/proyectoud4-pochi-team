@@ -32,11 +32,11 @@ public class HomeController {
 
         model.addAttribute("mayoresDonantes", usuarioService.mayoresDonantes());
         model.addAttribute("masCercaDeObjetivo", pacienteService.getMasCercaDeObjetivo());
-        return "MenuPrincipal"; // Nombre del archivo HTML sin la extensión
+        return "MenuPrincipal";
     }
 
     @GetMapping("/error")
     public String error(Model model) {
-        return "error"; // Nombre del archivo HTML sin la extensión
+        return "error";
     }
 }
