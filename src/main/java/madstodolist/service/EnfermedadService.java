@@ -60,8 +60,6 @@ public class EnfermedadService {
                 .orElseThrow(() -> new RuntimeException("Enfermedad no encontrada"));
     }
 
-    /* METODO ARREGLADO PARA COPIAR EN LA RAMA DE DEVELOP */
-
     @Transactional
     public void modificarEnfermedad(Long id, String nuevoNombre, String nuevaDescripcion, Short nuevaPeligrosidad, Boolean nuevoContagiable, List<Long> medicamentoIds) {
         Optional<Enfermedad> enfermedadOpt = enfermedadRepository.findById(id);
@@ -91,8 +89,6 @@ public class EnfermedadService {
             throw new RuntimeException("Enfermedad no encontrada");
         }
     }
-
-    /* METODO ARREGLADO PARA COPIAR EN LA RAMA DE DEVELOP */
 
     @Transactional
     public void borrarEnfermedad(Long idEnfermedad) {

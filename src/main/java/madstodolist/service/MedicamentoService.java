@@ -24,8 +24,6 @@ public class MedicamentoService {
     @Autowired
     private EnfermedadRepository enfermedadRepository;
 
-    /* METODO ARREGLADO PARA COPIAR EN LA RAMA DE DEVELOP */
-
     @Transactional
     public void addMedicamento(String nombre, String descripcion, int precio, boolean receta, Set<Enfermedad> enfermedades) {
         Set<Enfermedad> enfermedadesGestionadas = enfermedades.stream()
@@ -38,8 +36,16 @@ public class MedicamentoService {
 
     @Transactional
     public void deleteMedicamento(Long id) {
-        Medicamento medicamento = getMedicamentoById(id);
+        Medicamento medicamento = medicamentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Medicamento no encontrado"));
+
+        for (Enfermedad enfermedad : new HashSet<>(medicamento.getEnfermedades())) {
+            enfermedad.getMedicamentos().remove(medicamento);
+        }
         medicamento.getEnfermedades().clear();
+
+        medicamentoRepository.save(medicamento);
+
         medicamentoRepository.delete(medicamento);
     }
 
