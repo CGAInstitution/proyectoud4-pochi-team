@@ -23,9 +23,16 @@ public class MedicamentoService {
     @Autowired
     private EnfermedadRepository enfermedadRepository;
 
+    /* METODO ARREGLADO PARA COPIAR EN LA RAMA DE DEVELOP */
+
     @Transactional
     public void addMedicamento(String nombre, String descripcion, int precio, boolean receta, Set<Enfermedad> enfermedades) {
-        medicamentoRepository.save(new Medicamento(nombre, descripcion, precio, receta, enfermedades));
+        Set<Enfermedad> enfermedadesGestionadas = enfermedades.stream()
+                .map(enfermedad -> enfermedadRepository.findById(enfermedad.getId()).orElseThrow(() -> new RuntimeException("Enfermedad no encontrada")))
+                .collect(Collectors.toSet());
+
+        Medicamento medicamento = new Medicamento(nombre, descripcion, precio, receta, enfermedadesGestionadas);
+        medicamentoRepository.save(medicamento);
     }
 
     @Transactional

@@ -43,7 +43,6 @@ public class Medicamento {
     )
     private Set<Enfermedad> enfermedades = new HashSet<>();
 
-
     public Medicamento(Long id, String nombre, @Null String descripcion, @Null int precio, boolean receta) {
         this.id = id;
         this.nombre = nombre;
@@ -82,7 +81,7 @@ public class Medicamento {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hashCode(id);
     }
 
     public void addEnfermedad(Enfermedad enfermedad) {
