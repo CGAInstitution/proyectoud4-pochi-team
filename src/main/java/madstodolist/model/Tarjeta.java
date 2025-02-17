@@ -1,5 +1,6 @@
 package madstodolist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,10 +26,11 @@ public class Tarjeta {
 
 
     @OneToOne(mappedBy = "tarjeta")
+    @JsonIgnore
     private Paciente paciente;
 
-
     @OneToMany(mappedBy = "tarjeta", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Donacion> donaciones = new HashSet<>();
 
     public Tarjeta(String tarjeta_banco, Paciente paciente) {
