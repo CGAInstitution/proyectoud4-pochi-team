@@ -3,37 +3,34 @@ CREATE DATABASE IF NOT EXISTS HEALTH_DATABASE;
 
 use HEALTH_DATABASE;
 
-CREATE TABLE enfermedades
-(
-    id           bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre       varchar(500) NOT NULL,
-    descripcion  varchar(500),
-    peligrosidad smallint,
-    contagiable  boolean      NOT NULL
+CREATE TABLE enfermedades (
+                              id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                              nombre VARCHAR(500) NOT NULL,
+                              descripcion VARCHAR(500),
+                              peligrosidad SMALLINT,
+                              contagiable BOOLEAN NOT NULL
 );
 
-
-CREATE TABLE medicamentos
-(
-    id          bigint       NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre      varchar(500) NOT NULL,
-    descripcion varchar(500),
-    precio      int                   default 0,
-    recetable   boolean      NOT NULL DEFAULT true
+CREATE TABLE medicamentos (
+                              id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                              nombre VARCHAR(500) NOT NULL,
+                              descripcion VARCHAR(500),
+                              precio INT DEFAULT 0,
+                              recetable BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-
-CREATE TABLE enfermedades_medicamentos
-(
-    id             bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_enfermedad  bigint NOT NULL,
-    id_medicamento bigint NOT NULL,
-    FOREIGN KEY (id_enfermedad) references enfermedades (id)
-        on delete cascade
-        on update cascade,
-    FOREIGN KEY (id_medicamento) references medicamentos (id)
-        on delete cascade
-        on update cascade
+CREATE TABLE enfermedades_medicamentos (
+                                           id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                                           id_enfermedad BIGINT NOT NULL,
+                                           id_medicamento BIGINT NOT NULL,
+                                           CONSTRAINT fk_enfermedades_medicamentos_enfermedad FOREIGN KEY (id_enfermedad)
+                                               REFERENCES enfermedades(id)
+                                               ON DELETE CASCADE
+                                               ON UPDATE CASCADE,
+                                           CONSTRAINT fk_enfermedades_medicamentos_medicamento FOREIGN KEY (id_medicamento)
+                                               REFERENCES medicamentos(id)
+                                               ON DELETE CASCADE
+                                               ON UPDATE CASCADE
 );
 
 

@@ -1,6 +1,7 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
+import madstodolist.dto.UsuarioData;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Medicamento;
 import madstodolist.service.EnfermedadService;
@@ -9,9 +10,9 @@ import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.*;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -30,20 +31,21 @@ public class MedicamentoController {
     private MedicamentoService medicamentoService;
 
     @GetMapping("/medicamentos")
-    public String medicamentos(Model model) {
+    public String abrirMedicamentos(Model model) {
         Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
         boolean usuarioLogeado = usuarioLogeadoId != null;
         model.addAttribute("usuarioLogeado", usuarioLogeado);
 
         if (usuarioLogeado) {
-            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
+            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
+            model.addAttribute("usuario", usuario);
         }
         model.addAttribute("medicamentos", medicamentoService.getAllMedicamentos());
         return "medicamentos";
     }
 
     @GetMapping("/medicamentos/{id}")
-    public String medicamentoDetallado(@PathVariable(value = "id") Long idMedicamento, Model model) {
+    public String abrirMedicamentoDetallado(@PathVariable(value="id") Long idMedicamento, Model model) {
 
         Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
         boolean usuarioLogeado = usuarioLogeadoId != null;
@@ -54,10 +56,81 @@ public class MedicamentoController {
         model.addAttribute("enfermedades", enfermedades);
 
         if (usuarioLogeado) {
-            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
+            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
+            model.addAttribute("usuario", usuario);
         }
-        model.addAttribute("enfermedadesAll", enfermedadService.allEnfermedades());
 
         return "infoDetalladaMedicamento";
+    }
+
+    @GetMapping("/medicamentos/editar/{id}")
+    public String abrirEditarMedicamento(@PathVariable(value="id") Long idMedicamento, Model model) {
+
+        Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+        boolean usuarioLogeado = usuarioLogeadoId != null;
+        Medicamento medicamento = medicamentoService.getMedicamentoById(idMedicamento);
+        model.addAttribute("usuarioLogeado", usuarioLogeado);
+        model.addAttribute("medicamento", medicamento);
+        List<Enfermedad> enfermedades = enfermedadService.allEnfermedades();
+        model.addAttribute("enfermedades", enfermedades);
+
+        if (usuarioLogeado) {
+            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
+            model.addAttribute("usuario", usuario);
+        }
+
+        return "modificarMedicamento";
+    }
+
+    @GetMapping("/medicamentos/crear")
+    public String abrirCrearMedicamento(Model model) {
+
+        Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+        boolean usuarioLogeado = usuarioLogeadoId != null;
+        model.addAttribute("usuarioLogeado", usuarioLogeado);
+
+        if (usuarioLogeado) {
+            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
+            model.addAttribute("usuario", usuario);
+        }
+
+        Medicamento medicamento = new Medicamento();
+        List<Enfermedad> enfermedades = enfermedadService.allEnfermedades();
+        model.addAttribute("medicamento", medicamento);
+        model.addAttribute("enfermedades", enfermedades);
+
+        return "crearMedicamento";
+    }
+
+    @PostMapping("/medicamentos/editar/{id}")
+    public String actualizarMedicamento(@PathVariable(value="id") Long idMedicamento, String nombre, String descripcion, int precio, boolean receta, @RequestParam(required = false) List<Long> enfermedades) {
+        Set<Enfermedad> enfermedadesNuevas = new HashSet<>();
+        if (enfermedades != null) {
+            for (Long id : enfermedades) {
+                Enfermedad enfermedad = enfermedadService.findById(id);
+                enfermedadesNuevas.add(enfermedad);
+            }
+        }
+        medicamentoService.updateMedicamento(idMedicamento, nombre, descripcion, precio, receta, enfermedadesNuevas);
+        return "redirect:/medicamentos/" + idMedicamento;
+    }
+
+    @PostMapping("/medicamentos/crear")
+    public String crearMedicamento(String nombre, String descripcion, int precio, boolean receta, @RequestParam(required = false) List<Long> enfermedades) {
+        Set<Enfermedad> enfermedadesNuevas = new HashSet<>();
+        if (enfermedades != null) {
+            for (Long id : enfermedades) {
+                Enfermedad enfermedad = enfermedadService.findById(id);
+                enfermedadesNuevas.add(enfermedad);
+            }
+        }
+        medicamentoService.addMedicamento(nombre, descripcion, precio, receta, enfermedadesNuevas);
+        return "redirect:/medicamentos";
+    }
+
+    @PostMapping("/medicamentos/eliminar/{id}")
+    public String borrarMedicamento(@PathVariable(value="id") Long idMedicamento) {
+        medicamentoService.deleteMedicamento(idMedicamento);
+        return "redirect:/medicamentos";
     }
 }
