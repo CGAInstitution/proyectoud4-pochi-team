@@ -1,5 +1,6 @@
 package madstodolist.service;
 
+import madstodolist.dto.UsuarioData;
 import madstodolist.model.Donacion;
 import madstodolist.model.Tarjeta;
 import madstodolist.model.Usuario;
@@ -21,6 +22,7 @@ public class DonacionService {
 
     @Autowired
     private TarjetaRepository tarjetaRepository;
+
     @Autowired
     private DonacionRepository donacionRepository;
 

@@ -25,13 +25,14 @@ public class MedicamentoService {
     private EnfermedadRepository enfermedadRepository;
 
     @Transactional
-    public void addMedicamento(String nombre, String descripcion, int precio, boolean receta, Set<Enfermedad> enfermedades) {
+    public Medicamento addMedicamento(String nombre, String descripcion, int precio, boolean receta, Set<Enfermedad> enfermedades) {
         Set<Enfermedad> enfermedadesGestionadas = enfermedades.stream()
                 .map(enfermedad -> enfermedadRepository.findById(enfermedad.getId()).orElseThrow(() -> new RuntimeException("Enfermedad no encontrada")))
                 .collect(Collectors.toSet());
 
         Medicamento medicamento = new Medicamento(nombre, descripcion, precio, receta, enfermedadesGestionadas);
         medicamentoRepository.save(medicamento);
+        return medicamento;
     }
 
     @Transactional
