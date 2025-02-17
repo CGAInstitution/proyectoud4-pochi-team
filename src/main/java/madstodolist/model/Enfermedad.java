@@ -79,7 +79,6 @@ public class Enfermedad {
                 ", peligrosidad=" + peligrosidad +
                 ", contagiable=" + contagiable +
                 ", pacientes=" + pacientes +
-                ", medicamentos=" + medicamentos +
                 '}';
     }
 

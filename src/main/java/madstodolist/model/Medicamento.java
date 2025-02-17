@@ -67,7 +67,6 @@ public class Medicamento {
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
                 ", receta=" + receta +
-                ", enfermedades=" + enfermedades +
                 '}';
     }
 
