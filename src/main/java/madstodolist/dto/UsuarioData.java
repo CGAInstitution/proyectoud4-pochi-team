@@ -38,6 +38,12 @@ public class UsuarioData {
         return Objects.equals(getId(), that.getId());
     }
 
+    public Long getDonado() {
+        return donaciones.stream()
+                .map(Donacion::getCantidad)
+                .reduce(0L, Long::sum);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(getId());

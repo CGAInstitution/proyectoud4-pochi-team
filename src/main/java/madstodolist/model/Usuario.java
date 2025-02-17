@@ -81,12 +81,6 @@ public class Usuario implements Serializable {
         return Objects.hash(email);
     }
 
-    public Long getDonado() {
-        return donaciones.stream()
-                .map(Donacion::getCantidad)
-                .reduce(0L, Long::sum);
-    }
-
     public boolean isPaciente() {
         return this.paciente != null;
     }

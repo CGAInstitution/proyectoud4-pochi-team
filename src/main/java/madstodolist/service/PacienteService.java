@@ -22,12 +22,13 @@ public class PacienteService {
     private PacienteRepository pacienteRepository;
 
     @Transactional
-    public void nuevoPaciente(String nss, Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta, Usuario usuario) {
+    public Paciente nuevoPaciente(String nss, Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta, Usuario usuario) {
         Paciente paciente = new Paciente(nss, edad, objetivo, nombre, enfermedad, tarjeta);
         if (usuario != null) {
             paciente.setUsuario(usuario);
         }
         pacienteRepository.save(paciente);
+        return paciente;
     }
     @Transactional
     public Paciente nuevoPaciente(String nss, Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta) {

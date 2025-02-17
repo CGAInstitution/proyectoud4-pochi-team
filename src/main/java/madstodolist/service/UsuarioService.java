@@ -87,6 +87,13 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<UsuarioData> getAllUsersData() {
+        return StreamSupport.stream(usuarioRepository.findAll().spliterator(), false)
+                .map(u -> modelMapper.map(u,UsuarioData.class))
+                .collect(Collectors.toList());
+    }
+
     public void updateAdminStatus(Long id, boolean admin) {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         usuario.setAdmin(admin);
@@ -100,9 +107,9 @@ public class UsuarioService {
     }
 
     @Transactional(readOnly = true)
-    public List<Usuario> mayoresDonantes() {
-        return getAllUsers().stream()
-                .sorted(Comparator.comparingLong(Usuario::getDonado).reversed())
+    public List<UsuarioData> mayoresDonantes() {
+        return getAllUsersData().stream()
+                .sorted(Comparator.comparingLong(UsuarioData::getDonado).reversed())
                 .limit(5)
                 .collect(Collectors.toList());
     }
