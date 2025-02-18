@@ -57,7 +57,7 @@ public class UsuarioWebTest {
                         .param("eMail", "ana.garcia@gmail.com")
                         .param("password", "12345678"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/usuarios/1/tareas"));
+                .andExpect(redirectedUrl("/"));
     }
 
     @Test
