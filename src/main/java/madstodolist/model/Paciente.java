@@ -8,6 +8,8 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Null;
+import java.util.Arrays;
+import java.util.Objects;
 
 
 @Getter
@@ -57,15 +59,8 @@ public class Paciente {
         this.edad = edad;
         this.objetivo = objetivo;
         this.nombre = nombre;
-
     }
 
-    public Paciente(String nss, @Null Integer edad, String nombre, Long objetivo, @Null String imagen) {
-        this.nss = nss;
-        this.edad = edad;
-        this.objetivo = objetivo;
-        this.nombre = nombre;
-    }
     public Paciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre) {
         this.id = id;
         this.nss = nss;
@@ -91,5 +86,23 @@ public class Paciente {
         this.nombre = nombre;
         this.enfermedad = enfermedad;
         this.tarjeta = tarjeta;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Paciente)) return false;
+        Paciente paciente = (Paciente) o;
+        if(this.id != null && Objects.equals(paciente.getId(), this.id)){
+            return true;
+        }
+        return Objects.equals(id, paciente.id) && Objects.equals(nss, paciente.nss) && Objects.equals(edad, paciente.edad) && Objects.equals(nombre, paciente.nombre) && Objects.equals(enfermedad, paciente.enfermedad) && Objects.equals(objetivo, paciente.objetivo) && Objects.equals(tarjeta, paciente.tarjeta) && Arrays.equals(profilePicture, paciente.profilePicture) && Objects.equals(usuario, paciente.usuario);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, nss, edad, nombre, enfermedad, objetivo, tarjeta, usuario);
+        result = 31 * result + Arrays.hashCode(profilePicture);
+        return result;
     }
 }
