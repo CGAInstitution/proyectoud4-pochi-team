@@ -3,7 +3,7 @@
 
 <head th:replace="fragments :: head (titulo='Login')"></head>
 
-  <link rel="stylesheet" href="/css/StylesPaciente.css">
+<link href="/css/StylesPaciente.css" rel="stylesheet">
 <body>
 <div class="container-fluid">
 
@@ -11,12 +11,12 @@
 
     <form method="post" th:action="@{/usuarios/{id}/tareas/nueva(id=${usuario.id})}" th:object="${tareaData}">
         <div class="col-6">
-        <div class="form-group">
-            <label for="titulo">Título de la tarea:</label>
-            <input class="form-control" id="titulo" name="titulo" required th:field="*{titulo}" type="text"/>
-        </div>
-        <button class="btn btn-primary" type="submit">Crear tarea</button>
-        <a class="btn btn-link" th:href="@{/usuarios/{id}/tareas(id=${usuario.id})}">Cancelar</a>
+            <div class="form-group">
+                <label for="titulo">Título de la tarea:</label>
+                <input class="form-control" id="titulo" name="titulo" required th:field="*{titulo}" type="text"/>
+            </div>
+            <button class="btn btn-primary" type="submit">Crear tarea</button>
+            <a class="btn btn-link" th:href="@{/usuarios/{id}/tareas(id=${usuario.id})}">Cancelar</a>
         </div>
     </form>
 </div>

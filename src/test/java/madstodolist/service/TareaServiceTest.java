@@ -138,13 +138,13 @@ public class TareaServiceTest {
     }
 
     @Test
-    public void asignarEtiquetaATarea(){
+    public void asignarEtiquetaATarea() {
 
         Map<String, Long> ids = addUsuarioTareasBD();
         Long usuarioId = ids.get("usuarioId");
         Long tareaId = ids.get("tareaId");
 
-        assertThat(tareaService.usuarioContieneTarea(usuarioId,tareaId)).isTrue();
+        assertThat(tareaService.usuarioContieneTarea(usuarioId, tareaId)).isTrue();
     }
 
 }

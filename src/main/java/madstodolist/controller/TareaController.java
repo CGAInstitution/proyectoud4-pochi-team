@@ -1,8 +1,8 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
-import madstodolist.controller.exception.UsuarioNoLogeadoException;
 import madstodolist.controller.exception.TareaNotFoundException;
+import madstodolist.controller.exception.UsuarioNoLogeadoException;
 import madstodolist.dto.TareaData;
 import madstodolist.dto.UsuarioData;
 import madstodolist.service.TareaService;
@@ -35,7 +35,7 @@ public class TareaController {
     }
 
     @GetMapping("/usuarios/{id}/tareas/nueva")
-    public String formNuevaTarea(@PathVariable(value="id") Long idUsuario,
+    public String formNuevaTarea(@PathVariable(value = "id") Long idUsuario,
                                  @ModelAttribute TareaData tareaData, Model model,
                                  HttpSession session) {
 
@@ -47,7 +47,7 @@ public class TareaController {
     }
 
     @PostMapping("/usuarios/{id}/tareas/nueva")
-    public String nuevaTarea(@PathVariable(value="id") Long idUsuario, @ModelAttribute TareaData tareaData,
+    public String nuevaTarea(@PathVariable(value = "id") Long idUsuario, @ModelAttribute TareaData tareaData,
                              Model model, RedirectAttributes flash,
                              HttpSession session) {
 
@@ -56,10 +56,10 @@ public class TareaController {
         tareaService.nuevaTareaUsuario(idUsuario, tareaData.getTitulo());
         flash.addFlashAttribute("mensaje", "Tarea creada correctamente");
         return "redirect:/usuarios/" + idUsuario + "/tareas";
-     }
+    }
 
     @GetMapping("/usuarios/{id}/tareas")
-    public String listadoTareas(@PathVariable(value="id") Long idUsuario, Model model, HttpSession session) {
+    public String listadoTareas(@PathVariable(value = "id") Long idUsuario, Model model, HttpSession session) {
 
         comprobarUsuarioLogeado(idUsuario);
 
@@ -71,7 +71,7 @@ public class TareaController {
     }
 
     @GetMapping("/tareas/{id}/editar")
-    public String formEditaTarea(@PathVariable(value="id") Long idTarea, @ModelAttribute TareaData tareaData,
+    public String formEditaTarea(@PathVariable(value = "id") Long idTarea, @ModelAttribute TareaData tareaData,
                                  Model model, HttpSession session) {
 
         TareaData tarea = tareaService.findById(idTarea);
@@ -87,7 +87,7 @@ public class TareaController {
     }
 
     @PostMapping("/tareas/{id}/editar")
-    public String grabaTareaModificada(@PathVariable(value="id") Long idTarea, @ModelAttribute TareaData tareaData,
+    public String grabaTareaModificada(@PathVariable(value = "id") Long idTarea, @ModelAttribute TareaData tareaData,
                                        Model model, RedirectAttributes flash, HttpSession session) {
         TareaData tarea = tareaService.findById(idTarea);
         if (tarea == null) {
@@ -107,7 +107,7 @@ public class TareaController {
     @ResponseBody
     // La anotación @ResponseBody sirve para que la cadena devuelta sea la resupuesta
     // de la petición HTTP, en lugar de una plantilla thymeleaf
-    public String borrarTarea(@PathVariable(value="id") Long idTarea, RedirectAttributes flash, HttpSession session) {
+    public String borrarTarea(@PathVariable(value = "id") Long idTarea, RedirectAttributes flash, HttpSession session) {
         TareaData tarea = tareaService.findById(idTarea);
         if (tarea == null) {
             throw new TareaNotFoundException();
@@ -119,4 +119,3 @@ public class TareaController {
         return "";
     }
 }
-

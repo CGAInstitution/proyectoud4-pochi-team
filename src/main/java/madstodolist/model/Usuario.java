@@ -18,7 +18,12 @@ import java.util.Set;
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    // La relación es lazy por defecto,
+    // es necesario acceder a la lista de tareas para que se carguen
+    @OneToMany(mappedBy = "usuario")
+    Set<Tarea> tareas = new HashSet<>();
+    @OneToMany(mappedBy = "usuario")
+    Set<Donacion> donaciones = new HashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,25 +36,19 @@ public class Usuario implements Serializable {
     private Date fechaNacimiento;
     private boolean admin = false;
     private boolean bloqueado = false;
-
-
-    // La relación es lazy por defecto,
-    // es necesario acceder a la lista de tareas para que se carguen
-    @OneToMany(mappedBy = "usuario")
-    Set<Tarea> tareas = new HashSet<>();
-
-    @OneToMany(mappedBy = "usuario")
-    Set<Donacion> donaciones = new HashSet<>();
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "paciente")
+    private Paciente paciente;
 
     // Constructor vacío necesario para JPA/Hibernate.
     // No debe usarse desde la aplicación.
-    public Usuario() {}
+    public Usuario() {
+    }
 
     // Constructor público con los atributos obligatorios. En este caso el correo electrónico.
     public Usuario(String email) {
         this.email = email;
     }
-
 
 
     // Método helper para añadir una tarea a la lista y establecer la relación inversa
@@ -82,9 +81,7 @@ public class Usuario implements Serializable {
         return Objects.hash(email);
     }
 
-    public Long getDonado(){
-        return donaciones.stream()
-                .map(Donacion::getCantidad)
-                .reduce(0L,Long::sum);
+    public boolean isPaciente() {
+        return this.paciente != null;
     }
 }

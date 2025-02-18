@@ -1,21 +1,16 @@
 package madstodolist.service;
 
-import madstodolist.dto.UsuarioData;
-import madstodolist.model.Paciente;
+import madstodolist.model.Donacion;
 import madstodolist.model.Tarjeta;
 import madstodolist.model.Usuario;
-import madstodolist.repository.PacienteRepository;
+import madstodolist.repository.DonacionRepository;
 import madstodolist.repository.TarjetaRepository;
 import madstodolist.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.Null;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import java.util.Date;
 
 
 @Service
@@ -26,16 +21,17 @@ public class DonacionService {
 
     @Autowired
     private TarjetaRepository tarjetaRepository;
+    @Autowired
+    private DonacionRepository donacionRepository;
 
     @Transactional
-    public void nuevaDonacion(Tarjeta tarjeta, Usuario usuario, int donativo) {
-//        tarjeta.setRecaudado(tarjeta.getRecaudado()+donativo);
-//        usuario.setDonado(usuario.getDonado() + donativo);
-//        Set<Usuario> usuarios = tarjeta.getUsuarios();
-//        usuarios.add(usuario);
-//        tarjeta.setUsuarios(usuarios);
-//        tarjetaRepository.save(tarjeta);
-//        usuarioRepository.save(usuario);
+    public void nuevaDonacion(Tarjeta tarjeta, Usuario usuario, Long donativo) {
+        Donacion donacion = new Donacion();
+        donacion.setCantidad(donativo);
+        donacion.setUsuario(usuario);
+        donacion.setTarjeta(tarjeta);
+        donacion.setFecha(new Date());
+        donacionRepository.save(donacion);
     }
 
 //    @Transactional

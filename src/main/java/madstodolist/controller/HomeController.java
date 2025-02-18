@@ -1,15 +1,12 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
-import madstodolist.dto.UsuarioData;
 import madstodolist.service.PacienteService;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.ArrayList;
 
 @Controller
 public class HomeController {
@@ -30,12 +27,16 @@ public class HomeController {
         model.addAttribute("usuarioLogeado", usuarioLogeado);
 
         if (usuarioLogeado) {
-            UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
-            model.addAttribute("usuario", usuario);
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
         }
 
-        model.addAttribute("mayoresDonantes",usuarioService.mayoresDonantes());
-        model.addAttribute("masCercaDeObjetivo",pacienteService.getMasCercaDeObjetivo());
-        return "MenuPrincipal"; // Nombre del archivo HTML sin la extensión
+        model.addAttribute("mayoresDonantes", usuarioService.mayoresDonantes());
+        model.addAttribute("masCercaDeObjetivo", pacienteService.getMasCercaDeObjetivo());
+        return "MenuPrincipal";
+    }
+
+    @GetMapping("/error")
+    public String error(Model model) {
+        return "error";
     }
 }

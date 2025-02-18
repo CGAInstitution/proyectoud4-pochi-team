@@ -19,22 +19,21 @@ public class Donacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "fecha",nullable = false)
+    @Column(name = "fecha", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
 
-    @Column(name="cantidad",nullable = false)
+    @Column(name = "cantidad", nullable = false)
     private Long cantidad;
 
 
     @ManyToOne
-    @JoinColumn(name="usuario_id",nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name="tarjeta_id",nullable = false)
+    @JoinColumn(name = "tarjeta_id", nullable = false)
     private Tarjeta tarjeta;
-
 
 
 }

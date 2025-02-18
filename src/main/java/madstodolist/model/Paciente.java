@@ -1,8 +1,10 @@
 package madstodolist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Null;
@@ -29,20 +31,26 @@ public class Paciente {
     @Column(name = "nombre", nullable = false, length = 500)
     private String nombre;
 
-    @Column(name = "imagen", nullable = true)
-    private String imagen;
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "enfermedad", nullable = false)
     private Enfermedad enfermedad;
 
-    @Column(name="Objetivo",nullable=false)
+    @Column(name = "Objetivo", nullable = false)
     private Long objetivo;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "tarjeta")
+    @JoinColumn(name = "tarjeta", nullable = true)
     private Tarjeta tarjeta;
+
+    @Lob
+    @Column(name = "profilePicture", nullable = true)
+    @JsonIgnore
+    private byte[] profilePicture;
+
+    @OneToOne(mappedBy = "paciente")
+    @Nullable
+    private Usuario usuario;
 
     public Paciente(String nss, @Null Integer edad, String nombre, Long objetivo) {
         this.nss = nss;
@@ -52,12 +60,36 @@ public class Paciente {
 
     }
 
-    public Paciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre,String imagen) {
+    public Paciente(String nss, @Null Integer edad, String nombre, Long objetivo, @Null String imagen) {
+        this.nss = nss;
+        this.edad = edad;
+        this.objetivo = objetivo;
+        this.nombre = nombre;
+    }
+    public Paciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre) {
         this.id = id;
         this.nss = nss;
         this.edad = edad;
         this.objetivo = objetivo;
         this.nombre = nombre;
-        this.imagen = imagen;
+    }
+
+    public Paciente(Long id, String nss, @Null Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta) {
+        this.id = id;
+        this.nss = nss;
+        this.edad = edad;
+        this.objetivo = objetivo;
+        this.nombre = nombre;
+        this.enfermedad = enfermedad;
+        this.tarjeta = tarjeta;
+    }
+
+    public Paciente(String nss, @Null Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta) {
+        this.nss = nss;
+        this.edad = edad;
+        this.objetivo = objetivo;
+        this.nombre = nombre;
+        this.enfermedad = enfermedad;
+        this.tarjeta = tarjeta;
     }
 }

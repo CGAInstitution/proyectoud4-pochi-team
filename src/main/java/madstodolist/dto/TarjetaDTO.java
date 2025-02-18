@@ -3,6 +3,7 @@ package madstodolist.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import madstodolist.model.Usuario;
 
 @Getter
 @Setter
@@ -13,6 +14,4 @@ public class TarjetaDTO {
     private String tarjeta_banco;
     private Long recaudado;
     private int progreso;
-
-    // Constructor, getters, and setters
 }

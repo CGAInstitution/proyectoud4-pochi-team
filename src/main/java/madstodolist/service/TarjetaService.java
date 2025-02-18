@@ -2,6 +2,8 @@ package madstodolist.service;
 
 import madstodolist.dto.TarjetaDTO;
 import madstodolist.model.Donacion;
+import madstodolist.model.Enfermedad;
+import madstodolist.model.Paciente;
 import madstodolist.model.Tarjeta;
 import madstodolist.repository.TarjetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,17 @@ public class TarjetaService {
     @Transactional
     public Tarjeta getTarjetaWithDonaciones(Long id) {
         Tarjeta tarjeta = tarjetaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Tarjeta not found"));
-        tarjeta.getDonaciones().size(); // Initialize the collection
+        tarjeta.getDonaciones().size();
         return tarjeta;
+    }
+
+    @Transactional(readOnly = true)
+    public Tarjeta findById(Long tarjetaId) {
+        return tarjetaRepository.findById(tarjetaId)
+                .orElseThrow(() -> new RuntimeException("Tarjeta no encontrada"));
+    }
+
+    public Tarjeta nuevaTarjeta(Tarjeta tarjeta) {
+        return tarjetaRepository.save(tarjeta);
     }
 }
