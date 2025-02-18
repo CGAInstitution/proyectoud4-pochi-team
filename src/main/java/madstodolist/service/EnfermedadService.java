@@ -7,7 +7,6 @@ import madstodolist.repository.MedicamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.validation.constraints.Null;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,6 +20,8 @@ public class EnfermedadService {
 
     @Autowired
     private MedicamentoRepository medicamentoRepository;
+
+    // Función que inserta una nueva enfermedad en la bbdd, puede contener la lista de medicamentos vacía para insertarse posteriormente
 
     @Transactional
     public Enfermedad nuevaEnfermedad(String nombre, String descripcion, Short peligrosidad, Boolean contagiable, List<Long> medicamentoIds) {
@@ -38,6 +39,9 @@ public class EnfermedadService {
         enfermedadRepository.save(nuevaEnfermedad);
         return nuevaEnfermedad;
     }
+
+    // Función alternativa para la creación de una nueva enfermedad que solo se usa en la API para la gestión de enfermedades de un paciente
+
     @Transactional
     public Enfermedad nuevaEnfermedad(String nombre, @Null String descripcion, @Null Short peligrosidad, boolean contagiable) {
         Enfermedad enfermedad = new Enfermedad(nombre,descripcion,peligrosidad,contagiable);
@@ -45,8 +49,7 @@ public class EnfermedadService {
         return enfermedad;
     }
 
-
-
+    // Función que obtiene una lista de todas las enfermedades existentes en la bbdd
 
     @Transactional(readOnly = true)
     public List<Enfermedad> allEnfermedades() {
@@ -54,11 +57,16 @@ public class EnfermedadService {
                             .collect(Collectors.toList());
     }
 
+    // Función que devuelve una enfermedad a partir de un id
+
     @Transactional(readOnly = true)
     public Enfermedad findById(Long enfermedadId) {
         return enfermedadRepository.findById(enfermedadId)
                 .orElseThrow(() -> new RuntimeException("Enfermedad no encontrada"));
     }
+
+    // Función que modifica una enfermedad, esta función es muy amplia devido a la lógica de la relación de muchos a muchos, dado que tenemos que contemplar
+    // el caso en el que la lista esté vacía, que tenga una enfermedad que esté seleccionada de antes y que estén todas seleccionadas
 
     @Transactional
     public void modificarEnfermedad(Long id, String nuevoNombre, String nuevaDescripcion, Short nuevaPeligrosidad, Boolean nuevoContagiable, List<Long> medicamentoIds) {
@@ -89,6 +97,8 @@ public class EnfermedadService {
             throw new RuntimeException("Enfermedad no encontrada");
         }
     }
+
+    // Función que se encarga de borra una enfermedad junto a todas las relaciones de los medicamentos que estén asociadas a ella
 
     @Transactional
     public void borrarEnfermedad(Long idEnfermedad) {

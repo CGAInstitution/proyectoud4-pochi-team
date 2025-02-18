@@ -7,7 +7,6 @@ import madstodolist.repository.MedicamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +23,8 @@ public class MedicamentoService {
     @Autowired
     private EnfermedadRepository enfermedadRepository;
 
+    // Función que sirve para crear un nuevo medicamento, la lista dde enfermedaddes puede estar vacía o llena, ambos casos están controlados
+
     @Transactional
     public Medicamento addMedicamento(String nombre, String descripcion, int precio, boolean receta, Set<Enfermedad> enfermedades) {
         Set<Enfermedad> enfermedadesGestionadas = enfermedades.stream()
@@ -34,6 +35,8 @@ public class MedicamentoService {
         medicamentoRepository.save(medicamento);
         return medicamento;
     }
+
+    // Función encargada de borrar un medicamento junto a las relaciones de las enfermedades que usen ese medicamento
 
     @Transactional
     public void deleteMedicamento(Long id) {
@@ -49,6 +52,9 @@ public class MedicamentoService {
 
         medicamentoRepository.delete(medicamento);
     }
+
+    // Función para actualizar un medicamento (más corto que el de enfermedad, ya que al no tener el mappedby la relación es más manejable),
+    // al igual que en enfermedades están contemplados todos los estados de la lista de enfermedades
 
     @Transactional
     public void updateMedicamento(Long id, String nombre, String descripcion, int precio, boolean receta, Set<Enfermedad> enfermedades) {
@@ -74,12 +80,15 @@ public class MedicamentoService {
         }
     }
 
+    // Función que devuelve una lista de todos los medicamentos existentes en la bbdd
 
     @Transactional
     public List<Medicamento> getAllMedicamentos() {
         return StreamSupport.stream(medicamentoRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
+
+    // Función que devuelve un medicamento a partir de una id
 
     @Transactional
     public Medicamento getMedicamentoById(Long id) {

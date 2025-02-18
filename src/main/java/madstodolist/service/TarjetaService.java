@@ -2,14 +2,11 @@ package madstodolist.service;
 
 import madstodolist.dto.TarjetaDTO;
 import madstodolist.model.Donacion;
-import madstodolist.model.Enfermedad;
-import madstodolist.model.Paciente;
 import madstodolist.model.Tarjeta;
 import madstodolist.repository.TarjetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityNotFoundException;
 
 @Service
@@ -17,6 +14,8 @@ public class TarjetaService {
 
     @Autowired
     private TarjetaRepository tarjetaRepository;
+
+    // Función sin usar que sirve para obtener una TarjetaDTO a partir de una id
 
     @Transactional
     public TarjetaDTO getTarjetaDTO(Long id) {
@@ -29,6 +28,8 @@ public class TarjetaService {
         return new TarjetaDTO(tarjeta.getId(), tarjeta.getPaciente().getObjetivo(), tarjeta.getTarjeta_banco(), recaudado, progreso);
     }
 
+    // Función no usada para obtener una Tarjeta a partir de una id
+
     @Transactional
     public Tarjeta getTarjetaWithDonaciones(Long id) {
         Tarjeta tarjeta = tarjetaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Tarjeta not found"));
@@ -36,11 +37,15 @@ public class TarjetaService {
         return tarjeta;
     }
 
+    // Función que se usa para buscar una tarjeta a partir de una id
+
     @Transactional(readOnly = true)
     public Tarjeta findById(Long tarjetaId) {
         return tarjetaRepository.findById(tarjetaId)
                 .orElseThrow(() -> new RuntimeException("Tarjeta no encontrada"));
     }
+
+    // Función que sirve para crear una nueva tarjeta
 
     public Tarjeta nuevaTarjeta(Tarjeta tarjeta) {
         return tarjetaRepository.save(tarjeta);

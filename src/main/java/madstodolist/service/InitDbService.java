@@ -3,15 +3,11 @@ package madstodolist.service;
 import madstodolist.dto.UsuarioData;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Medicamento;
-import madstodolist.model.Paciente;
 import madstodolist.model.Tarjeta;
-import madstodolist.repository.TareaRepository;
-import madstodolist.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,6 +37,8 @@ public class InitDbService {
     @Autowired
     private DonacionService donacionService;
 
+    // Función que sirve para inicializar la bbdd y cargar todos los datos básicos
+
     @Transactional
     @PostConstruct
     public void initDatabase() {
@@ -53,7 +51,7 @@ public class InitDbService {
         Medicamento medicamento4 = medicamentoService.addMedicamento("Ibuprofeno", "Antiinflamatorio y analgésico", 7, false, new HashSet<>());
         Medicamento medicamento5 = medicamentoService.addMedicamento("Remdesivir", "Antiviral para infecciones graves", 300, true, new HashSet<>());
 
-        // PARTE DE LAS ENFERMEDADES RELACIONADAS CON MEDICAMENTOS
+        // PARTE DE LAS ENFERMEDADES
 
         Enfermedad enfermedad1 = enfermedadService.nuevaEnfermedad("Gripe", "Infección viral que afecta las vías respiratorias", (short) 3, true, new ArrayList<>());
         Enfermedad enfermedad2 = enfermedadService.nuevaEnfermedad("Diabetes", "Enfermedad crónica que afecta los niveles de azúcar en sangre", (short) 5, false, new ArrayList<>());
@@ -61,7 +59,7 @@ public class InitDbService {
         Enfermedad enfermedad4 = enfermedadService.nuevaEnfermedad("Hipertensión", "Presión arterial alta", (short) 4, false, new ArrayList<>());
         Enfermedad enfermedad5 = enfermedadService.nuevaEnfermedad("Varicela", "Infección viral que causa erupciones cutáneas y fiebre", (short) 4, true, new ArrayList<>());
 
-        // PARTE DE LAS RELACIONES
+        // PARTE DE LAS RELACIONES DE ENFERMEDADES Y MEDICAMENTOS
 
         enfermedadService.modificarEnfermedad(enfermedad1.getId(), "Gripe", "Infección viral que afecta las vías respiratorias", (short) 3, true, Arrays.asList(medicamento1.getId()));
         enfermedadService.modificarEnfermedad(enfermedad2.getId(), "Diabetes", "Enfermedad crónica que afecta los niveles de azúcar en sangre", (short) 5, false, Arrays.asList(medicamento2.getId()));
@@ -95,11 +93,14 @@ public class InitDbService {
         usuario3.setBloqueado(false);
         usuario3.setDonado(200L);
 
+        // Si da problemas al ejecutarse la bbdd, es por esto dado que se intentan crear nuevos usuarios con el mismo correo, por lo que
+        // se deberá borrar la bbdd y crear una nueva vacía
+
         usuarioService.registrar(usuario1);
         usuarioService.registrar(usuario2);
         usuarioService.registrar(usuario3);
 
-        // PARTE DE LAS TARJETAS
+        // PARTE DE LAS TARJETAS Y PACIENTES
 
         Tarjeta tarjeta1 = new Tarjeta("BBVA 1234 5678 9012 3456");
         Tarjeta tarjeta2 = new Tarjeta("Santander 9876 5432 1098 7654");

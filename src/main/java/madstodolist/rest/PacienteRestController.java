@@ -23,7 +23,7 @@ public class PacienteRestController {
     @Autowired
     private TarjetaService tarjetaService;
 
-
+    // Endpoint para obtener la lista de todos los pacientes
     @GetMapping("/api/pacientes")
     public List<PacienteDTO> pacientes() {
         List<PacienteDTO> pacienteDTOList = new ArrayList<>();
@@ -39,10 +39,10 @@ public class PacienteRestController {
 
             pacienteDTOList.add(dto);
         }
-
         return pacienteDTOList;
     }
 
+    // Endpoint para obtener un paciente específico por su ID
     @GetMapping("/api/pacientes/{id}")
     public PacienteDTO paciente(Long id) {
         Paciente paciente = pacienteService.findById(id);
@@ -57,6 +57,7 @@ public class PacienteRestController {
         return dto;
     }
 
+    // Endpoint para registrar un nuevo paciente
     @PostMapping("/api/pacientes")
     public void nuevoPaciente(@RequestBody Paciente paciente) {
         Enfermedad enfermedadExistente = enfermedadService.findById(paciente.getEnfermedad().getId());
@@ -83,7 +84,7 @@ public class PacienteRestController {
         );
     }
 
-
+    // Endpoint para modificar los datos de un paciente existente
     @PutMapping("/api/pacientes/{id}")
     public void modificarPaciente(@PathVariable Long id, @RequestBody Paciente paciente) {
         Enfermedad enfermedadExistente = enfermedadService.findById(paciente.getEnfermedad().getId());
@@ -106,6 +107,7 @@ public class PacienteRestController {
         );
     }
 
+    // Endpoint para eliminar un paciente por su ID
     @DeleteMapping("/api/pacientes/{id}")
     public void borrarPaciente(@PathVariable Long id) {
         pacienteService.borrarPaciente(id);
