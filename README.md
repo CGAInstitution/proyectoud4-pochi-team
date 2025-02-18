@@ -14,9 +14,9 @@
 4. [Manual técnico para desarrolladores](#4-manual-técnico-para-desarrolladores)
 5. [Manual de usuario](#5-manual-de-usuario)
 6. [Explicación de GitProject](#6-explicacion-de-gitproject)
-7. [Propuestas de mejora](#7-propuestas-de-mejora)
-8. [Conclusión](#8-conclusión)
-
+7. [Extras realizados_y tests](#7-extras-realizados-y-tests)
+8. [Propuestas de mejora](#8-propuestas-de-mejora)
+9. [Conclusión](#9-conclusión)
 
 ## 1. Introducción
 
@@ -68,6 +68,7 @@ Necesitas tener instalado en tu sistema:
     - [http://localhost:8080/](http://localhost:8080/)
 
 ### Explicación Código Fuente
+
 En esta sección tenemos una funcion que recorre todos los pacientes, convierte la lista en un stream, filtra por los pacientes que ahún no hayan completado su objetivo, los va comparando para ordenarlos por los que llevan mayor porcentaje, corta el stream a los 5 pacientes, y lo convierte a lista para mayor encapsulación:
 
 ![img_2.png](img/img_2.png)
@@ -78,7 +79,9 @@ En el siguiente codigo usamos el PacienteDTO para poder validar los datos del pa
 
 ## 5. Manual de usuario
 
-(Link del video)
+https://drive.google.com/file/d/1n93579XiK7Vagj9zg7r_3oINfM8ITbDO/view?usp=drive_link
+
+Es el segundo vídeo, ibamos con prisa y se nos coló uno.
 
 ## 6. Explicación de GitProject
 
@@ -88,7 +91,45 @@ Gracias a esta lógica nos hemos podido centrar mucho mejor en las tareas que te
 
 Como conclusión sobre este apartado, nos ha parecido una manera bastante óptima y adecuada a los proyectos grandes que tengan varios integrantes, dado que nos ha ayudado mucho a mejorar la comunicación mediantes las tareas y el entendimiento de las actvidades que tuvimos que hacer cada uno por nuestra cuenta. En cuanto los pull request, cabe destacar que al principio nos costó un poco entenderlos, pero luego nos dimos cuenta de su gran efectividad para mejorar la lógica de GitFlow y facilitarnos la vida a la hora de mergear ramas y solucionar conflictos de estas.
 
-## 7. Propuestas de mejora
+## 7. Extras realizados, tests y aws
+
+Imágenes que verifican que funcionan los tests y aws:
+
+### Prueba funcionan los tests
+
+![img_3.png](img/img_3.png)
+
+### Prueba funciona aws
+
+![img_4.png](img/img_4.png)
+
+Conjuntamente hemos realizado los siguientes extras:
+
+### Validación formularios (3%)
+
+![img_5.png](img/img_5.png)
+
+En esta imagen se puede ver un pequeño ejemplo de la validación de campos, claramente están todos los campos validados no únicamente ese.
+
+### Creación de un RestController (5%)
+
+![img_7.png](img/img_7.png)
+
+### Despliegue con Docker (10%)
+
+![img.png](imgDocker.png)
+
+![img_1.png](docker3.png)
+
+![img_2.png](Dcoker2.png)
+
+El video se ha realizado con docker desplegado
+
+### Dashboard para el administrador (3%)
+
+![img_6.png](img/img_6.png)
+
+## 8. Propuestas de mejora
 
 ### Nuevas Opciones
 - Hacer que los usuarios pudiesen ver sus donaciones, más los datos de estas.
@@ -98,7 +139,7 @@ Como conclusión sobre este apartado, nos ha parecido una manera bastante óptim
 - Utilizar el DTO para el resto de las clases y asi poder validar sus datos
 - Utilizar mas fragments para aumentar la legibilidad
 
-## 8. Conclusión
+## 9. Conclusión
 
 ### Conclusiones
 - El proyecto ha permitido adquirir conocimientos esenciales sobre el uso de Spring Boot y Thymeleaf para el desarrollo de aplicaciones web.
