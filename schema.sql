@@ -48,7 +48,6 @@
                                tarjeta bigint NOT NULL,
                                enfermedad bigint NOT NULL,
                                profilePicture blob NULL,
-                               imagen varchar(500) NULL,
                                objetivo int not null,
                                FOREIGN KEY (enfermedad) references enfermedades(id)
                                    on delete cascade

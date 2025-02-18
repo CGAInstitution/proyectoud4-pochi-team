@@ -108,12 +108,12 @@ public class InitDbService {
         Tarjeta tarjeta5 = new Tarjeta("Citibanamex 8765 4321 0987 6543");
         Tarjeta tarjeta6 = new Tarjeta("ABANCA 8765 4321 0987 6543");
 
-        Paciente paciente1 = pacienteService.nuevoPaciente("123", 45, 2000L, "Juan Pérez", enfermedad1, tarjeta1);
-        Paciente paciente2 = pacienteService.nuevoPaciente("124", 60, 38000L, "Ana Gómez", enfermedad2, tarjeta2);
-        Paciente paciente3 = pacienteService.nuevoPaciente("125", 35, 34L, "Carlos Sánchez", enfermedad3, tarjeta3);
-        Paciente paciente4 = pacienteService.nuevoPaciente("126", 50, 45000L, "María López", enfermedad4, tarjeta4);
-        Paciente paciente5 = pacienteService.nuevoPaciente("127", 10, 200000L, "Luis Martínez", enfermedad5, tarjeta5);
-        Paciente paciente6 = pacienteService.nuevoPaciente("117", 19, 300000L, "JUAN BARRIO", enfermedad5, tarjeta6);
+        pacienteService.nuevoPaciente("123", 45, 2000L, "Juan Pérez", enfermedad1, tarjeta1);
+        pacienteService.nuevoPaciente("124", 60, 38000L, "Ana Gómez", enfermedad2, tarjeta2);
+        pacienteService.nuevoPaciente("125", 35, 34L, "Carlos Sánchez", enfermedad3, tarjeta3);
+        pacienteService.nuevoPaciente("126", 50, 45000L, "María López", enfermedad4, tarjeta4);
+        pacienteService.nuevoPaciente("127", 10, 200000L, "Luis Martínez", enfermedad5, tarjeta5);
+        pacienteService.nuevoPaciente("117", 19, 300000L, "JUAN BARRIO", enfermedad5, tarjeta6);
 
         tarjetaService.nuevaTarjeta(tarjeta1);
         tarjetaService.nuevaTarjeta(tarjeta2);
