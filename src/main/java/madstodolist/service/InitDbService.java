@@ -1,4 +1,4 @@
-package madstodolist.service;
+/*package madstodolist.service;
 
 import madstodolist.dto.UsuarioData;
 import madstodolist.model.Enfermedad;
@@ -128,4 +128,4 @@ public class InitDbService {
         donacionService.nuevaDonacion(tarjeta2, usuarioService.getUsuarioByEmail(usuario2.getEmail()), 1500L);
         donacionService.nuevaDonacion(tarjeta3, usuarioService.getUsuarioByEmail(usuario3.getEmail()), 2000L);
     }
-}
+}*/
