@@ -44,6 +44,11 @@ public class UsuarioService {
         return modelMapper.map(usuarioData, Usuario.class);
     }
 
+    @Transactional(readOnly = true)
+    public Usuario getUsuarioByEmail(String email) {
+        return usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
+
     // Se añade un usuario en la aplicación.
     // El email y password del usuario deben ser distinto de null
     // El email no debe estar registrado en la base de datos

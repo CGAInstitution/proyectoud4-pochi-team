@@ -85,7 +85,7 @@
                                          on update cascade);
 
 
-
+/*
 
 
     INSERT INTO enfermedades (nombre, descripcion, peligrosidad, contagiable) VALUES
@@ -132,4 +132,4 @@
 
     INSERT INTO usuario_tarjeta(usuario_id,tarjeta_id,cantidad) VALUES
                                                                     (1,1,2000),
-                                                                    (2,2,3000)
+                                                                    (2,2,3000)*/
