@@ -1,6 +1,7 @@
 package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
+import madstodolist.dto.PacienteDTO;
 import madstodolist.dto.UsuarioData;
 import madstodolist.model.Enfermedad;
 import madstodolist.model.Paciente;
@@ -11,6 +12,7 @@ import madstodolist.service.EnfermedadService;
 import madstodolist.service.PacienteService;
 import madstodolist.service.UsuarioService;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -19,9 +21,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StreamUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -44,6 +48,8 @@ public class PacienteController {
 
     @Autowired
     private EnfermedadService enfermedadService;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping("/pacientes")
     public String pacientes(Model model) {
@@ -91,13 +97,24 @@ public class PacienteController {
 
         model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
         model.addAttribute("enfermedades", enfermedadService.allEnfermedades());
-        model.addAttribute("paciente", paciente);
+        model.addAttribute("idPaciente", idPaciente);
+        model.addAttribute("pacienteDTO", modelMapper.map(paciente,PacienteDTO.class));
 
         return "gestionarPaciente";
     }
 
-    @PostMapping("/pacientes/guardar/{id}")
-    public String guardarPaciente(@PathVariable(value = "id") Long idPaciente, @ModelAttribute Paciente paciente) {
+    @PostMapping("/pacientes/guardar/{idPaciente}")
+    public String guardarPaciente(@PathVariable(value = "idPaciente") Long idPaciente, @Valid PacienteDTO pacienteDTO, BindingResult result, Model model) {
+        if(result.hasErrors()){
+        Long usuarioLogeadoId = managerUserSession.usuarioLogeado();
+        model.addAttribute("usuarioLogeado", usuarioLogeadoId != null);
+            model.addAttribute("usuario", usuarioService.getUsuario(usuarioService.findById(usuarioLogeadoId)));
+            model.addAttribute("enfermedades", enfermedadService.allEnfermedades());
+            model.addAttribute("idPaciente", idPaciente);
+            model.addAttribute(pacienteDTO);
+            return "gestionarPaciente";
+        }
+        Paciente paciente = pacienteService.getPaciente(pacienteDTO);
         Paciente existingPaciente = pacienteService.findById(idPaciente);
         if (existingPaciente != null) {
             existingPaciente.setNss(paciente.getNss());
@@ -229,7 +246,7 @@ public class PacienteController {
             UsuarioData usuario = usuarioService.findById(usuarioLogeadoId);
             model.addAttribute("usuario", usuario);
             if (usuario.isAdmin()) {
-                model.addAttribute("paciente", new Paciente());
+                model.addAttribute("pacienteDTO", new PacienteDTO());
                 List<Enfermedad> enfermedades = enfermedadService.allEnfermedades();
                 model.addAttribute("enfermedades", enfermedades);
                 return "crearPaciente";
@@ -238,10 +255,15 @@ public class PacienteController {
         return "redirect:/";
 
     }
-
     @PostMapping("/pacientes/guardar")
-    public String crearPaciente(@ModelAttribute Paciente paciente) {
-        pacienteService.guardarPaciente(paciente);
+    public String crearPaciente(@Valid PacienteDTO pacienteDTO, BindingResult result, Model model) {
+        if (result.hasErrors()){
+        model.addAttribute("usuarioLogeado", managerUserSession.usuarioLogeado());
+                model.addAttribute("enfermedades", enfermedadService.allEnfermedades());
+            model.addAttribute("pacienteDTO", pacienteDTO);
+            return "crearPaciente";
+        }
+        pacienteService.guardarPaciente(pacienteService.getPaciente(pacienteDTO));
         return "redirect:/pacientes";
 
     }
