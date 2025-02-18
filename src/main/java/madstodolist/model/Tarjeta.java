@@ -38,6 +38,10 @@ public class Tarjeta {
         this.paciente = paciente;
     }
 
+    public Tarjeta(String cuentaBanco) {
+        this.tarjeta_banco = cuentaBanco;
+    }
+
 
     public int getRecaudado() {
         return donaciones.stream()
