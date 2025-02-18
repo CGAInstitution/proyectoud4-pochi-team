@@ -34,11 +34,18 @@ public class PacienteService {
         pacienteRepository.save(paciente);
         return paciente;
     }
+
     @Transactional
     public Paciente nuevoPaciente(String nss, Integer edad, Long objetivo, String nombre, Enfermedad enfermedad, Tarjeta tarjeta) {
         Paciente paciente = new Paciente(nss, edad, objetivo, nombre, enfermedad, tarjeta);
         pacienteRepository.save(paciente);
         return paciente;
+    }
+
+
+    @Transactional
+    public Paciente getPaciente(PacienteDTO pacienteDTO) {
+        return modelMapper.map(pacienteDTO, Paciente.class);
     }
 
 
