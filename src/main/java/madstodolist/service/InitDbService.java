@@ -73,8 +73,8 @@ public class InitDbService {
 
         UsuarioData usuario1 = new UsuarioData();
         usuario1.setNombre("Usuario1");
-        usuario1.setEmail("usuario1@example.com");
-        usuario1.setPassword("password123");
+        usuario1.setEmail("user@ua");
+        usuario1.setPassword("123");
         usuario1.setAdmin(true);
         usuario1.setBloqueado(false);
         usuario1.setDonado(100L);
@@ -89,8 +89,8 @@ public class InitDbService {
 
         UsuarioData usuario3 = new UsuarioData();
         usuario3.setNombre("Usuario3");
-        usuario3.setEmail("usuario3@example.com");
-        usuario3.setPassword("password789");
+        usuario3.setEmail("user@ua1");
+        usuario3.setPassword("123");
         usuario3.setAdmin(false);
         usuario3.setBloqueado(false);
         usuario3.setDonado(200L);
